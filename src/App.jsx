@@ -1,55 +1,12 @@
-import { useState, useEffect } from "react";
-
-const GLOBAL_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500&display=swap');
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#f5f6fa;--white:#fff;--surface2:#f0f2f8;
-  --orange:#f97316;--orange-bg:#fff3ed;--orange-pale:#ffe8da;
-  --teal:#14b8a6;--teal-bg:#e6faf8;--teal-pale:#ccf3ef;
-  --blue:#3b82f6;--blue-bg:#eff6ff;--blue-pale:#dbeafe;
-  --red:#ef4444;--red-bg:#fef2f2;
-  --purple:#8b5cf6;--purple-bg:#f5f3ff;
-  --text:#1e293b;--text2:#64748b;--text3:#94a3b8;
-  --border:#e2e8f0;--border2:#cbd5e1;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);
-  --shadow:0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
-  --font-main:'M PLUS Rounded 1c',sans-serif;
-  --font-mono:'IBM Plex Mono',monospace;
-}
-body{background:var(--bg);color:var(--text);font-family:var(--font-main);-webkit-font-smoothing:antialiased;}
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-@keyframes flicker{0%,100%{opacity:1;}50%{opacity:0.7;}}
-.fade-up{animation:fadeUp 0.3s ease both;}
-.fade-up-1{animation:fadeUp 0.3s 0.04s ease both;}
-.fade-up-2{animation:fadeUp 0.3s 0.08s ease both;}
-.fade-up-3{animation:fadeUp 0.3s 0.12s ease both;}
-textarea,input[type="text"],input:not([type]){
-  font-family:var(--font-main)!important;background:var(--surface2)!important;
-  color:var(--text)!important;border:1.5px solid var(--border)!important;
-  border-radius:8px!important;padding:10px 14px!important;font-size:13.5px!important;
-  line-height:1.75!important;width:100%!important;outline:none!important;
-  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s!important;
-}
-textarea:focus,input:focus{background:var(--white)!important;border-color:var(--orange)!important;box-shadow:0 0 0 3px rgba(249,115,22,0.12)!important;}
-textarea{resize:vertical!important;min-height:80px;}
-button{cursor:pointer;font-family:var(--font-main);}
-`;
-
-function InjectStyles() {
-  useEffect(() => {
-    const el = document.createElement("style");
-    el.textContent = GLOBAL_CSS;
-    document.head.appendChild(el);
-    return () => { try { document.head.removeChild(el); } catch(e){} };
-  }, []);
-  return null;
-}
+import { useState } from "react";
+import { Button }    from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge }     from "@/components/ui/badge";
+import { Textarea }  from "@/components/ui/textarea";
+import { Alert }     from "@/components/ui/alert";
+import { Progress }  from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { cn }        from "@/lib/utils";
 
 /* ── SVG DIAGRAMS ─────────────────────────────────────────────────────────── */
 
@@ -1422,22 +1379,13 @@ async function buildPDF(sc, notes, disc, sum) {
     <div style="background:#f97316;color:#fff;padding:9px 18px;margin:0 -16px 14px;font-size:11px;font-weight:700;">
       🔥 FIRE IMAGE GAME｜訓練レポート（つづき）
     </div>
-    <div ${SS('#3b82f6')}>4. 個人考察サマリー</div>
-    ${sc.questions.map((q,i)=>`
-      <div style="margin-bottom:9px;">
-        <div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:4px;">
-          <div style="background:#3b82f6;color:#fff;font-weight:900;font-size:10px;padding:3px 9px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Q${i+1}</div>
-          <div style="font-size:11px;font-weight:700;color:#1e293b;line-height:1.65;">${esc(q)}</div>
-        </div>
-        <div ${FS} style="background:#f8fafc;border-left:3px solid #cbd5e1;padding:9px 13px;margin-bottom:7px;font-size:11px;line-height:1.85;border-radius:0 5px 5px 0;white-space:pre-wrap;word-break:break-all;margin-left:32px;">${esc(notes[i]||"（回答なし）")}</div>
-      </div>`).join("")}
-    <div ${SS('#14b8a6')}>5. 初動判断</div>
+    <div ${SS('#14b8a6')}>4. 初動判断</div>
     <div ${FS}>${esc(sum.initialDecision)}</div>
-    <div ${SS('#14b8a6')}>6. 対応方針・優先順位・戦術</div>
+    <div ${SS('#14b8a6')}>5. 対応方針・優先順位・戦術</div>
     <div ${FS}>${esc(sum.actionPolicy)}</div>
-    <div ${SS('#f97316')}>7. 議論ポイント</div>
+    <div ${SS('#f97316')}>6. 議論ポイント</div>
     <div ${FS}>${esc(sum.discussionPoints||disc)}</div>
-    <div ${SS('#8b5cf6')}>8. 最終結論・統一見解</div>
+    <div ${SS('#8b5cf6')}>7. 最終結論・統一見解</div>
     <div ${FS}>${esc(sum.finalConclusion)}</div>
     <div style="margin-top:18px;padding-top:10px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;">
       <span>消防図上訓練レポート | ${esc(sum.teamName||"チーム名未設定")} | ${esc(sum.datetime)}</span>
@@ -1486,171 +1434,153 @@ async function buildPDF(sc, notes, disc, sum) {
 }
 
 /* ── COMPONENTS ───────────────────────────────── */
-const STEPS = ["シナリオ選択","個人考察","議論ルール","グループ議論","まとめ入力","PDF生成"];
+const STEPS = ["シナリオ選択","議論ルール","グループ議論","まとめ入力","PDF生成"];
+const SecTitle = ({ icon, title, color = "#f97316" }) => (
+  <div className="flex items-center gap-3 mb-5">
+    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xl shrink-0"
+         style={{ background: `${color}18` }}>
+      {icon}
+    </div>
+    <span className="text-lg font-extrabold text-slate-900">{title}</span>
+  </div>
+);
 
-const Card = ({children,style={}})=>(
-  <div style={{background:"#fff",borderRadius:16,boxShadow:"0 4px 16px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04)",padding:22,marginBottom:14,border:"1px solid #e2e8f0",...style}}>
-    {children}
-  </div>
-);
-const SecTitle = ({icon,title,color="#f97316"})=>(
-  <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:18}}>
-    <div style={{width:36,height:36,borderRadius:10,background:`${color}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{icon}</div>
-    <span style={{fontSize:16,fontWeight:800,color:"#1e293b"}}>{title}</span>
-  </div>
-);
-const Tip = ({type="warning",children})=>{
-  const m={warning:{bg:"#fffbeb",border:"#fcd34d",color:"#92400e",icon:"⚠️"},info:{bg:"#eff6ff",border:"#93c5fd",color:"#1e40af",icon:"💬"},success:{bg:"#f0fdf4",border:"#86efac",color:"#166534",icon:"✅"}};
-  const t=m[type];
-  return <div style={{display:"flex",alignItems:"flex-start",gap:10,background:t.bg,border:`1px solid ${t.border}`,borderRadius:10,padding:"11px 14px",marginBottom:16}}><span style={{fontSize:15,flexShrink:0,marginTop:1}}>{t.icon}</span><span style={{fontSize:13,color:t.color,lineHeight:1.65}}>{children}</span></div>;
+const Tip = ({ type = "warning", children }) => {
+  const m = {
+    warning: { variant: "warning", icon: "⚠️" },
+    info:    { variant: "info",    icon: "💬" },
+    success: { variant: "success", icon: "✅" },
+  };
+  const t = m[type] || m.info;
+  return <Alert variant={t.variant} icon={t.icon} className="mb-4">{children}</Alert>;
 };
-const NavRow = ({onBack,backLabel,onNext,nextLabel,nextColor,nextDisabled})=>(
-  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:6}}>
-    {onBack?<button onClick={onBack} style={{background:"#fff",border:"1.5px solid #cbd5e1",borderRadius:10,color:"#64748b",padding:"10px 20px",fontSize:13,fontWeight:600,display:"flex",alignItems:"center",gap:6,boxShadow:"0 1px 3px rgba(0,0,0,0.06)"}}> ← {backLabel}</button>:<div/>}
-    {onNext&&<button onClick={onNext} disabled={nextDisabled} style={{background:nextDisabled?"#f0f2f8":`linear-gradient(135deg,${nextColor},${nextColor}cc)`,border:"none",borderRadius:10,color:nextDisabled?"#94a3b8":"#fff",padding:"11px 26px",fontSize:14,fontWeight:800,boxShadow:nextDisabled?"none":`0 4px 20px ${nextColor}44`,display:"flex",alignItems:"center",gap:6,cursor:nextDisabled?"not-allowed":"pointer"}}>{nextLabel} →</button>}
+
+const NavRow = ({ onBack, backLabel, onNext, nextLabel, nextColor, nextDisabled }) => (
+  <div className="flex justify-between items-center mt-4">
+    {onBack
+      ? <Button variant="outline" onClick={onBack} size="md">← {backLabel}</Button>
+      : <div />}
+    {onNext && (
+      <Button
+        onClick={onNext}
+        disabled={nextDisabled}
+        size="md"
+        style={nextDisabled ? {} : {
+          background: `linear-gradient(135deg,${nextColor},${nextColor}cc)`,
+          boxShadow: `0 4px 20px ${nextColor}44`,
+        }}
+        className={nextDisabled ? "bg-slate-100 text-slate-400 shadow-none cursor-not-allowed" : "border-0 text-white"}
+      >
+        {nextLabel} →
+      </Button>
+    )}
   </div>
 );
 
 /* ── APP ─────────────────────────────────────── */
 export default function App() {
-  const [step,setStep]=useState(-2);  // -2=ホーム, -1=解説ページ, 0〜=訓練
+  const [step,setStep]=useState(-2);
   const [genre,setGenre]=useState("fire");
   const [sc,setSc]=useState(null);
   const [notes,setNotes]=useState({});
   const [disc,setDisc]=useState("");
   const [pdfDone,setPdfDone]=useState(false);
   const [sum,setSum]=useState({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});
+  const [pdfError,setPdfError]=useState("");
 
   const list = SCENARIOS.filter(s => s.genre === genre);
   const gInfo = GENRES.find(g => g.id === genre);
   const allScenarios = list;
 
-  const pickSc=s=>{setSc(s);setSum(p=>({...p,trainName:s.title,situationSummary:s.situation}));};
-  const [pdfError,setPdfError]=useState("");
-  const doPDF=async()=>{
+  const pickSc = s => { setSc(s); setSum(p=>({...p,trainName:s.title,situationSummary:s.situation})); };
+  const doPDF = async () => {
     setPdfError("");
-    try {
-      await buildPDF(sc,notes,disc,sum);
-      setPdfDone(true);
-    } catch(e) {
-      console.error("PDF error:",e);
-      setPdfError(e.message||"PDF生成に失敗しました");
-    }
+    try { await buildPDF(sc,notes,disc,sum); setPdfDone(true); }
+    catch(e) { console.error("PDF error:",e); setPdfError(e.message||"PDF生成に失敗しました"); }
   };
-  const reset=()=>{setStep(-2);setGenre("fire");setSc(null);setNotes({});setDisc("");setPdfDone(false);setSum({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});};
-  const accent=step>=0?STEP_COLORS[step]:"#f97316";
-  const inSession=step>=0;
+  const reset = () => {
+    setStep(-2); setGenre("fire"); setSc(null); setNotes({}); setDisc(""); setPdfDone(false);
+    setSum({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});
+  };
+  const accent = step>=0 ? STEP_COLORS[step] : "#f97316";
+  const inSession = step>=0;
+  const progress = step>=0 ? Math.round(((step+1)/STEPS.length)*100) : 0;
 
   return (
-    <div style={{minHeight:"100vh",background: inSession?"#f5f6fa":"#0d0d0d"}}>
-      <InjectStyles/>
+    <div className={cn("min-h-screen", inSession ? "bg-slate-50" : "bg-[#0a0c12]")}>
 
-      {/* HEADER — セッション中のみ表示 */}
-      {inSession&&(
-        <header style={{position:"sticky",top:0,zIndex:200,background:"rgba(255,255,255,0.93)",backdropFilter:"blur(16px)",borderBottom:"1px solid #e2e8f0",padding:"0 20px",height:60,display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:"0 1px 12px rgba(0,0,0,0.06)"}}>
-          <button onClick={reset} style={{display:"flex",alignItems:"center",gap:10,background:"none",border:"none",padding:0,cursor:"pointer"}}>
-            <div style={{width:36,height:36,borderRadius:12,background:"linear-gradient(135deg,#f97316,#fb923c)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:"0 2px 10px rgba(249,115,22,0.35)",flexShrink:0}}>🔥</div>
-            <div style={{textAlign:"left"}}>
-              <div style={{fontSize:14,fontWeight:800,color:"#1e293b",lineHeight:1.2,letterSpacing:0.5}}>Fire Image Game</div>
-              <div style={{fontSize:9,color:"#94a3b8",fontFamily:"var(--font-mono)",letterSpacing:1}}>TABLETOP EXERCISE PLATFORM</div>
+      {/* ── セッション中ヘッダー ── */}
+      {inSession && (
+        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm">
+          <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
+            <button onClick={reset} className="flex items-center gap-3 cursor-pointer bg-transparent border-0 p-0">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center text-lg shadow-md shadow-orange-500/30 shrink-0">🔥</div>
+              <div className="text-left">
+                <div className="text-sm font-extrabold text-slate-900 leading-tight">Fire Image Game</div>
+                <div className="text-[9px] text-slate-400 font-mono tracking-widest">TABLETOP EXERCISE PLATFORM</div>
+              </div>
+            </button>
+            <div className="flex items-center gap-3">
+              <Badge variant="slate" className="font-mono text-[10px] tracking-widest">
+                PHASE {step+1}/{STEPS.length}
+              </Badge>
+              <span className="text-sm font-bold text-slate-700" style={{color:accent}}>{STEPS[step]}</span>
+              {sc && <><span className="text-slate-300">|</span><span className="text-xs text-slate-500">{gInfo?.icon} {sc.title}</span></>}
             </div>
-          </button>
-          <div style={{display:"flex",gap:4,alignItems:"center"}}>
-            {STEPS.map((s,i)=>(
-              <button key={i} onClick={()=>{if(i<step||(sc&&i===step+1))setStep(i);}}
-                style={{background:step===i?accent:step>i?"#f0f2f8":"transparent",border:`1.5px solid ${step===i?accent+"88":step>i?"#e2e8f0":"#e2e8f0"}`,borderRadius:999,padding:step===i?"4px 14px":"4px 10px",color:step===i?"#fff":step>i?"#64748b":"#94a3b8",fontSize:11,fontWeight:step===i?800:500,cursor:i<step||(sc&&i===step+1)?"pointer":"default",transition:"all 0.25s",display:"flex",alignItems:"center",gap:5}}>
-                {step>i&&<span style={{fontSize:9}}>✓</span>}{s}
-              </button>
-            ))}
           </div>
+          <Progress value={progress} color={`bg-[${accent}]`}
+            className="rounded-none h-1"
+            style={{"--tw-bg-opacity":"1"}}
+          />
+          <div className="h-1 w-full" style={{background:`linear-gradient(90deg,${accent},${accent}99)`,width:`${progress}%`,transition:"width 0.5s ease"}}/>
         </header>
-      )}
-
-      {/* PHASE BAND — セッション中のみ */}
-      {inSession&&(
-        <div style={{background:`${accent}0f`,borderBottom:"1px solid #e2e8f0",padding:"10px 24px",display:"flex",alignItems:"center",gap:12}}>
-          <div style={{width:7,height:7,borderRadius:"50%",background:accent,boxShadow:`0 0 7px ${accent}99`,animation:"blink 2s ease-in-out infinite"}}/>
-          <span style={{fontFamily:"var(--font-mono)",fontSize:11,color:accent,fontWeight:600,letterSpacing:1.5}}>PHASE {step+1}/{STEPS.length}</span>
-          <span style={{fontSize:13,fontWeight:700,color:"#1e293b"}}>{STEPS[step]}</span>
-          {sc&&<><span style={{color:"#e2e8f0",fontSize:14}}>|</span><span style={{fontSize:12,color:"#64748b"}}>{gInfo?.icon} {sc.title}</span></>}
-        </div>
       )}
 
       {/* ════════════════════════════════════════
           HOME SCREEN  (step === -2)
       ════════════════════════════════════════ */}
       {step===-2&&(
-        <div style={{minHeight:"100vh",background:"#0a0c12",position:"relative",overflow:"hidden"}}>
+        <div className="min-h-screen bg-[#0a0c12] relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(ellipse 100% 70% at 50% 100%, rgba(249,115,22,0.18) 0%, rgba(239,68,68,0.08) 45%, transparent 70%)"}}/>
+          <div className="absolute inset-0 pointer-events-none" style={{backgroundImage:"linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)",backgroundSize:"56px 56px"}}/>
+          <div className="absolute top-0 left-0 right-0 h-0.5" style={{background:"linear-gradient(90deg,transparent,#f97316,#ef4444,transparent)"}}/>
 
-          {/* 背景 — 放射状グラデーション */}
-          <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 100% 70% at 50% 100%, rgba(249,115,22,0.18) 0%, rgba(239,68,68,0.08) 45%, transparent 70%)",pointerEvents:"none"}}/>
-          {/* グリッド */}
-          <div style={{position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)",backgroundSize:"56px 56px",pointerEvents:"none"}}/>
-          {/* 上部オレンジライン */}
-          <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:"linear-gradient(90deg,transparent,#f97316,#ef4444,transparent)"}}/>
-
-          <div style={{position:"relative",zIndex:1,maxWidth:900,margin:"0 auto",padding:"0 20px",display:"flex",flexDirection:"column",minHeight:"100vh"}}>
-
-            {/* ── TOP NAV ── */}
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:24,paddingBottom:0}}>
-              <div style={{display:"flex",alignItems:"center",gap:10}}>
-                <div style={{width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#f97316,#ef4444)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:"0 0 18px rgba(249,115,22,0.55)"}}>🔥</div>
-                <span style={{fontFamily:"var(--font-mono)",fontSize:11,color:"#f97316",fontWeight:700,letterSpacing:2}}>FIRE IMAGE GAME</span>
+          <div className="relative z-10 max-w-4xl mx-auto px-5 flex flex-col min-h-screen">
+            {/* TOP NAV */}
+            <nav className="flex items-center justify-between pt-6">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-lg shadow-lg shadow-orange-500/50">🔥</div>
+                <span className="font-mono text-[11px] font-bold text-orange-400 tracking-[3px]">FIRE IMAGE GAME</span>
               </div>
-              <span style={{fontFamily:"var(--font-mono)",fontSize:9,color:"#334155",letterSpacing:2}}>TABLETOP EXERCISE SYSTEM</span>
-            </div>
+              <span className="font-mono text-[9px] text-slate-600 tracking-[2px]">TABLETOP EXERCISE SYSTEM</span>
+            </nav>
 
-            {/* ── MAIN HERO ── */}
-            <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",paddingTop:16}}>
-
-              {/* タイトルエリア（上段） */}
-              <div style={{textAlign:"center",marginBottom:0,zIndex:2,position:"relative"}}>
-
+            {/* MAIN HERO */}
+            <div className="flex-1 flex flex-col items-center pt-8 pb-16">
+              <div className="text-center relative z-10">
                 {/* バッジ */}
-                <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(249,115,22,0.12)",border:"1px solid rgba(249,115,22,0.35)",borderRadius:999,padding:"5px 16px",marginBottom:16}}>
-                  <span style={{fontSize:10}}>🔥</span>
-                  <span style={{fontFamily:"var(--font-mono)",fontSize:10,fontWeight:700,color:"#fb923c",letterSpacing:2}}>TABLETOP EXERCISE PLATFORM</span>
+                <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/30 rounded-full px-4 py-1.5 mb-6">
+                  <span className="text-[10px]">🔥</span>
+                  <span className="font-mono text-[10px] font-bold text-orange-400 tracking-[2px]">TABLETOP EXERCISE PLATFORM</span>
                 </div>
 
                 {/* メインタイトル */}
-                <div style={{
-                  fontSize:"clamp(48px,10vw,88px)",
-                  fontWeight:800,
-                  fontFamily:"var(--font-mono)",
-                  letterSpacing:"0.04em",
-                  lineHeight:0.9,
-                  marginBottom:18,
-                  background:"linear-gradient(160deg,#ffffff 0%,#ffffff 25%,#fb923c 55%,#f97316 70%,#ef4444 100%)",
-                  WebkitBackgroundClip:"text",
-                  WebkitTextFillColor:"transparent",
-                  backgroundClip:"text",
-                }}>
+                <div className="font-mono font-extrabold leading-none mb-6 tracking-wide"
+                     style={{fontSize:"clamp(48px,10vw,88px)",
+                       background:"linear-gradient(160deg,#ffffff 0%,#ffffff 25%,#fb923c 55%,#f97316 70%,#ef4444 100%)",
+                       WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}}>
                   FIRE<br/>IMAGE<br/>GAME
                 </div>
 
-                {/* キャッチコピー */}
-                <p style={{fontSize:14,fontWeight:600,color:"rgba(255,255,255,0.55)",lineHeight:1.8,margin:"0 0 22px",letterSpacing:0.5}}>
-                  「正解」ではなく<span style={{color:"#f97316",fontWeight:700}}> 判断力</span>を鍛える。チームで議論し、<span style={{color:"#fb923c",fontWeight:700}}>現場対応の質</span>を高めよう。
+                <p className="text-[14px] font-semibold text-white/50 leading-loose mb-8">
+                  「正解」ではなく<span className="text-orange-500 font-bold"> 判断力</span>を鍛える。チームで議論し、<span className="text-orange-400 font-bold">現場対応の質</span>を高めよう。
                 </p>
 
-                {/* スタートボタン */}
                 <button
                   onClick={()=>setStep(-1)}
-                  style={{
-                    background:"linear-gradient(135deg,#f97316,#ef4444)",
-                    border:"none",borderRadius:16,
-                    color:"#fff",fontSize:17,fontWeight:800,
-                    padding:"15px 52px",
-                    boxShadow:"0 8px 36px rgba(249,115,22,0.55)",
-                    cursor:"pointer",letterSpacing:1,
-                    display:"inline-flex",alignItems:"center",gap:10,
-                    transition:"transform 0.15s,box-shadow 0.15s"
-                  }}
-                  onMouseEnter={e=>{e.currentTarget.style.transform="scale(1.04)";e.currentTarget.style.boxShadow="0 12px 48px rgba(249,115,22,0.7)";}}
-                  onMouseLeave={e=>{e.currentTarget.style.transform="scale(1)";e.currentTarget.style.boxShadow="0 8px 36px rgba(249,115,22,0.55)";}}
+                  className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-extrabold text-lg px-14 py-4 rounded-2xl shadow-2xl shadow-orange-500/50 cursor-pointer border-0 tracking-wide transition-all duration-150 hover:scale-105 hover:shadow-orange-500/70"
                 >
-                  <span style={{fontSize:20}}>▶</span>
-                  訓練を開始する
+                  <span className="text-xl">▶</span>訓練を開始する
                 </button>
               </div>
 
@@ -1668,36 +1598,21 @@ export default function App() {
 
             </div>
 
-            {/* ── STATS ROW ── */}
-            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,paddingBottom:20}}>
-              {[
-                {icon:"🔥",label:"火災",num:"30",color:"#f97316"},
-                {icon:"🪝",label:"救助",num:"30",color:"#14b8a6"},
-                {icon:"🚑",label:"救急",num:"30",color:"#3b82f6"},
-                {icon:"⚠️",label:"その他",num:"30",color:"#8b5cf6"},
-              ].map(({icon,label,num,color})=>(
-                <div key={label} style={{
-                  background:"rgba(255,255,255,0.04)",
-                  border:"1px solid rgba(255,255,255,0.07)",
-                  borderRadius:12,padding:"14px 8px",textAlign:"center"
-                }}>
-                  <div style={{fontSize:22,marginBottom:4}}>{icon}</div>
-                  <div style={{fontSize:22,fontWeight:800,color,fontFamily:"var(--font-mono)",lineHeight:1}}>{num}</div>
-                  <div style={{fontSize:10,color:"#475569",marginTop:3,fontWeight:600}}>{label}シナリオ</div>
-                </div>
-              ))}
-            </div>
-
-            {/* ── FLOW CHIPS ── */}
-            <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:0,paddingBottom:32,flexWrap:"wrap"}}>
-              {["シナリオ選択","個人考察","議論ルール","グループ議論","まとめ入力","PDF生成"].map((s,i,arr)=>(
-                <div key={s} style={{display:"flex",alignItems:"center"}}>
-                  <div style={{background:"rgba(255,255,255,0.04)",border:`1px solid ${STEP_COLORS[i]}44`,borderRadius:8,padding:"5px 10px",fontSize:10,fontWeight:700,color:STEP_COLORS[i]}}>{s}</div>
-                  {i<arr.length-1&&<div style={{width:16,textAlign:"center",color:"#1e293b",fontSize:10}}>→</div>}
-                </div>
-              ))}
-            </div>
-
+              {/* STATS ROW */}
+              <div className="grid grid-cols-4 gap-3 mt-12 pb-5 w-full max-w-lg">
+                {[
+                  {icon:"🔥",label:"火災",num:"30",color:"#f97316"},
+                  {icon:"🪝",label:"救助",num:"30",color:"#14b8a6"},
+                  {icon:"🚑",label:"救急",num:"30",color:"#3b82f6"},
+                  {icon:"⚠️",label:"その他",num:"30",color:"#8b5cf6"},
+                ].map(({icon,label,num,color})=>(
+                  <div key={label} className="bg-white/[0.04] border border-white/[0.07] rounded-xl p-3 text-center">
+                    <div className="text-2xl mb-1">{icon}</div>
+                    <div className="font-mono font-extrabold text-xl leading-none" style={{color}}>{num}</div>
+                    <div className="text-[10px] text-slate-500 mt-1 font-semibold">{label}シナリオ</div>
+                  </div>
+                ))}
+              </div>
           </div>
         </div>
       )}
@@ -1706,130 +1621,77 @@ export default function App() {
           解説ページ  (step === -1)
       ════════════════════════════════════════ */}
       {step===-1&&(
-        <div style={{minHeight:"100vh",background:"#f5f6fa"}} className="fade-up">
-
-          {/* ヘッダー */}
-          <header style={{background:"rgba(255,255,255,0.95)",backdropFilter:"blur(16px)",borderBottom:"1px solid #e2e8f0",padding:"0 20px",height:60,display:"flex",alignItems:"center",justifyContent:"space-between",boxShadow:"0 1px 12px rgba(0,0,0,0.06)"}}>
-            <button onClick={()=>setStep(-2)} style={{display:"flex",alignItems:"center",gap:10,background:"none",border:"none",padding:0,cursor:"pointer"}}>
-              <div style={{width:36,height:36,borderRadius:12,background:"linear-gradient(135deg,#f97316,#fb923c)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:"0 2px 10px rgba(249,115,22,0.35)"}}>🔥</div>
-              <div style={{textAlign:"left"}}>
-                <div style={{fontSize:14,fontWeight:800,color:"#1e293b",lineHeight:1.2}}>Fire Image Game</div>
-                <div style={{fontSize:9,color:"#94a3b8",fontFamily:"var(--font-mono)",letterSpacing:1}}>TABLETOP EXERCISE PLATFORM</div>
-              </div>
-            </button>
-            <button onClick={()=>setStep(-2)} style={{background:"transparent",border:"1.5px solid #e2e8f0",borderRadius:10,color:"#64748b",padding:"8px 16px",fontSize:12,fontWeight:600,cursor:"pointer"}}>
-              ← ホームへ
-            </button>
+        <div className="min-h-screen bg-slate-50 fade-up">
+          <header className="bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
+            <div className="max-w-3xl mx-auto px-5 h-16 flex items-center justify-between">
+              <button onClick={()=>setStep(-2)} className="flex items-center gap-3 cursor-pointer bg-transparent border-0 p-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center text-lg shadow-md shadow-orange-500/30">🔥</div>
+                <div className="text-left">
+                  <div className="text-sm font-extrabold text-slate-900 leading-tight">Fire Image Game</div>
+                  <div className="text-[9px] text-slate-400 font-mono tracking-widest">TABLETOP EXERCISE PLATFORM</div>
+                </div>
+              </button>
+              <Button variant="outline" size="sm" onClick={()=>setStep(-2)}>← ホームへ</Button>
+            </div>
           </header>
 
-          <main style={{maxWidth:680,margin:"0 auto",padding:"32px 16px 80px"}}>
+          <main className="max-w-2xl mx-auto px-4 py-8 pb-20">
 
-            {/* ── この訓練で得られること ── */}
-            <div style={{marginBottom:36}}>
-              <div style={{textAlign:"center",marginBottom:24}}>
-                <div style={{fontSize:22,fontWeight:800,color:"#1e293b",marginBottom:6}}>この訓練で得られること</div>
-                <div style={{fontSize:13,color:"#64748b"}}>Fire Image Game が現場にもたらす4つの価値</div>
+            {/* この訓練で得られること */}
+            <div className="mb-10">
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-extrabold text-slate-900 mb-1">この訓練で得られること</h2>
+                <p className="text-sm text-slate-500">Fire Image Game が現場にもたらす4つの価値</p>
               </div>
-
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+              <div className="grid grid-cols-2 gap-3">
                 {[
-                  {icon:"🧭", color:"#f97316", bg:"#fff3ed", border:"#fed7aa",
-                   title:"指揮判断能力の向上",
-                   desc:"限られた情報と時間の中で判断を下す訓練を繰り返すことで、現場での意思決定の速さと質が高まります。"},
-                  {icon:"🤝", color:"#14b8a6", bg:"#e6faf8", border:"#99f6e4",
-                   title:"チーム連携の強化",
-                   desc:"全員が意見を出し合うことで、互いの思考パターンを理解し、現場でのコミュニケーションが円滑になります。"},
-                  {icon:"💡", color:"#3b82f6", bg:"#eff6ff", border:"#bfdbfe",
-                   title:"低コストで高頻度の訓練",
-                   desc:"場所・資機材・大人数が不要。タブレット1台で何度でも実施できるため、訓練機会を大幅に増やせます。"},
-                  {icon:"⚡", color:"#8b5cf6", bg:"#f5f3ff", border:"#ddd6fe",
-                   title:"レアケースへの対応力",
-                   desc:"実際の訓練では経験しにくい特殊・複合事案を繰り返し体験することで、想定外の事態への対応力が身につきます。"},
+                  {icon:"🧭",color:"#f97316",bg:"#fff3ed",border:"#fed7aa",title:"指揮判断能力の向上",desc:"限られた情報と時間の中で判断を下す訓練を繰り返すことで、現場での意思決定の速さと質が高まります。"},
+                  {icon:"🤝",color:"#14b8a6",bg:"#e6faf8",border:"#99f6e4",title:"チーム連携の強化",desc:"全員が意見を出し合うことで、互いの思考パターンを理解し、現場でのコミュニケーションが円滑になります。"},
+                  {icon:"💡",color:"#3b82f6",bg:"#eff6ff",border:"#bfdbfe",title:"低コストで高頻度の訓練",desc:"場所・資機材・大人数が不要。タブレット1台で何度でも実施できるため、訓練機会を大幅に増やせます。"},
+                  {icon:"⚡",color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe",title:"レアケースへの対応力",desc:"実際の訓練では経験しにくい特殊・複合事案を繰り返し体験することで、想定外の事態への対応力が身につきます。"},
                 ].map(({icon,color,bg,border,title,desc})=>(
-                  <div key={title} style={{background:"#fff",border:`1.5px solid ${border}`,borderRadius:14,padding:"18px 16px",boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
-                    <div style={{width:40,height:40,borderRadius:12,background:bg,border:`1.5px solid ${border}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,marginBottom:12}}>
-                      {icon}
-                    </div>
-                    <div style={{fontSize:14,fontWeight:800,color:"#1e293b",marginBottom:6,lineHeight:1.4}}>{title}</div>
-                    <div style={{fontSize:12,color:"#64748b",lineHeight:1.7}}>{desc}</div>
-                  </div>
+                  <Card key={title} className="p-4" style={{borderColor:border}}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3" style={{background:bg,border:`1.5px solid ${border}`}}>{icon}</div>
+                    <div className="text-sm font-extrabold text-slate-900 mb-1.5 leading-snug">{title}</div>
+                    <div className="text-xs text-slate-500 leading-relaxed">{desc}</div>
+                  </Card>
                 ))}
               </div>
             </div>
+            <Separator className="mb-8"/>
 
-            {/* 区切り */}
-            <div style={{height:1,background:"#e2e8f0",marginBottom:32}}/>
-
-            {/* ── 訓練の流れ ── */}
-            <div style={{marginBottom:32}}>
-              <div style={{textAlign:"center",marginBottom:24}}>
-                <div style={{fontSize:22,fontWeight:800,color:"#1e293b",marginBottom:6}}>訓練の流れ</div>
-                <div style={{fontSize:13,color:"#64748b"}}>6つのステップで進めます</div>
+            {/* 訓練の流れ */}
+            <div className="mb-8">
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-extrabold text-slate-900 mb-1">訓練の流れ</h2>
+                <p className="text-sm text-slate-500">5つのステップで進めます</p>
               </div>
-
-              <div style={{display:"flex",flexDirection:"column",gap:0}}>
+              <div className="flex flex-col gap-0">
                 {[
-                  {num:1, icon:"🎯", label:"シナリオ選択",   sub:"ジャンルとシナリオを選ぶ",      color:"#f97316", bg:"#fff3ed", border:"#fed7aa"},
-                  {num:2, icon:"🧠", label:"個人考察",       sub:"一人で設問に回答する",           color:"#14b8a6", bg:"#e6faf8", border:"#99f6e4"},
-                  {num:3, icon:"📋", label:"議論ルール確認", sub:"全員でルールを共有する",         color:"#f43f5e", bg:"#fff1f2", border:"#fecdd3"},
-                  {num:4, icon:"🗣️", label:"グループ議論",   sub:"意見を出し合い判断を深める",     color:"#3b82f6", bg:"#eff6ff", border:"#bfdbfe"},
-                  {num:5, icon:"📊", label:"まとめ入力",     sub:"チームの結論を記録する",         color:"#f97316", bg:"#fff3ed", border:"#fed7aa"},
-                  {num:6, icon:"📄", label:"PDF生成",        sub:"訓練レポートを出力・保存する",   color:"#8b5cf6", bg:"#f5f3ff", border:"#ddd6fe"},
+                  {num:1,icon:"🎯",label:"シナリオ選択",  sub:"ジャンルとシナリオを選ぶ",     color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
+                  {num:2,icon:"📋",label:"議論ルール確認",sub:"全員でルールを共有する",        color:"#f43f5e",bg:"#fff1f2",border:"#fecdd3"},
+                  {num:3,icon:"🗣️",label:"グループ議論",  sub:"意見を出し合い判断を深める",    color:"#3b82f6",bg:"#eff6ff",border:"#bfdbfe"},
+                  {num:4,icon:"📊",label:"まとめ入力",    sub:"チームの結論を記録する",        color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
+                  {num:5,icon:"📄",label:"PDF生成",       sub:"訓練レポートを出力・保存する",  color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe"},
                 ].map(({num,icon,label,sub,color,bg,border},i,arr)=>(
-                  <div key={num} style={{display:"flex",flexDirection:"column",alignItems:"stretch"}}>
-                    {/* カード */}
-                    <div style={{
-                      background:"#fff",
-                      border:`2px solid ${border}`,
-                      borderRadius:16,
-                      padding:"16px 20px",
-                      display:"flex",
-                      alignItems:"center",
-                      gap:16,
-                      boxShadow:`0 2px 12px rgba(0,0,0,0.05)`
-                    }}>
-                      {/* STEP番号 + アイコン */}
-                      <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:4,flexShrink:0}}>
-                        <div style={{
-                          fontFamily:"var(--font-mono)",fontSize:9,fontWeight:700,
-                          color,letterSpacing:1,lineHeight:1
-                        }}>STEP</div>
-                        <div style={{
-                          width:52,height:52,borderRadius:14,
-                          background:`linear-gradient(135deg,${color},${color}bb)`,
-                          display:"flex",alignItems:"center",justifyContent:"center",
-                          fontSize:24,
-                          boxShadow:`0 4px 14px ${color}44`
-                        }}>{icon}</div>
-                        <div style={{
-                          fontFamily:"var(--font-mono)",fontSize:12,fontWeight:800,
-                          color,lineHeight:1
-                        }}>{num}</div>
+                  <div key={num} className="flex flex-col items-stretch">
+                    <Card className="flex items-center gap-4 p-4" style={{borderColor:border,borderWidth:2}}>
+                      <div className="flex flex-col items-center gap-1 shrink-0">
+                        <span className="font-mono text-[9px] font-bold tracking-widest" style={{color}}>STEP</span>
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg" style={{background:`linear-gradient(135deg,${color},${color}bb)`,boxShadow:`0 4px 14px ${color}44`}}>{icon}</div>
+                        <span className="font-mono text-xs font-extrabold" style={{color}}>{num}</span>
                       </div>
-                      {/* テキスト */}
-                      <div style={{flex:1}}>
-                        <div style={{fontSize:17,fontWeight:800,color:"#1e293b",marginBottom:4}}>{label}</div>
-                        <div style={{fontSize:12.5,color:"#64748b",lineHeight:1.5}}>{sub}</div>
+                      <div className="flex-1">
+                        <div className="text-base font-extrabold text-slate-900 mb-0.5">{label}</div>
+                        <div className="text-[12px] text-slate-500 leading-snug">{sub}</div>
                       </div>
-                      {/* 右バッジ */}
-                      <div style={{
-                        background:bg,border:`1.5px solid ${border}`,
-                        borderRadius:10,padding:"6px 10px",
-                        fontSize:18,flexShrink:0
-                      }}>{icon}</div>
-                    </div>
-
-                    {/* 矢印 */}
+                      <div className="text-lg rounded-xl p-2 shrink-0" style={{background:bg,border:`1.5px solid ${border}`}}>{icon}</div>
+                    </Card>
                     {i<arr.length-1&&(
-                      <div style={{display:"flex",justifyContent:"center",padding:"4px 0"}}>
-                        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:0}}>
-                          <div style={{width:2,height:14,background:"#e2e8f0"}}/>
-                          <div style={{
-                            width:0,height:0,
-                            borderLeft:"7px solid transparent",
-                            borderRight:"7px solid transparent",
-                            borderTop:"9px solid #cbd5e1"
-                          }}/>
+                      <div className="flex justify-center py-0.5">
+                        <div className="flex flex-col items-center">
+                          <div className="w-0.5 h-3.5 bg-slate-200"/>
+                          <div style={{borderLeft:"6px solid transparent",borderRight:"6px solid transparent",borderTop:"8px solid #cbd5e1"}}/>
                         </div>
                       </div>
                     )}
@@ -1838,148 +1700,87 @@ export default function App() {
               </div>
             </div>
 
-            {/* 開始ボタン */}
-            <button
-              onClick={()=>setStep(0)}
-              style={{width:"100%",background:"linear-gradient(135deg,#f97316,#fb923c)",border:"none",borderRadius:14,color:"#fff",fontSize:16,fontWeight:800,padding:"16px 0",boxShadow:"0 6px 28px rgba(249,115,22,0.4)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:10}}
-            >
-              <span style={{fontSize:18}}>🎯</span>
-              シナリオ選択へ進む →
-            </button>
-
+            <Button className="w-full" size="xl" onClick={()=>setStep(0)}>
+              <span className="text-lg">🎯</span>シナリオ選択へ進む →
+            </Button>
           </main>
         </div>
       )}
       {inSession&&(
-        <main style={{maxWidth:840,margin:"0 auto",padding:"24px 16px 80px"}}>
+        <main className="max-w-3xl mx-auto px-4 py-6 pb-24">
 
         {/* ════ STEP 0 ════ */}
         {step===0&&(
-          <div className="fade-up">
+          <div className="fade-up flex flex-col gap-4">
             {/* ジャンル選択 */}
-            <Card style={{padding:20}}>
-              <SecTitle icon="🎯" title="ジャンルを選択" color="#f97316"/>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10}}>
-                {GENRES.map(g=>{
-                  const active=genre===g.id;
-                  return <button key={g.id} onClick={()=>{setGenre(g.id);setSc(null);}}
-                    style={{background:active?g.bg:"#f8fafc",border:`2px solid ${active?g.color+"66":"transparent"}`,
-                      borderRadius:14,padding:"16px 8px",textAlign:"center",
-                      boxShadow:active?`0 4px 16px ${g.color}22`:"0 1px 3px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
-                    <div style={{fontSize:30,marginBottom:6}}>{g.icon}</div>
-                    <div style={{fontSize:14,fontWeight:800,color:active?g.color:"#64748b"}}>{g.label}</div>
-                  </button>;
-                })}
-              </div>
+            <Card>
+              <CardContent className="pt-5">
+                <SecTitle icon="🎯" title="ジャンルを選択" color="#f97316"/>
+                <div className="grid grid-cols-4 gap-3">
+                  {GENRES.map(g=>{
+                    const active=genre===g.id;
+                    return (
+                      <button key={g.id} onClick={()=>{setGenre(g.id);setSc(null);}}
+                        className={cn("rounded-xl py-4 px-2 text-center border-2 transition-all duration-200 cursor-pointer",
+                          active ? "shadow-md" : "border-transparent bg-slate-50 hover:bg-slate-100")}
+                        style={active?{background:g.bg,borderColor:`${g.color}66`,boxShadow:`0 4px 16px ${g.color}22`}:{}}>
+                        <div className="text-3xl mb-1.5">{g.icon}</div>
+                        <div className={cn("text-sm font-extrabold",active?"":"text-slate-500")} style={active?{color:g.color}:{}}>{g.label}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </CardContent>
             </Card>
 
             {/* シナリオリスト */}
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+            <div className="flex flex-col gap-3">
               {allScenarios.map((s,idx)=>{
                 const active=sc?.id===s.id;
                 return (
                   <div key={s.id} className={`fade-up-${Math.min(idx,3)}`}>
-                    {/* シナリオ選択行 */}
-                    <div onClick={()=>pickSc(s)} style={{
-                      background:active?gInfo.bg:"#fff",
-                      border:`2px solid ${active?gInfo.color:"#e2e8f0"}`,
-                      borderRadius: active?"16px 16px 0 0":16,
-                      padding:"16px 20px", cursor:"pointer", transition:"all 0.2s",
-                      boxShadow:active?`0 2px 0 ${gInfo.color}33`:"0 2px 8px rgba(0,0,0,0.05)",
-                      display:"flex", justifyContent:"space-between", alignItems:"center"
-                    }}>
-                      <div style={{flex:1}}>
-                        <div style={{fontSize:16,fontWeight:800,
-                          color:active?gInfo.color:"#1e293b",marginBottom:4}}>{s.title}</div>
-                        <div style={{fontSize:13,color:"#64748b",lineHeight:1.5}}>{s.summary}</div>
+                    <div onClick={()=>pickSc(s)}
+                      className={cn("flex justify-between items-center px-5 py-4 cursor-pointer transition-all duration-200 border-2",
+                        active ? "rounded-t-2xl rounded-b-none" : "rounded-2xl bg-white hover:shadow-md")}
+                      style={active?{background:gInfo.bg,borderColor:gInfo.color}:{borderColor:"#e2e8f0"}}>
+                      <div className="flex-1">
+                        <div className={cn("text-base font-extrabold mb-1",active?"":"text-slate-900")} style={active?{color:gInfo.color}:{}}>{s.title}</div>
+                        <div className="text-sm text-slate-500 leading-snug">{s.summary}</div>
                       </div>
-                      <div style={{
-                        width:28,height:28,borderRadius:"50%",flexShrink:0,marginLeft:14,
-                        border:`2px solid ${active?gInfo.color:"#cbd5e1"}`,
-                        background:active?gInfo.color:"transparent",
-                        display:"flex",alignItems:"center",justifyContent:"center",
-                        fontSize:14, color:"#fff", transition:"all 0.2s"
-                      }}>
+                      <div className={cn("w-7 h-7 rounded-full shrink-0 ml-3 flex items-center justify-center text-xs font-bold border-2 transition-all",
+                          active?"text-white":"text-slate-400")}
+                        style={active?{borderColor:gInfo.color,background:gInfo.color}:{borderColor:"#cbd5e1"}}>
                         {active?"▲":"▼"}
                       </div>
                     </div>
 
-                    {/* 展開パネル */}
                     {active&&(
-                      <div style={{
-                        background:"#fff",
-                        border:`2px solid ${gInfo.color}`,
-                        borderTop:"none",
-                        borderRadius:"0 0 16px 16px",
-                        overflow:"hidden"
-                      }}>
+                      <div className="bg-white rounded-b-2xl border-2 border-t-0 overflow-hidden" style={{borderColor:gInfo.color}}>
                         {/* 現場状況図 */}
-                        <div data-diagram={s.id}>
-                          <div style={{
-                            background:gInfo.bg,
-                            padding:"10px 20px",
-                            borderBottom:`1px solid ${gInfo.color}22`,
-                            display:"flex",alignItems:"center",gap:8
-                          }}>
-                            <span style={{fontSize:16}}>📍</span>
-                            <span style={{fontSize:13,fontWeight:800,color:gInfo.color}}>現場状況図</span>
+                        <div>
+                          <div className="flex items-center gap-2 px-5 py-2.5 border-b" style={{background:gInfo.bg,borderColor:`${gInfo.color}22`}}>
+                            <span className="text-base">📍</span>
+                            <span className="text-sm font-extrabold" style={{color:gInfo.color}}>現場状況図</span>
                           </div>
-                          <div style={{padding:"4px 0"}}>{DIAGRAMS[s.id]}</div>
+                          <div className="py-1">{DIAGRAMS[s.id]}</div>
                         </div>
-
-                        {/* 通報内容・現場状況 */}
-                        <div style={{padding:"0 20px 16px"}}>
-                          <div style={{
-                            display:"flex",alignItems:"center",gap:8,
-                            padding:"12px 0 10px",
-                            borderTop:`1px solid ${gInfo.color}22`
-                          }}>
-                            <span style={{fontSize:16}}>📻</span>
-                            <span style={{fontSize:13,fontWeight:800,color:"#1e293b"}}>通報内容・現場状況</span>
+                        {/* 通報内容 */}
+                        <div className="px-5 pb-4">
+                          <div className="flex items-center gap-2 py-3 border-t" style={{borderColor:`${gInfo.color}22`}}>
+                            <span className="text-base">📻</span>
+                            <span className="text-sm font-extrabold text-slate-900">通報内容・現場状況</span>
                           </div>
-                          <div style={{
-                            background:"#f8fafc",border:"1px solid #e2e8f0",
-                            borderRadius:12,padding:18,
-                            fontSize:14,color:"#334155",lineHeight:2,
-                            whiteSpace:"pre-wrap"
-                          }}>{s.situation}</div>
-
+                          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700 leading-loose whitespace-pre-wrap">{s.situation}</div>
                           {/* キーポイント */}
-                          <div style={{marginTop:14}}>
-                            <div style={{
-                              fontSize:12,fontWeight:700,color:"#94a3b8",
-                              letterSpacing:1,textTransform:"uppercase",marginBottom:8
-                            }}>📌 KEY POINTS</div>
-                            <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+                          <div className="mt-3">
+                            <div className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-2">📌 KEY POINTS</div>
+                            <div className="flex flex-wrap gap-2">
                               {s.keypoints.map((kp,i)=>(
-                                <span key={i} style={{
-                                  background:gInfo.bg,
-                                  border:`1.5px solid ${gInfo.color}55`,
-                                  borderRadius:999,padding:"5px 14px",
-                                  fontSize:12,fontWeight:700,color:gInfo.color
-                                }}>{kp}</span>
+                                <Badge key={i} className="px-3 py-1 text-xs" style={{background:gInfo.bg,border:`1.5px solid ${gInfo.color}55`,color:gInfo.color}}>{kp}</Badge>
                               ))}
                             </div>
                           </div>
-
-                          {/* 訓練開始ボタン */}
-                          <div style={{marginTop:20}}>
-                            <button
-                              onClick={()=>setStep(1)}
-                              style={{
-                                width:"100%",
-                                background:`linear-gradient(135deg,#f97316,#f97316cc)`,
-                                border:"none",borderRadius:12,
-                                color:"#fff",fontSize:15,fontWeight:800,
-                                padding:"14px 0",
-                                boxShadow:"0 4px 20px rgba(249,115,22,0.4)",
-                                cursor:"pointer",letterSpacing:0.5,
-                                display:"flex",alignItems:"center",justifyContent:"center",gap:8
-                              }}
-                            >
-                              訓練開始 →
-                            </button>
-                          </div>
+                          <Button className="w-full mt-5" size="lg" onClick={()=>setStep(2)}>訓練開始 →</Button>
                         </div>
                       </div>
                     )}
@@ -1987,302 +1788,94 @@ export default function App() {
                 );
               })}
             </div>
-
-          </div>
-        )}
-
-        {/* ════ STEP 1 ════ */}
-        {step===1&&sc&&(
-          <div className="fade-up">
-            {/* 現場情報カード */}
-            <div style={{
-              background:"#fff",border:`2px solid ${gInfo.color}44`,
-              borderRadius:20,overflow:"hidden",
-              boxShadow:"0 4px 20px rgba(0,0,0,0.07)",marginBottom:14
-            }}>
-              {/* カードヘッダー */}
-              <div style={{
-                background:`linear-gradient(135deg,${gInfo.color}18,${gInfo.color}08)`,
-                borderBottom:`1px solid ${gInfo.color}22`,
-                padding:"16px 22px",
-                display:"flex",alignItems:"center",justifyContent:"space-between"
-              }}>
-                <div style={{display:"flex",alignItems:"center",gap:10}}>
-                  <span style={{fontSize:24}}>{gInfo.icon}</span>
-                  <div>
-                    <div style={{fontSize:11,fontWeight:700,color:gInfo.color,
-                      letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>SCENARIO</div>
-                    <div style={{fontSize:17,fontWeight:800,color:"#1e293b"}}>{sc.title}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 現場状況図 */}
-              <div data-diagram={sc.id}>
-                <div style={{
-                  background:"#f8fafc",borderBottom:"1px solid #e2e8f0",
-                  padding:"8px 22px",display:"flex",alignItems:"center",gap:8
-                }}>
-                  <span style={{fontSize:14}}>📍</span>
-                  <span style={{fontSize:12,fontWeight:800,color:"#475569"}}>現場状況図</span>
-                </div>
-                <div style={{padding:"8px 12px 4px"}}>{DIAGRAMS[sc.id]}</div>
-              </div>
-
-              {/* 通報内容 */}
-              <div style={{padding:"0 22px 22px"}}>
-                <div style={{
-                  display:"flex",alignItems:"center",gap:8,
-                  padding:"14px 0 10px",
-                  borderTop:"1px solid #f1f5f9"
-                }}>
-                  <span style={{fontSize:16}}>📻</span>
-                  <span style={{fontSize:13,fontWeight:800,color:"#1e293b"}}>通報内容・現場状況</span>
-                </div>
-                <div style={{
-                  background:"#f8fafc",border:"1px solid #e2e8f0",
-                  borderRadius:12,padding:18,
-                  fontSize:14,color:"#334155",lineHeight:2,
-                  whiteSpace:"pre-wrap"
-                }}>{sc.situation}</div>
-              </div>
-            </div>
-
-            {/* 注意事項バナー */}
-            <div style={{
-              background:"linear-gradient(135deg,#fffbeb,#fef3c7)",
-              border:"1.5px solid #fcd34d",borderRadius:14,
-              padding:"14px 20px",marginBottom:14,
-              display:"flex",alignItems:"center",gap:12
-            }}>
-              <span style={{fontSize:24,flexShrink:0}}>⚠️</span>
-              <div>
-                <div style={{fontSize:14,fontWeight:800,color:"#92400e",marginBottom:2}}>個人考察フェーズ</div>
-                <div style={{fontSize:13,color:"#b45309",lineHeight:1.6}}>
-                  まだ他のメンバーと話し合わず、自分自身の考えをまとめてください。
-                </div>
-              </div>
-            </div>
-
-            {/* 設問カード */}
-            <div style={{
-              background:"#fff",border:"1.5px solid #e2e8f0",
-              borderRadius:20,overflow:"hidden",
-              boxShadow:"0 4px 20px rgba(0,0,0,0.06)",marginBottom:14
-            }}>
-              <div style={{
-                background:"linear-gradient(135deg,#e6faf818,#e6faf8)",
-                borderBottom:"1px solid #14b8a622",
-                padding:"16px 22px",display:"flex",alignItems:"center",gap:10
-              }}>
-                <span style={{fontSize:20}}>📝</span>
-                <div>
-                  <div style={{fontSize:11,fontWeight:700,color:"#14b8a6",
-                    letterSpacing:1,textTransform:"uppercase",marginBottom:1}}>INDIVIDUAL REFLECTION</div>
-                  <div style={{fontSize:16,fontWeight:800,color:"#1e293b"}}>設問への回答</div>
-                </div>
-              </div>
-
-              <div style={{padding:"20px 22px"}}>
-                {sc.questions.map((q,i)=>(
-                  <div key={i} style={{
-                    marginBottom: i<sc.questions.length-1?28:0,
-                    paddingBottom: i<sc.questions.length-1?28:0,
-                    borderBottom: i<sc.questions.length-1?"1px dashed #e2e8f0":"none"
-                  }}>
-                    {/* 設問 */}
-                    <div style={{
-                      display:"flex",gap:12,alignItems:"flex-start",marginBottom:12
-                    }}>
-                      <div style={{
-                        width:32,height:32,borderRadius:10,
-                        background:"#14b8a6",
-                        display:"flex",alignItems:"center",justifyContent:"center",
-                        fontSize:13,fontWeight:800,color:"#fff",flexShrink:0
-                      }}>Q{i+1}</div>
-                      <p style={{
-                        fontSize:14,fontWeight:700,color:"#1e293b",
-                        lineHeight:1.65,paddingTop:6
-                      }}>{q}</p>
-                    </div>
-                    {/* 回答エリア */}
-                    <textarea rows={4}
-                      value={notes[i]||""}
-                      onChange={e=>setNotes(p=>({...p,[i]:e.target.value}))}
-                      placeholder="あなたの考えを自由に記入してください..."
-                      style={{marginLeft:44, fontSize:"14px !important"}}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択" onNext={()=>setStep(2)} nextLabel="議論ルールを確認" nextColor="#f43f5e"/>
           </div>
         )}
 
         {/* ════ STEP 2: 議論ルール ════ */}
         {step===2&&sc&&(
-          <div className="fade-up">
+          <div className="fade-up flex flex-col gap-4">
             {/* ヒーローバナー */}
-            <div style={{
-              background:"linear-gradient(135deg,#f43f5e 0%,#f97316 100%)",
-              borderRadius:20, padding:"28px 28px", marginBottom:14,
-              boxShadow:"0 8px 32px rgba(244,63,94,0.25)",
-              display:"flex", alignItems:"center", gap:18
-            }}>
-              <div style={{fontSize:48, lineHeight:1, flexShrink:0}}>📋</div>
+            <div className="rounded-2xl p-7 flex items-center gap-5 shadow-xl" style={{background:"linear-gradient(135deg,#f43f5e 0%,#f97316 100%)",boxShadow:"0 8px 32px rgba(244,63,94,0.25)"}}>
+              <span className="text-5xl shrink-0">📋</span>
               <div>
-                <div style={{fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.3,marginBottom:6}}>
-                  みんなでルール確認！
-                </div>
-                <div style={{fontSize:13,color:"rgba(255,255,255,0.85)",fontWeight:600}}>
-                  議論スタート前に全員でチェック
-                </div>
+                <div className="text-xl font-extrabold text-white mb-1">みんなでルール確認！</div>
+                <div className="text-sm text-white/80 font-semibold">議論スタート前に全員でチェック</div>
               </div>
             </div>
 
             {/* ルールカード群 */}
             {[
-              {
-                num:"01",
-                icon:"🙅",
-                color:"#f43f5e",
-                bg:"#fff1f2",
-                border:"rgba(244,63,94,0.2)",
-                title:"意見を否定しない",
-                sub:"NO CRITICISM",
-                body:"どんな意見も最初から否定しない。「それは違う」ではなく「なるほど、それに加えて…」で発展させよう。間違いを恐れず発言できる場をつくることが、チーム全体の判断力を高める。",
-                rule:"✗ 「それは違う」　→　✓ 「なるほど、では…」"
-              },
-              {
-                num:"02",
-                icon:"🙋",
-                color:"#f97316",
-                bg:"#fff7ed",
-                border:"rgba(249,115,22,0.2)",
-                title:"全員が必ず発言する",
-                sub:"EVERYONE SPEAKS",
-                body:"経験の浅さは関係ない。現場では多角的な視点が命を救う。「自分の意見は関係ない」ではなく、どんな小さな気づきも声に出そう。あなたの一言がチームの盲点を埋める。",
-                rule:"「私は〇〇だと思います」から始めてOK"
-              },
-              {
-                num:"03",
-                icon:"🔍",
-                color:"#3b82f6",
-                bg:"#eff6ff",
-                border:"rgba(59,130,246,0.2)",
-                title:"根拠を一緒に考える",
-                sub:"REASON TOGETHER",
-                body:"「なぜそう思ったか」を大切にしよう。結論だけでなく、判断の根拠を共有することで、次の現場でも使える思考力が育つ。「なぜ？」は否定ではなく、深める問いかけ。",
-                rule:"「なぜ？」は攻撃じゃなく、深める質問"
-              },
-              {
-                num:"04",
-                icon:"🎮",
-                color:"#14b8a6",
-                bg:"#e6faf8",
-                border:"rgba(20,184,166,0.2)",
-                title:"ゲームと思って楽しむ",
-                sub:"HAVE FUN",
-                body:"",
-                rule:"一番大事かも… 😊"
-              },
-            ].map(({num,icon,color,bg,border,title,sub,body,rule})=>(
-              <div key={num} style={{
-                background:"#fff", borderRadius:16,
-                boxShadow:"0 4px 16px rgba(0,0,0,0.06)",
-                marginBottom:12, overflow:"hidden",
-                border:`1px solid ${border}`
-              }}>
-                <div style={{
-                  background:bg, padding:"14px 20px",
-                  borderBottom:`1px solid ${border}`,
-                  display:"flex", alignItems:"center", gap:14
-                }}>
-                  <div style={{
-                    width:44, height:44, borderRadius:12,
-                    background:`${color}22`,
-                    border:`2px solid ${color}44`,
-                    display:"flex", alignItems:"center", justifyContent:"center",
-                    fontSize:22, flexShrink:0
-                  }}>{icon}</div>
+              {num:"01",icon:"🙅",color:"#f43f5e",bg:"#fff1f2",border:"rgba(244,63,94,0.2)",title:"意見を否定しない",sub:"NO CRITICISM",rule:"✗ 「それは違う」　→　✓ 「なるほど、では…」"},
+              {num:"02",icon:"🙋",color:"#f97316",bg:"#fff7ed",border:"rgba(249,115,22,0.2)",title:"全員が必ず発言する",sub:"EVERYONE SPEAKS",rule:"「私は〇〇だと思います」から始めてOK"},
+              {num:"03",icon:"🔍",color:"#3b82f6",bg:"#eff6ff",border:"rgba(59,130,246,0.2)",title:"根拠を一緒に考える",sub:"REASON TOGETHER",rule:"「なぜ？」は攻撃じゃなく、深める質問"},
+              {num:"04",icon:"🎮",color:"#14b8a6",bg:"#e6faf8",border:"rgba(20,184,166,0.2)",title:"ゲームと思って楽しむ",sub:"HAVE FUN",rule:"一番大事かも… 😊"},
+            ].map(({num,icon,color,bg,border,title,sub,rule})=>(
+              <Card key={num} className="overflow-hidden" style={{borderColor:border}}>
+                <div className="flex items-center gap-4 px-5 py-3.5 border-b" style={{background:bg,borderColor:border}}>
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shrink-0" style={{background:`${color}22`,border:`2px solid ${color}44`}}>{icon}</div>
                   <div>
-                    <div style={{display:"flex", alignItems:"center", gap:8, marginBottom:2}}>
-                      <span style={{fontFamily:"monospace", fontSize:10, color, fontWeight:700, letterSpacing:1}}>RULE {num}</span>
-                      <span style={{fontFamily:"monospace", fontSize:9, color:"#94a3b8", letterSpacing:1}}>{sub}</span>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="font-mono text-[10px] font-bold tracking-widest" style={{color}}>RULE {num}</span>
+                      <span className="font-mono text-[9px] text-slate-400 tracking-wide">{sub}</span>
                     </div>
-                    <div style={{fontSize:17, fontWeight:800, color:"#1e293b"}}>{title}</div>
+                    <div className="text-base font-extrabold text-slate-900">{title}</div>
                   </div>
                 </div>
-                <div style={{padding:"12px 20px"}}>
-                  <div style={{
-                    background:bg, border:`1px solid ${border}`,
-                    borderRadius:8, padding:"8px 14px",
-                    fontSize:12, fontWeight:700, color, fontFamily:"monospace"
-                  }}>{rule}</div>
-                </div>
-              </div>
+                <CardContent className="py-3">
+                  <div className="font-mono text-xs font-bold px-3 py-2 rounded-lg" style={{background:bg,border:`1px solid ${border}`,color}}>{rule}</div>
+                </CardContent>
+              </Card>
             ))}
 
             {/* 全体メッセージ */}
-            <div style={{
-              background:"linear-gradient(135deg,#1e293b,#334155)",
-              borderRadius:16, padding:"22px 24px", marginBottom:14,
-              boxShadow:"0 4px 20px rgba(30,41,59,0.2)"
-            }}>
-              <div style={{fontSize:11, fontWeight:700, color:"#94a3b8", letterSpacing:2, marginBottom:10, fontFamily:"monospace"}}>TEAM MESSAGE</div>
-              <div style={{fontSize:15, fontWeight:700, color:"#fff", lineHeight:1.8, marginBottom:12}}>
+            <div className="rounded-2xl p-6 shadow-lg" style={{background:"linear-gradient(135deg,#1e293b,#334155)"}}>
+              <div className="font-mono text-[10px] font-bold text-slate-400 tracking-[3px] mb-3">TEAM MESSAGE</div>
+              <div className="text-[15px] font-bold text-white leading-relaxed mb-4">
                 「正解を出すこと」が目的ではありません。<br/>
-                <span style={{color:"#fb923c"}}>考え方・優先順位・意思決定の質</span>を<br/>チームで高めることが目的です。
+                <span className="text-orange-400">考え方・優先順位・意思決定の質</span>を<br/>チームで高めることが目的です。
               </div>
-              <div style={{display:"flex", gap:8, flexWrap:"wrap"}}>
+              <div className="flex gap-2 flex-wrap">
                 {["多角的な視点","経験の共有","根拠ある判断","チームの成長"].map(t=>(
-                  <span key={t} style={{
-                    background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.15)",
-                    borderRadius:999, padding:"4px 12px", fontSize:11, color:"#e2e8f0", fontWeight:600
-                  }}>{t}</span>
+                  <span key={t} className="bg-white/10 border border-white/15 rounded-full px-3 py-1 text-[11px] text-slate-200 font-semibold">{t}</span>
                 ))}
               </div>
             </div>
 
-            <NavRow
-              onBack={()=>setStep(1)} backLabel="個人考察に戻る"
-              onNext={()=>setStep(3)} nextLabel="議論スタート！" nextColor="#3b82f6"
-            />
+            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択に戻る" onNext={()=>setStep(3)} nextLabel="議論スタート！" nextColor="#3b82f6"/>
           </div>
         )}
 
         {/* ════ STEP 3: グループ議論 ════ */}
         {step===3&&sc&&(
-          <div className="fade-up">
+          <div className="fade-up flex flex-col gap-4">
             <Card>
-              <SecTitle icon="🗣️" title="グループ議論フェーズ" color="#3b82f6"/>
-              <Tip type="info">各メンバーが個人考察を共有し、チームとして最善の判断を議論してください。</Tip>
-              {/* 現場図（小さめ） */}
-              <div style={{background:"#fff",border:"1px solid #e2e8f0",borderRadius:10,overflow:"hidden",marginBottom:16}}>
-                <div style={{background:"#eff6ff",padding:"5px 12px",borderBottom:"1px solid #e2e8f0"}}>
-                  <span style={{fontSize:11,fontWeight:700,color:"#3b82f6"}}>📍 現場状況図（参照用）</span>
+              <CardContent className="pt-5">
+                <SecTitle icon="🗣️" title="グループ議論フェーズ" color="#3b82f6"/>
+                <Tip type="info">チームとして意見を出し合い、最善の判断を議論してください。</Tip>
+                <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-4">
+                  <div className="bg-blue-50 px-4 py-2 border-b border-slate-200">
+                    <span className="text-xs font-bold text-blue-600">📍 現場状況図（参照用）</span>
+                  </div>
+                  <div className="p-3">{DIAGRAMS[sc.id]}</div>
                 </div>
-                <div style={{padding:6,maxHeight:200,overflow:"hidden"}}>{DIAGRAMS[sc.id]}</div>
-              </div>
-              <p style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:10,textTransform:"uppercase",letterSpacing:1}}>📌 議論のポイント</p>
-              <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:0}}>
-                {sc.keypoints.map((kp,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:10,padding:"10px 14px"}}><div style={{width:8,height:8,borderRadius:"50%",background:"#3b82f6",flexShrink:0}}/><span style={{fontSize:13,fontWeight:500,color:"#1e293b"}}>{kp}</span></div>)}
-              </div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">📌 議論のポイント</p>
+                <div className="flex flex-col gap-2">
+                  {sc.keypoints.map((kp,i)=>(
+                    <div key={i} className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5">
+                      <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"/>
+                      <span className="text-sm font-medium text-slate-800">{kp}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
             </Card>
             <Card>
-              <p style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:12,textTransform:"uppercase",letterSpacing:1}}>📋 個人回答の共有（読み合わせ用）</p>
-              {sc.questions.map((q,i)=>(
-                <div key={i} style={{marginBottom:14,paddingBottom:14,borderBottom:i<sc.questions.length-1?"1px dashed #e2e8f0":"none"}}>
-                  <p style={{fontSize:11.5,color:"#3b82f6",fontWeight:700,marginBottom:5}}>Q{i+1}. {q}</p>
-                  <div style={{background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:8,padding:"9px 13px",fontSize:13,color:notes[i]?"#64748b":"#94a3b8",fontStyle:notes[i]?"normal":"italic",lineHeight:1.7}}>{notes[i]||"（個人考察フェーズで未入力）"}</div>
-                </div>
-              ))}
-              <div style={{borderTop:"1.5px solid #e2e8f0",paddingTop:16,marginTop:4}}>
-                <p style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:10,textTransform:"uppercase",letterSpacing:1}}>📝 議論メモ</p>
-                <textarea rows={7} value={disc} onChange={e=>setDisc(e.target.value)} placeholder={"・意見の分かれた点\n・合意できた判断\n・重要な気づき\n・検討した代替案"} style={{minHeight:160}}/>
-              </div>
+              <CardContent className="pt-5">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">📝 議論メモ</p>
+                <Textarea rows={7} value={disc} onChange={e=>setDisc(e.target.value)}
+                  placeholder={"・意見の分かれた点\n・合意できた判断\n・重要な気づき\n・検討した代替案"}
+                  className="min-h-40"/>
+              </CardContent>
             </Card>
             <NavRow onBack={()=>setStep(2)} backLabel="議論ルール" onNext={()=>setStep(4)} nextLabel="まとめ入力へ" nextColor="#f97316"/>
           </div>
@@ -2290,16 +1883,37 @@ export default function App() {
 
         {/* ════ STEP 4: まとめ入力 ════ */}
         {step===4&&(
-          <div className="fade-up">
+          <div className="fade-up flex flex-col gap-4">
             <Card>
-              <SecTitle icon="📊" title="訓練まとめ入力" color="#f97316"/>
-              <p style={{fontSize:12.5,color:"#64748b",marginBottom:20,lineHeight:1.7}}>議論の結論をまとめてください。この内容がそのままPDFレポートに反映されます。</p>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
-                <div><label style={{display:"block",fontSize:11,fontWeight:700,color:"#64748b",marginBottom:6,textTransform:"uppercase",letterSpacing:0.8}}>訓練名</label><input value={sum.trainName} placeholder={sc?.title} onChange={e=>setSum(p=>({...p,trainName:e.target.value}))}/></div>
-                <div><label style={{display:"block",fontSize:11,fontWeight:700,color:"#64748b",marginBottom:6,textTransform:"uppercase",letterSpacing:0.8}}>チーム名</label><input value={sum.teamName} placeholder="例：第1小隊" onChange={e=>setSum(p=>({...p,teamName:e.target.value}))}/></div>
-              </div>
-              <label style={{display:"block",fontSize:11,fontWeight:700,color:"#64748b",marginBottom:6,textTransform:"uppercase",letterSpacing:0.8}}>実施日時</label>
-              <input value={sum.datetime} onChange={e=>setSum(p=>({...p,datetime:e.target.value}))}/>
+              <CardContent className="pt-5">
+                <SecTitle icon="📊" title="訓練まとめ入力" color="#f97316"/>
+                <p className="text-sm text-slate-500 mb-5 leading-relaxed">議論の結論をまとめてください。この内容がそのままPDFレポートに反映されます。</p>
+                {DIAGRAMS[sc.id] && (
+                  <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-5">
+                    <div className="bg-orange-50 px-4 py-2 border-b border-slate-200 flex items-center gap-2">
+                      <span className="text-xs font-bold text-orange-600">📍 現場状況図（参照用）</span>
+                    </div>
+                    <div className="p-3">{DIAGRAMS[sc.id]}</div>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">訓練名</label>
+                    <input className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:outline-none focus:border-orange-400 focus:bg-white transition-all"
+                      value={sum.trainName} placeholder={sc?.title} onChange={e=>setSum(p=>({...p,trainName:e.target.value}))}/>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">チーム名</label>
+                    <input className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:outline-none focus:border-orange-400 focus:bg-white transition-all"
+                      value={sum.teamName} placeholder="例：第1小隊" onChange={e=>setSum(p=>({...p,teamName:e.target.value}))}/>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">実施日時</label>
+                  <input className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:outline-none focus:border-orange-400 focus:bg-white transition-all"
+                    value={sum.datetime} onChange={e=>setSum(p=>({...p,datetime:e.target.value}))}/>
+                </div>
+              </CardContent>
             </Card>
             {[
               {k:"situationSummary",icon:"📍",label:"状況概要（シナリオ要約）",ph:"シナリオの要点を簡潔にまとめてください...",rows:4},
@@ -2308,9 +1922,14 @@ export default function App() {
               {k:"discussionPoints",icon:"🔥",label:"議論ポイント — 意見の相違・重要判断",ph:"・○○について意見が分かれた\n・最終的に○○を選んだ根拠...",rows:5},
               {k:"finalConclusion",icon:"✅",label:"最終結論 — 統一見解",ph:"チームとして合意した対応方針...",rows:4},
             ].map(({k,icon,label,ph,rows})=>(
-              <Card key={k} style={{padding:20}}>
-                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}><span style={{fontSize:18}}>{icon}</span><span style={{fontSize:14,fontWeight:800,color:"#1e293b"}}>{label}</span></div>
-                <textarea rows={rows} value={sum[k]} placeholder={ph} onChange={e=>setSum(p=>({...p,[k]:e.target.value}))}/>
+              <Card key={k}>
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-lg">{icon}</span>
+                    <span className="text-sm font-extrabold text-slate-900">{label}</span>
+                  </div>
+                  <Textarea rows={rows} value={sum[k]} placeholder={ph} onChange={e=>setSum(p=>({...p,[k]:e.target.value}))}/>
+                </CardContent>
               </Card>
             ))}
             <NavRow onBack={()=>setStep(3)} backLabel="グループ議論" onNext={()=>setStep(5)} nextLabel="PDF生成へ" nextColor="#8b5cf6"/>
@@ -2319,40 +1938,55 @@ export default function App() {
 
         {/* ════ STEP 5: PDF生成 ════ */}
         {step===5&&(
-          <div className="fade-up">
+          <div className="fade-up flex flex-col gap-4">
             <Card>
-              <SecTitle icon="📄" title="訓練レポート PDF生成" color="#8b5cf6"/>
-              <div style={{background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:12,overflow:"hidden",marginBottom:24}}>
-                <div style={{background:"#f0f2f8",padding:"10px 16px",borderBottom:"1px solid #e2e8f0",fontSize:11,fontWeight:700,color:"#64748b",textTransform:"uppercase",letterSpacing:1,fontFamily:"monospace"}}>Report Preview</div>
-                {[{label:"タイトル",val:`${sum.trainName||sc?.title} / ${sum.datetime} / ${sum.teamName||"未設定"}`},{label:"状況概要",val:sum.situationSummary,trunc:100},{label:"初動判断",val:sum.initialDecision},{label:"対応方針",val:sum.actionPolicy},{label:"議論ポイント",val:sum.discussionPoints||disc},{label:"最終結論",val:sum.finalConclusion}].map(({label,val,trunc},i)=>{
-                  const v=trunc&&val&&val.length>trunc?val.slice(0,trunc)+"…":val;
-                  return <div key={i} style={{display:"flex",borderBottom:i<5?"1px solid #e2e8f0":"none"}}><div style={{width:95,flexShrink:0,padding:"9px 14px",fontSize:11,fontWeight:700,color:"#64748b",background:"#f0f2f8",borderRight:"1px solid #e2e8f0"}}>{label}</div><div style={{flex:1,padding:"9px 14px",fontSize:12,color:val?"#1e293b":"#94a3b8",fontStyle:val?"normal":"italic",lineHeight:1.65}}>{v||"（未入力）"}</div></div>;
-                })}
-              </div>
-              {pdfDone?(
-                <div style={{background:"#f0fdf4",border:"1.5px solid #86efac",borderRadius:14,padding:32,textAlign:"center"}}>
-                  <div style={{fontSize:44,marginBottom:10}}>✅</div>
-                  <div style={{fontSize:20,fontWeight:800,color:"#166534",marginBottom:6}}>PDFを生成しました</div>
-                  <div style={{fontSize:12.5,color:"#4ade80",marginBottom:24,fontFamily:"monospace"}}>ダウンロードフォルダをご確認ください</div>
-                  <div style={{display:"flex",gap:12,justifyContent:"center"}}>
-                    <button onClick={doPDF} style={{background:"linear-gradient(135deg,#22c55e,#16a34a)",border:"none",borderRadius:10,color:"#fff",padding:"11px 24px",fontSize:13,fontWeight:800,boxShadow:"0 4px 16px rgba(34,197,94,0.35)"}}>再ダウンロード</button>
-                    <button onClick={reset} style={{background:"#fff",border:"1.5px solid #cbd5e1",borderRadius:10,color:"#64748b",padding:"11px 24px",fontSize:13,fontWeight:600}}>新しい訓練を開始</button>
-                  </div>
+              <CardContent className="pt-5">
+                <SecTitle icon="📄" title="訓練レポート PDF生成" color="#8b5cf6"/>
+                <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden mb-6">
+                  <div className="bg-slate-100 px-4 py-2.5 border-b border-slate-200 font-mono text-[10px] font-bold text-slate-500 uppercase tracking-widest">Report Preview</div>
+                  {[
+                    {label:"タイトル",val:`${sum.trainName||sc?.title} / ${sum.datetime} / ${sum.teamName||"未設定"}`},
+                    {label:"状況概要",val:sum.situationSummary,trunc:100},
+                    {label:"初動判断",val:sum.initialDecision},
+                    {label:"対応方針",val:sum.actionPolicy},
+                    {label:"議論ポイント",val:sum.discussionPoints||disc},
+                    {label:"最終結論",val:sum.finalConclusion},
+                  ].map(({label,val,trunc},i,arr)=>{
+                    const v=trunc&&val&&val.length>trunc?val.slice(0,trunc)+"…":val;
+                    return (
+                      <div key={i} className={cn("flex",i<arr.length-1?"border-b border-slate-200":"")}>
+                        <div className="w-24 shrink-0 px-4 py-2.5 text-[11px] font-bold text-slate-500 bg-slate-100 border-r border-slate-200">{label}</div>
+                        <div className={cn("flex-1 px-4 py-2.5 text-xs leading-relaxed",val?"text-slate-900":"text-slate-400 italic")}>{v||"（未入力）"}</div>
+                      </div>
+                    );
+                  })}
                 </div>
-              ):(
-                <div style={{textAlign:"center",padding:"8px 0"}}>
-                  <button onClick={doPDF} style={{background:"linear-gradient(135deg,#f97316,#fb923c)",border:"none",borderRadius:14,color:"#fff",padding:"16px 52px",fontSize:15,fontWeight:800,boxShadow:"0 6px 28px rgba(249,115,22,0.4)",display:"inline-flex",alignItems:"center",gap:10}}>
-                    <span style={{fontSize:20}}>📄</span>PDFレポートを生成・ダウンロード
-                  </button>
-                  <p style={{fontSize:11.5,color:"#94a3b8",marginTop:10,fontFamily:"monospace"}}>A4縦形式 · 全セクション収録 · 日本語対応</p>
-                  {pdfError&&(
-                    <div style={{marginTop:14,background:"#fef2f2",border:"1px solid #fca5a5",borderRadius:10,padding:"12px 16px",textAlign:"left"}}>
-                      <div style={{fontSize:12,fontWeight:700,color:"#dc2626",marginBottom:4}}>⚠ エラーが発生しました</div>
-                      <div style={{fontSize:11,color:"#b91c1c",fontFamily:"monospace",wordBreak:"break-all",lineHeight:1.6}}>{pdfError}</div>
+
+                {pdfDone ? (
+                  <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-8 text-center">
+                    <div className="text-5xl mb-3">✅</div>
+                    <div className="text-xl font-extrabold text-green-800 mb-1">PDFを生成しました</div>
+                    <div className="text-xs text-green-500 font-mono mb-6">ダウンロードフォルダをご確認ください</div>
+                    <div className="flex gap-3 justify-center">
+                      <Button variant="success" size="md" onClick={doPDF}>再ダウンロード</Button>
+                      <Button variant="outline" size="md" onClick={reset}>新しい訓練を開始</Button>
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                ) : (
+                  <div className="text-center py-2">
+                    <Button size="xl" onClick={doPDF} className="px-14">
+                      <span className="text-xl">📄</span>PDFレポートを生成・ダウンロード
+                    </Button>
+                    <p className="text-xs text-slate-400 font-mono mt-3">A4縦形式 · 全セクション収録 · 日本語対応</p>
+                    {pdfError && (
+                      <Alert variant="danger" icon="⚠" className="mt-4 text-left">
+                        <div className="font-bold mb-1">エラーが発生しました</div>
+                        <div className="font-mono text-xs break-all">{pdfError}</div>
+                      </Alert>
+                    )}
+                  </div>
+                )}
+              </CardContent>
             </Card>
             <NavRow onBack={()=>setStep(4)} backLabel="まとめを編集"/>
           </div>

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'M PLUS Rounded 1c', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --color-background: #f5f6fa;
+  --color-foreground: #1e293b;
+  --color-card: #ffffff;
+  --color-border: #e2e8f0;
+  --color-muted: #64748b;
+  --color-muted-foreground: #94a3b8;
+  --color-orange: #f97316;
+  --color-teal: #14b8a6;
+  --color-blue: #3b82f6;
+  --color-red: #ef4444;
+  --color-purple: #8b5cf6;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+}
+
+@layer utilities {
+  .fade-up { animation: fadeUp 0.3s ease both; }
+  .fade-up-1 { animation: fadeUp 0.3s 0.04s ease both; }
+  .fade-up-2 { animation: fadeUp 0.3s 0.08s ease both; }
+  .fade-up-3 { animation: fadeUp 0.3s 0.12s ease both; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
