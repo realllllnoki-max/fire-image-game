@@ -1335,6 +1335,38 @@ function loadHtml2Canvas() {
   });
 }
 
+function imgToPng(imgEl) {
+  return new Promise(resolve => {
+    try {
+      const src = imgEl.src || imgEl.getAttribute("src");
+      if (!src) return resolve(null);
+      const draw = (img) => {
+        const w = img.naturalWidth || 740;
+        const h = img.naturalHeight || 416;
+        const maxW = 1480;
+        const scale = w > maxW ? maxW / w : 1;
+        const cw = Math.round(w * scale), ch = Math.round(h * scale);
+        const c = document.createElement("canvas");
+        c.width = cw; c.height = ch;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#fff"; ctx.fillRect(0,0,cw,ch);
+        ctx.drawImage(img, 0, 0, cw, ch);
+        try { resolve(c.toDataURL("image/jpeg", 0.9)); }
+        catch(e) { resolve(null); }
+      };
+      if (imgEl.complete && imgEl.naturalWidth > 0) {
+        draw(imgEl);
+      } else {
+        const img2 = new Image();
+        img2.crossOrigin = "anonymous";
+        img2.onload = () => draw(img2);
+        img2.onerror = () => resolve(null);
+        img2.src = src;
+      }
+    } catch(e) { resolve(null); }
+  });
+}
+
 function svgToPng(svgEl, width=740, height=330) {
   return new Promise(resolve => {
     try {
@@ -1364,10 +1396,18 @@ async function buildPDF(sc, notes, disc, sum) {
   const PW=210, PH=297, M=14, CW=PW-M*2;
   const g = GENRES.find(g=>g.id===sc.genre);
 
-  // SVG図を取得
+  // 図を取得（SVG または IMG）
   let diagramPng = null;
-  const svgNode = document.querySelector(`[data-diagram="${sc.id}"] svg`);
-  if (svgNode) diagramPng = await svgToPng(svgNode, 740, 330);
+  const container = document.querySelector(`[data-diagram="${sc.id}"]`);
+  if (container) {
+    const svgNode = container.querySelector("svg");
+    const imgNode = container.querySelector("img");
+    if (svgNode) {
+      diagramPng = await svgToPng(svgNode, 740, 330);
+    } else if (imgNode) {
+      diagramPng = await imgToPng(imgNode);
+    }
+  }
 
   const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>");
 
@@ -1959,6 +1999,10 @@ export default function App() {
         {/* ════ STEP 5: PDF生成 ════ */}
         {step===5&&(
           <div className="fade-up flex flex-col gap-4">
+            {/* PDF用に図をDOMに含める（画面外） */}
+            <div data-diagram={sc.id} style={{position:"absolute",left:"-99999px",top:0,width:740,pointerEvents:"none"}} aria-hidden="true">
+              {DIAGRAMS[sc.id]}
+            </div>
             <Card>
               <CardContent className="pt-5">
                 <SecTitle icon="📄" title="訓練レポート PDF生成" color="#8b5cf6"/>
