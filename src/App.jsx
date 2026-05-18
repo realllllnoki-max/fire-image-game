@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button }    from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge }     from "@/components/ui/badge";
@@ -798,13 +798,43 @@ const DiagramF31 = () => (
   </div>
 );
 
+// f32: 共同住宅2階バルコニーの逃げ遅れ — 写真ベース
+const DiagramF32 = () => (
+  <div style={{width:"100%",borderRadius:8,overflow:"hidden",background:"#1e293b"}}>
+    <img
+      src="/scenario-f32.jpg"
+      alt="共同住宅2階バルコニーの逃げ遅れ"
+      style={{width:"100%",height:"auto",display:"block"}}
+      onError={(e)=>{e.currentTarget.style.display='none';e.currentTarget.nextSibling.style.display='block';}}
+    />
+    <div style={{display:"none",padding:"40px 20px",textAlign:"center",color:"#94a3b8",fontSize:13}}>
+      📷 画像未登録：public/scenario-f32.jpg を配置してください
+    </div>
+  </div>
+);
+
+// f33: ストレート注水 vs 噴霧注水 — 比較図
+const DiagramF33 = () => (
+  <div style={{width:"100%",borderRadius:8,overflow:"hidden",background:"#1e293b"}}>
+    <img
+      src="/scenario-f33.jpg"
+      alt="ストレート注水と噴霧注水の比較"
+      style={{width:"100%",height:"auto",display:"block"}}
+      onError={(e)=>{e.currentTarget.style.display='none';e.currentTarget.nextSibling.style.display='block';}}
+    />
+    <div style={{display:"none",padding:"40px 20px",textAlign:"center",color:"#94a3b8",fontSize:13}}>
+      📷 画像未登録：public/scenario-f33.jpg を配置してください
+    </div>
+  </div>
+);
+
 /* ── DIAGRAM MAP ─────────────────────────────── */
 const DIAGRAMS = {
   f1:<DiagramF1/>, f2:<DiagramF2/>, f3:<DiagramF3/>, f4:<DiagramF4/>,
   r1:<DiagramR1/>, r2:<DiagramR2/>, r3:<DiagramR3/>, r4:<DiagramR4/>,
   e1:<DiagramE1/>, e2:<DiagramE2/>, e3:<DiagramE3/>, e4:<DiagramE4/>,
   o1:<DiagramO1/>, o2:<DiagramO2/>, o3:<DiagramO3/>, o4:<DiagramO4/>,
-  f31:<DiagramF31/>,
+  f31:<DiagramF31/>, f32:<DiagramF32/>, f33:<DiagramF33/>,
 };
 
 /* ── SCENARIO DATA ───────────────────────────── */
@@ -1064,6 +1094,14 @@ const SCENARIOS = [
    situation:`【通報内容】\n午後2時、「ビニールハウスが燃えて、火がどんどん広がっている」との通報。\n\n【現場状況】\n・対象：農業用ビニールハウス群（総面積約5ha）\n・延焼：強風でビニールが飛散し、隣接ハウスへ次々と延焼\n・農薬倉庫：ハウス群の中央付近に農薬保管倉庫あり\n・水利：農業用水路のみ（消火栓なし）\n\n【出動部隊】\nポンプ車4隊、化学車1隊、指揮車1隊`,
    questions:["農薬倉庫への延焼を防ぐための防御ラインをどこに設定するか？","農業用水路からの水利確保と消火活動の展開方法は？","飛散するビニールによる二次着火への対応方法は？"],
    keypoints:["農薬倉庫への延焼防止","農業用水路からの水利確保","ビニール飛散による二次着火対策"]},
+  {id:"f32",genre:"fire",title:"共同住宅2階の逃げ遅れ救出（バルコニー要救助者）",summary:"3階建てRC共同住宅2階で出火、室内は濃煙。逃げ遅れた2名がバルコニーで救助要請中。初動と救出方法を判断せよ。",
+   situation:`【通報内容】\n夕方17時28分、住民から「マンションの2階から黒い煙が出ている。ベランダで人が手を振っている」との通報。\n\n【現場状況】\n・対象建物：RC造3階建て共同住宅（各階4戸）\n・出火階：2階中央付近の居室。バルコニー側の掃き出し窓から黒煙噴出\n・要救助者：2階バルコニーに大人2名（成人男女）が避難。意識・歩行可能、タオルを振って救助要請\n・室内状況：濃煙と火炎で屋内通路（共用廊下側）は使用困難の可能性\n・建物周囲：南面（バルコニー側）に庭・植栽あり、車両進入可。北面（共用廊下）は隣家との間隔狭い\n・道路状況：建物南側は片側1車線（はしご車展開可）、北側は4m道路（狭隘）\n・気象：風速2m/s、北東の風（バルコニー側に煙が滞留しやすい）\n・延焼危険：3階・隣戸（左右）への延焼進行中の可能性\n・周囲住民：1階居住者は自力避難済み、近隣住民が複数集まり指差し中\n\n【出動部隊】\nポンプ車2隊、はしご車1隊、救助工作車1隊、救急車1隊、指揮車1隊（先着隊到着済み、後続部隊3分以内）`,
+   questions:["先着隊（ポンプ車1隊）が到着直後に行うべき初動措置は何か？（部隊配置／部署位置／指揮命令）","2名の要救助者の救出手段として最も適切なのはどれか？根拠も含めて議論せよ。①はしご車によるバスケット救出 ②3連はしご・かぎ付きはしご ③屋内進入による救出 ④縛帯・ロープ降下","はしご車の部署位置（部署面・架梯角度）はどこが最適か？障害物（樹木・電線・植栽）を考慮して判断せよ。","屋内進入隊と救出隊・消火隊の任務分担と進入順序をどう組み立てるか？","要救助者が「煙が来た、もう待てない」と自力で飛び降りようとした場合の対応は？（避難誘導・心理的対応）"],
+   keypoints:["バルコニー要救助者への救出手段選択（はしご車 vs 屋内進入）","先着隊の初動（情報収集・部隊配置・はしご車誘導）","部署位置の判断（障害物・架梯角度・退路確保）","救出・消火・延焼防止の任務分担","要救助者への声掛け・心理的安定確保"]},
+  {id:"f33",genre:"fire",title:"ストレート注水と噴霧注水の使い分け",summary:"基本注水技術の徹底議論。場面ごとに適切な注水形態を選択する判断力を養う。",
+   situation:`【検討内容】\nノズル先端の絞り操作で得られる「ストレート注水（棒状）」と「噴霧注水（噴霧・水幕）」。それぞれの特性を理解し、現場で適切に使い分けられているか — 自隊の活動を振り返って議論する。\n\n【ストレート注水（棒状放水）の特性】\n・到達距離が長く、放水圧力が集中する\n・遠距離・高所・屋外火点に有効\n・燃焼物の冷却・破壊力が高い\n・水損が局所的に集中しやすい\n・反動力が大きく、隊員への負担あり\n\n【噴霧注水（噴霧放水）の特性】\n・水を細かい霧状にして広範囲に分散\n・空気を取り込み熱気・煙を抑制（水幕効果）\n・隊員自身の防護（熱気・輻射熱の遮断）に有効\n・水量当たりの冷却効率は高い（表面積大）\n・到達距離は短く、風の影響を受けやすい\n・近接戦・屋内進入・濃煙下で活用\n\n【想定する複数の場面】\n① 木造住宅2階の窓から炎が噴出している（屋外からの放水）\n② 屋内進入中、廊下に濃煙が充満（視界・呼吸確保）\n③ 倉庫内で積み荷が燃焼中、輻射熱が強い\n④ ガソリン等の油類火災（流出油）\n⑤ 隊員自身の身体を熱気から守りながら前進する場面`,
+   questions:["ストレート注水のメリット・デメリットを整理せよ。","噴霧注水のメリット・デメリットを整理せよ。","上記①〜⑤の各場面で、ストレート／噴霧のどちらが適切か？理由とともに議論せよ。"],
+   keypoints:["ストレート注水の特性（距離・破壊力・水損・反動）","噴霧注水の特性（水幕・冷却・防護・到達距離）","場面別の使い分け（屋外／屋内／油類／隊員防護）","切替のタイミングと判断基準","自隊の活動振り返りと訓練見直し"]},
   {id:"f31",genre:"fire",title:"屋内進入中の隊員受傷（3階・MAYDAY）",summary:"3階に2名で屋内進入中、1名が突然倒れ意識なし。残った1名がどう動くか — 救命と任務継続のジレンマ。",
    situation:`【通報内容】\n午後3時45分、住宅密集地の中層共同住宅3階で建物火災。先着隊が放水・進入活動を実施中。\n\n【現場状況】\n・対象建物：RC造5階建て共同住宅（3階出火）\n・進入中の隊員：2名1組で3階居室内を検索中\n・突発事象：1名（A隊員）が突然倒れ呼びかけに反応なし。面体内の状況・原因不明（熱中症／体調不良／空気呼吸器トラブル／フラッシュオーバー等の可能性）\n・残存隊員：B隊員（A隊員の隣に位置）が状況を覚知\n・室内環境：濃煙・高温、視界ほぼゼロ、ホース1線進入済み\n・退路：進入口（玄関）まで約8m、廊下経由\n・通信：B隊員は無線機を装備\n・空気残圧：A隊員・B隊員ともに不明（活動開始から約10分経過）\n\n【出動部隊】\nポンプ車3隊、救助工作車1隊、救急車1隊、指揮車1隊（現場活動中）`,
    questions:["B隊員が最初の30秒で必ず行うべき行動は何か？（無線報告／A隊員の状態確認／退避準備の優先順位）","「MAYDAY（メーデー）」の宣告タイミングと、無線で伝えるべき必須情報（LUNAR等）は？","B隊員1名でA隊員を進入口まで搬送できるか？できない場合はどう判断し、どう待つか？","RIT（緊急救助隊）が到着するまでの間、B隊員自身の安全確保（空気・退路・位置情報）をどう維持するか？","この事案から自隊の活動・訓練で見直すべき点は何か？（2人1組の徹底／空気管理／MAYDAY訓練／RIT編成）"],
@@ -1431,22 +1469,23 @@ async function buildPDF(sc, notes, disc, sum) {
     <div style="border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:7px;">
       <img src="${diagramPng}" style="width:100%;display:block;"/>
     </div>` : `<div ${SS('#f59e0b')}>2. 現場状況図</div><div ${FS}>（現場状況図なし）</div>`}
-    <div ${SS('#3b82f6')}>3. 状況概要</div>
-    <div ${FS}>${esc(sum.situationSummary||sc.situation)}</div>
+    <div ${SS('#3b82f6')}>3. シナリオ概要</div>
+    <div ${FS}>${esc(sc.situation)}</div>
   </div>`;
+
+  const QS = `style="background:#0f172a;color:#fff;font-weight:900;font-size:11px;padding:6px 12px;border-radius:5px 5px 0 0;margin-top:10px;"`;
+  const AS = `style="background:#f8fafc;border-left:3px solid #f97316;padding:9px 13px;margin-bottom:0;font-size:11px;line-height:1.85;border-radius:0 0 5px 5px;white-space:pre-wrap;word-break:break-all;"`;
+  const qaHtml = (sc.questions||[]).map((q,i)=>`
+    <div ${QS}>Q${i+1}. ${esc(q)}</div>
+    <div ${AS}>${esc(notes[i]||"（未記入）")}</div>
+  `).join("");
 
   const page2 = `<div style="padding:0 16px;font-family:sans-serif;">
     <div style="background:#f97316;color:#fff;padding:9px 18px;margin:0 -16px 14px;font-size:11px;font-weight:700;">
       🔥 FIRE IMAGE GAME｜訓練レポート（つづき）
     </div>
-    <div ${SS('#14b8a6')}>4. 初動判断</div>
-    <div ${FS}>${esc(sum.initialDecision)}</div>
-    <div ${SS('#14b8a6')}>5. 対応方針・優先順位・戦術</div>
-    <div ${FS}>${esc(sum.actionPolicy)}</div>
-    <div ${SS('#f97316')}>6. 議論ポイント</div>
-    <div ${FS}>${esc(sum.discussionPoints||disc)}</div>
-    <div ${SS('#8b5cf6')}>7. 最終結論・統一見解</div>
-    <div ${FS}>${esc(sum.finalConclusion)}</div>
+    <div ${SS('#f97316')}>4. 議論結果（議題と回答）</div>
+    ${qaHtml}
     <div style="margin-top:18px;padding-top:10px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;">
       <span>消防図上訓練レポート | ${esc(sum.teamName||"チーム名未設定")} | ${esc(sum.datetime)}</span>
       <span>Fire Image Game</span>
@@ -1464,10 +1503,6 @@ async function buildPDF(sc, notes, disc, sum) {
     t("Team: "+(sum.teamName||"N/A")+"  Date: "+sum.datetime);
     t("Scenario: "+sc.title);
     sc.questions.forEach((q,i)=>{ t("Q"+(i+1)+": "+q); t("A: "+(notes[i]||"(none)")); });
-    t("Decision: "+sum.initialDecision);
-    t("Policy: "+sum.actionPolicy);
-    t("Points: "+(sum.discussionPoints||disc));
-    t("Conclusion: "+sum.finalConclusion);
     doc.save("FireImageGame_"+Date.now()+".pdf");
     return;
   }
@@ -1494,7 +1529,9 @@ async function buildPDF(sc, notes, disc, sum) {
 }
 
 /* ── COMPONENTS ───────────────────────────────── */
-const STEPS = ["シナリオ選択","議論ルール","グループ議論","まとめ入力","PDF生成"];
+const STEPS = ["シナリオ選択","議論ルール","議論・まとめ","PDF生成"];
+// 内部 step 値 → STEPS 配列インデックスへの変換
+const STEP_INDEX = {0:0, 2:1, 4:2, 5:3};
 const SecTitle = ({ icon, title, color = "#f97316" }) => (
   <div className="flex items-center gap-3 mb-5">
     <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xl shrink-0"
@@ -1546,6 +1583,11 @@ export default function App() {
   const [disc,setDisc]=useState("");
   const [pdfDone,setPdfDone]=useState(false);
   const [sum,setSum]=useState({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});
+
+  // ステップ遷移時にページ最上部へスクロール
+  useEffect(() => {
+    window.scrollTo({top:0, left:0, behavior:"instant"});
+  }, [step]);
   const [pdfError,setPdfError]=useState("");
 
   const list = SCENARIOS.filter(s => s.genre === genre);
@@ -1564,7 +1606,8 @@ export default function App() {
   };
   const accent = step>=0 ? STEP_COLORS[step] : "#f97316";
   const inSession = step>=0;
-  const progress = step>=0 ? Math.round(((step+1)/STEPS.length)*100) : 0;
+  const phaseIdx = STEP_INDEX[step] ?? 0;
+  const progress = step>=0 ? Math.round(((phaseIdx+1)/STEPS.length)*100) : 0;
 
   return (
     <div className={cn("min-h-screen", inSession ? "bg-slate-50" : "bg-[#0a0c12]")}>
@@ -1582,9 +1625,9 @@ export default function App() {
             </button>
             <div className="flex items-center gap-3">
               <Badge variant="slate" className="font-mono text-[10px] tracking-widest">
-                PHASE {step+1}/{STEPS.length}
+                PHASE {phaseIdx+1}/{STEPS.length}
               </Badge>
-              <span className="text-sm font-bold text-slate-700" style={{color:accent}}>{STEPS[step]}</span>
+              <span className="text-sm font-bold text-slate-700" style={{color:accent}}>{STEPS[phaseIdx]}</span>
               {sc && <><span className="text-slate-300">|</span><span className="text-xs text-slate-500">{gInfo?.icon} {sc.title}</span></>}
             </div>
           </div>
@@ -1724,15 +1767,14 @@ export default function App() {
             <div className="mb-8">
               <div className="text-center mb-6">
                 <h2 className="text-xl font-extrabold text-slate-900 mb-1">訓練の流れ</h2>
-                <p className="text-sm text-slate-500">5つのステップで進めます</p>
+                <p className="text-sm text-slate-500">4つのステップで進めます</p>
               </div>
               <div className="flex flex-col gap-0">
                 {[
-                  {num:1,icon:"🎯",label:"シナリオ選択",  sub:"ジャンルとシナリオを選ぶ",     color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
-                  {num:2,icon:"📋",label:"議論ルール確認",sub:"全員でルールを共有する",        color:"#f43f5e",bg:"#fff1f2",border:"#fecdd3"},
-                  {num:3,icon:"🗣️",label:"グループ議論",  sub:"意見を出し合い判断を深める",    color:"#3b82f6",bg:"#eff6ff",border:"#bfdbfe"},
-                  {num:4,icon:"📊",label:"まとめ入力",    sub:"チームの結論を記録する",        color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
-                  {num:5,icon:"📄",label:"PDF生成",       sub:"訓練レポートを出力・保存する",  color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe"},
+                  {num:1,icon:"🎯",label:"シナリオ選択",     sub:"ジャンルとシナリオを選ぶ",        color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
+                  {num:2,icon:"📋",label:"議論ルール確認",   sub:"全員でルールを共有する",          color:"#f43f5e",bg:"#fff1f2",border:"#fecdd3"},
+                  {num:3,icon:"🗣️",label:"議論・まとめ入力",sub:"議論しながら結論を記録する",      color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
+                  {num:4,icon:"📄",label:"PDF生成",          sub:"訓練レポートを出力・保存する",    color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe"},
                 ].map(({num,icon,label,sub,color,bg,border},i,arr)=>(
                   <div key={num} className="flex flex-col items-stretch">
                     <Card className="flex items-center gap-4 p-4" style={{borderColor:border,borderWidth:2}}>
@@ -1901,59 +1943,58 @@ export default function App() {
               </div>
             </div>
 
-            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択に戻る" onNext={()=>setStep(3)} nextLabel="議論スタート！" nextColor="#3b82f6"/>
+            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択に戻る" onNext={()=>setStep(4)} nextLabel="議論・まとめ入力へ" nextColor="#f97316"/>
           </div>
         )}
 
-        {/* ════ STEP 3: グループ議論 ════ */}
-        {step===3&&sc&&(
+        {/* ════ STEP 4: 議論・まとめ入力 ════ */}
+        {step===4&&sc&&(
           <div className="fade-up flex flex-col gap-4">
             <Card>
               <CardContent className="pt-5">
-                <SecTitle icon="🗣️" title="グループ議論フェーズ" color="#3b82f6"/>
-                <Tip type="info">チームとして意見を出し合い、最善の判断を議論してください。</Tip>
-                <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-4">
-                  <div className="bg-blue-50 px-4 py-2 border-b border-slate-200">
-                    <span className="text-xs font-bold text-blue-600">📍 現場状況図（参照用）</span>
+                <SecTitle icon="🗣️" title="議論・まとめ入力" color="#f97316"/>
+                <p className="text-sm text-slate-500 mb-5 leading-relaxed">現場状況図と議論のポイントを参照しながら、チームで議論し結論を入力してください。この内容がそのままPDFレポートに反映されます。</p>
+
+                {/* シナリオ詳細（常時表示） */}
+                <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden mb-5">
+                  <div className="bg-amber-100/70 px-4 py-2 border-b border-amber-200 flex items-center gap-2">
+                    <span className="text-xs font-bold text-amber-700">📖 シナリオ概要 — {sc.title}</span>
                   </div>
-                  <div className="p-3">{DIAGRAMS[sc.id]}</div>
+                  <div className="p-4 text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">{sc.situation}</div>
                 </div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">📌 議論のポイント</p>
-                <div className="flex flex-col gap-2">
-                  {sc.keypoints.map((kp,i)=>(
-                    <div key={i} className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5">
-                      <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"/>
-                      <span className="text-sm font-medium text-slate-800">{kp}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-5">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">📝 議論メモ</p>
-                <Textarea rows={7} value={disc} onChange={e=>setDisc(e.target.value)}
-                  placeholder={"・意見の分かれた点\n・合意できた判断\n・重要な気づき\n・検討した代替案"}
-                  className="min-h-40"/>
-              </CardContent>
-            </Card>
-            <NavRow onBack={()=>setStep(2)} backLabel="議論ルール" onNext={()=>setStep(4)} nextLabel="まとめ入力へ" nextColor="#f97316"/>
-          </div>
-        )}
 
-        {/* ════ STEP 4: まとめ入力 ════ */}
-        {step===4&&(
-          <div className="fade-up flex flex-col gap-4">
-            <Card>
-              <CardContent className="pt-5">
-                <SecTitle icon="📊" title="訓練まとめ入力" color="#f97316"/>
-                <p className="text-sm text-slate-500 mb-5 leading-relaxed">議論の結論をまとめてください。この内容がそのままPDFレポートに反映されます。</p>
                 {DIAGRAMS[sc.id] && (
                   <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-5">
                     <div className="bg-orange-50 px-4 py-2 border-b border-slate-200 flex items-center gap-2">
                       <span className="text-xs font-bold text-orange-600">📍 現場状況図（参照用）</span>
                     </div>
                     <div className="p-3">{DIAGRAMS[sc.id]}</div>
+                  </div>
+                )}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-5">
+                  <p className="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3">📌 議論のポイント</p>
+                  <div className="flex flex-col gap-2">
+                    {sc.keypoints.map((kp,i)=>(
+                      <div key={i} className="flex items-center gap-3 bg-white border border-blue-100 rounded-lg px-3 py-2">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"/>
+                        <span className="text-sm font-medium text-slate-800">{kp}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 議題（questions） */}
+                {sc.questions && sc.questions.length>0 && (
+                  <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-5">
+                    <p className="text-xs font-bold text-rose-700 uppercase tracking-widest mb-3">❓ 議題（チームで議論）</p>
+                    <ol className="flex flex-col gap-2 list-none">
+                      {sc.questions.map((q,i)=>(
+                        <li key={i} className="flex gap-3 bg-white border border-rose-100 rounded-lg px-3 py-2">
+                          <span className="font-mono text-xs font-bold text-rose-500 shrink-0 mt-0.5">Q{i+1}</span>
+                          <span className="text-sm text-slate-800 leading-relaxed">{q}</span>
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 )}
                 <div className="grid grid-cols-2 gap-3 mb-3">
@@ -1975,24 +2016,24 @@ export default function App() {
                 </div>
               </CardContent>
             </Card>
-            {[
-              {k:"situationSummary",icon:"📍",label:"状況概要（シナリオ要約）",ph:"シナリオの要点を簡潔にまとめてください...",rows:4},
-              {k:"initialDecision",icon:"⚡",label:"初動判断 — チームの結論",ph:"到着直後の最優先行動とその根拠...",rows:4},
-              {k:"actionPolicy",icon:"🎯",label:"対応方針 — 優先順位・戦術",ph:"1. ○○を最優先\n2. 次に○○\n3. 後方では○○...",rows:5},
-              {k:"discussionPoints",icon:"🔥",label:"議論ポイント — 意見の相違・重要判断",ph:"・○○について意見が分かれた\n・最終的に○○を選んだ根拠...",rows:5},
-              {k:"finalConclusion",icon:"✅",label:"最終結論 — 統一見解",ph:"チームとして合意した対応方針...",rows:4},
-            ].map(({k,icon,label,ph,rows})=>(
-              <Card key={k}>
+            {/* 議題ごとの回答欄（Q1, Q2, Q3...） */}
+            {sc.questions && sc.questions.map((q,i)=>(
+              <Card key={i}>
                 <CardContent className="pt-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-lg">{icon}</span>
-                    <span className="text-sm font-extrabold text-slate-900">{label}</span>
+                  <div className="flex gap-3 mb-3 items-start">
+                    <span className="font-mono text-xs font-extrabold text-white bg-rose-500 rounded px-2 py-1 shrink-0">Q{i+1}</span>
+                    <span className="text-sm font-bold text-slate-900 leading-relaxed">{q}</span>
                   </div>
-                  <Textarea rows={rows} value={sum[k]} placeholder={ph} onChange={e=>setSum(p=>({...p,[k]:e.target.value}))}/>
+                  <Textarea
+                    rows={5}
+                    value={notes[i]||""}
+                    placeholder={`Q${i+1} へのチームとしての回答を記入...`}
+                    onChange={e=>setNotes(p=>({...p,[i]:e.target.value}))}
+                  />
                 </CardContent>
               </Card>
             ))}
-            <NavRow onBack={()=>setStep(3)} backLabel="グループ議論" onNext={()=>setStep(5)} nextLabel="PDF生成へ" nextColor="#8b5cf6"/>
+            <NavRow onBack={()=>setStep(2)} backLabel="議論ルール" onNext={()=>setStep(5)} nextLabel="PDF生成へ" nextColor="#8b5cf6"/>
           </div>
         )}
 
@@ -2008,22 +2049,26 @@ export default function App() {
                 <SecTitle icon="📄" title="訓練レポート PDF生成" color="#8b5cf6"/>
                 <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden mb-6">
                   <div className="bg-slate-100 px-4 py-2.5 border-b border-slate-200 font-mono text-[10px] font-bold text-slate-500 uppercase tracking-widest">Report Preview</div>
-                  {[
-                    {label:"タイトル",val:`${sum.trainName||sc?.title} / ${sum.datetime} / ${sum.teamName||"未設定"}`},
-                    {label:"状況概要",val:sum.situationSummary,trunc:100},
-                    {label:"初動判断",val:sum.initialDecision},
-                    {label:"対応方針",val:sum.actionPolicy},
-                    {label:"議論ポイント",val:sum.discussionPoints||disc},
-                    {label:"最終結論",val:sum.finalConclusion},
-                  ].map(({label,val,trunc},i,arr)=>{
-                    const v=trunc&&val&&val.length>trunc?val.slice(0,trunc)+"…":val;
-                    return (
-                      <div key={i} className={cn("flex",i<arr.length-1?"border-b border-slate-200":"")}>
-                        <div className="w-24 shrink-0 px-4 py-2.5 text-[11px] font-bold text-slate-500 bg-slate-100 border-r border-slate-200">{label}</div>
-                        <div className={cn("flex-1 px-4 py-2.5 text-xs leading-relaxed",val?"text-slate-900":"text-slate-400 italic")}>{v||"（未入力）"}</div>
-                      </div>
-                    );
-                  })}
+                  {(() => {
+                    const rows = [
+                      {label:"タイトル",val:`${sum.trainName||sc?.title} / ${sum.datetime} / ${sum.teamName||"未設定"}`},
+                      {label:"シナリオ概要",val:sc?.situation,trunc:120},
+                      ...((sc?.questions||[]).map((q,i)=>({
+                        label:`Q${i+1} 回答`,
+                        val: notes[i],
+                        trunc:200,
+                      }))),
+                    ];
+                    return rows.map(({label,val,trunc},i,arr)=>{
+                      const v=trunc&&val&&val.length>trunc?val.slice(0,trunc)+"…":val;
+                      return (
+                        <div key={i} className={cn("flex",i<arr.length-1?"border-b border-slate-200":"")}>
+                          <div className="w-28 shrink-0 px-4 py-2.5 text-[11px] font-bold text-slate-500 bg-slate-100 border-r border-slate-200">{label}</div>
+                          <div className={cn("flex-1 px-4 py-2.5 text-xs leading-relaxed",val?"text-slate-900":"text-slate-400 italic")}>{v||"（未入力）"}</div>
+                        </div>
+                      );
+                    });
+                  })()}
                 </div>
 
                 {pdfDone ? (
