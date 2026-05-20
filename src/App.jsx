@@ -276,7 +276,7 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const page1 = `<div style="padding:0 16px;font-family:sans-serif;">
     <div style="background:#f97316;color:#fff;padding:14px 18px;margin:0 -16px 16px;font-size:15px;font-weight:900;letter-spacing:1px;">
-      🔥 FIRE IMAGE GAME &nbsp;|&nbsp; <span style="font-size:10px;opacity:0.85;font-weight:400;">消防図上訓練レポート　TABLETOP EXERCISE REPORT</span>
+      🔥 消防カンファレンス &nbsp;|&nbsp; <span style="font-size:10px;opacity:0.85;font-weight:400;">消防図上訓練レポート</span>
     </div>
     <div ${SS('#334155')}>1. 訓練基本情報</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
@@ -303,13 +303,13 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const page2 = `<div style="padding:0 16px;font-family:sans-serif;">
     <div style="background:#f97316;color:#fff;padding:9px 18px;margin:0 -16px 14px;font-size:11px;font-weight:700;">
-      🔥 FIRE IMAGE GAME｜訓練レポート（つづき）
+      🔥 消防カンファレンス｜訓練レポート（つづき）
     </div>
     <div ${SS('#f97316')}>4. 議論結果（議題と回答）</div>
     ${qaHtml}
     <div style="margin-top:18px;padding-top:10px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;">
       <span>消防図上訓練レポート | ${esc(sum.teamName||"チーム名未設定")} | ${esc(sum.datetime)}</span>
-      <span>Fire Image Game</span>
+      <span>消防カンファレンス</span>
     </div>
   </div>`;
 
@@ -317,14 +317,14 @@ async function buildPDF(sc, notes, disc, sum) {
     // フォールバック（html2canvasなし）
     doc.setFillColor(249,115,22); doc.rect(0,0,PW,18,"F");
     doc.setFontSize(11); doc.setTextColor(255,255,255);
-    doc.text("FIRE IMAGE GAME - TABLETOP EXERCISE REPORT", PW/2, 11, {align:"center"});
+    doc.text("Shobo Conference - Tabletop Exercise Report", PW/2, 11, {align:"center"});
     let y=26;
     const np=(n)=>{ if(y+n>PH-15){ doc.addPage(); y=22; } };
     const t=(s)=>{ doc.setFontSize(9); doc.setTextColor(40,40,40); const ls=doc.splitTextToSize(String(s||"(none)"),CW); ls.forEach(l=>{ np(5); doc.text(l,M,y); y+=4.5; }); y+=2; };
     t("Team: "+(sum.teamName||"N/A")+"  Date: "+sum.datetime);
     t("Scenario: "+sc.title);
     sc.questions.forEach((q,i)=>{ t("Q"+(i+1)+": "+q); t("A: "+(notes[i]||"(none)")); });
-    doc.save("FireImageGame_"+Date.now()+".pdf");
+    doc.save("消防カンファレンス_"+Date.now()+".pdf");
     return;
   }
 
@@ -440,7 +440,7 @@ export default function App() {
             <button onClick={reset} className="flex items-center gap-3 cursor-pointer bg-transparent border-0 p-0">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center text-lg shadow-md shadow-orange-500/30 shrink-0">🔥</div>
               <div className="text-left">
-                <div className="text-sm font-extrabold text-slate-900 leading-tight">Fire Image Game</div>
+                <div className="text-sm font-extrabold text-slate-900 leading-tight">消防カンファレンス</div>
                 <div className="text-[9px] text-slate-400 font-mono tracking-widest">TABLETOP EXERCISE PLATFORM</div>
               </div>
             </button>
@@ -474,7 +474,7 @@ export default function App() {
             <nav className="flex items-center justify-between pt-6">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-lg shadow-lg shadow-orange-500/50">🔥</div>
-                <span className="font-mono text-[11px] font-bold text-orange-400 tracking-[3px]">FIRE IMAGE GAME</span>
+                <span className="text-sm font-extrabold text-orange-400 tracking-wider">消防カンファレンス</span>
               </div>
               <span className="font-mono text-[9px] text-slate-600 tracking-[2px]">TABLETOP EXERCISE SYSTEM</span>
             </nav>
@@ -489,11 +489,11 @@ export default function App() {
                 </div>
 
                 {/* メインタイトル */}
-                <div className="font-mono font-extrabold leading-none mb-6 tracking-wide"
-                     style={{fontSize:"clamp(48px,10vw,88px)",
+                <div className="font-extrabold leading-tight mb-6 tracking-wide"
+                     style={{fontSize:"clamp(40px,8vw,72px)",
                        background:"linear-gradient(160deg,#ffffff 0%,#ffffff 25%,#fb923c 55%,#f97316 70%,#ef4444 100%)",
                        WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"}}>
-                  FIRE<br/>IMAGE<br/>GAME
+                  消防<br/>カンファレンス
                 </div>
 
                 <p className="text-[14px] font-semibold text-white/50 leading-loose mb-8">
@@ -551,7 +551,7 @@ export default function App() {
               <button onClick={()=>setStep(-2)} className="flex items-center gap-3 cursor-pointer bg-transparent border-0 p-0">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center text-lg shadow-md shadow-orange-500/30">🔥</div>
                 <div className="text-left">
-                  <div className="text-sm font-extrabold text-slate-900 leading-tight">Fire Image Game</div>
+                  <div className="text-sm font-extrabold text-slate-900 leading-tight">消防カンファレンス</div>
                   <div className="text-[9px] text-slate-400 font-mono tracking-widest">TABLETOP EXERCISE PLATFORM</div>
                 </div>
               </button>
@@ -565,7 +565,7 @@ export default function App() {
             <div className="mb-10">
               <div className="text-center mb-6">
                 <h2 className="text-xl font-extrabold text-slate-900 mb-1">この訓練で得られること</h2>
-                <p className="text-sm text-slate-500">Fire Image Game が現場にもたらす4つの価値</p>
+                <p className="text-sm text-slate-500">消防カンファレンスが現場にもたらす4つの価値</p>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {[
