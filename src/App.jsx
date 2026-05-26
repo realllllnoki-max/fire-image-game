@@ -8,6 +8,8 @@ import { Progress }  from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { cn }        from "@/lib/utils";
 import { Flame, LifeBuoy, Ambulance, AlertTriangle, Play } from "lucide-react";
+import PurchaseGate from "@/components/PurchaseGate";
+import { hasAccess, checkPurchaseRedirect } from "@/lib/purchase";
 
 /* ── SVG DIAGRAMS removed — see scenario-XX.jpg/png photo diagrams below ─── */
 
@@ -398,6 +400,10 @@ const NavRow = ({ onBack, backLabel, onNext, nextLabel, nextColor, nextDisabled 
 
 /* ── APP ─────────────────────────────────────── */
 export default function App() {
+  // ── アクセス権ゲート（購入済みのみコンテンツ表示） ──
+  const [accessGranted, setAccessGranted] = useState(() => hasAccess());
+  const [purchaseFlash, setPurchaseFlash] = useState("");
+
   const [step,setStep]=useState(-2);
   const [genre,setGenre]=useState("fire");
   const [sc,setSc]=useState(null);
@@ -405,6 +411,19 @@ export default function App() {
   const [disc,setDisc]=useState("");
   const [pdfDone,setPdfDone]=useState(false);
   const [sum,setSum]=useState({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});
+
+  // 購入リダイレクトチェック（マウント時1回）
+  useEffect(() => {
+    const { status } = checkPurchaseRedirect();
+    if (status === "success") {
+      setAccessGranted(true);
+      setPurchaseFlash("ご購入ありがとうございます！アクセスが有効になりました。");
+      setTimeout(() => setPurchaseFlash(""), 5000);
+    } else if (status === "cancelled") {
+      setPurchaseFlash("決済はキャンセルされました。");
+      setTimeout(() => setPurchaseFlash(""), 4000);
+    }
+  }, []);
 
   // ステップ遷移時にページ最上部へスクロール
   useEffect(() => {
@@ -430,6 +449,11 @@ export default function App() {
   const inSession = step>=0;
   const phaseIdx = STEP_INDEX[step] ?? 0;
   const progress = step>=0 ? Math.round(((phaseIdx+1)/STEPS.length)*100) : 0;
+
+  // 未購入ユーザーには購入ゲートを表示（全Hookの後でEarly return）
+  if (!accessGranted) {
+    return <PurchaseGate />;
+  }
 
   return (
     <div className={cn("min-h-screen", inSession ? "bg-slate-50" : "bg-[#0a0c12]")}>
