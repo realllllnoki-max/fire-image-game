@@ -17,7 +17,7 @@ import { hasAccess, checkPurchaseRedirect } from "@/lib/purchase";
 const DiagramF31 = () => (
   <div style={{width:"100%",borderRadius:8,overflow:"hidden",background:"#1e293b"}}>
     <img
-      src="/scenario-f31.jpg"
+      src="/F/scenario-f31.jpg"
       alt="3階屋内進入中の隊員受傷事故"
       style={{width:"100%",height:"auto",display:"block"}}
       onError={(e)=>{e.currentTarget.style.display='none';e.currentTarget.nextSibling.style.display='block';}}
@@ -32,7 +32,7 @@ const DiagramF31 = () => (
 const DiagramF32 = () => (
   <div style={{width:"100%",borderRadius:8,overflow:"hidden",background:"#1e293b"}}>
     <img
-      src="/scenario-f32.jpg"
+      src="/F/scenario-f32.jpg"
       alt="共同住宅2階バルコニーの逃げ遅れ"
       style={{width:"100%",height:"auto",display:"block"}}
       onError={(e)=>{e.currentTarget.style.display='none';e.currentTarget.nextSibling.style.display='block';}}
@@ -47,7 +47,7 @@ const DiagramF32 = () => (
 const DiagramF33 = () => (
   <div style={{width:"100%",borderRadius:8,overflow:"hidden",background:"#1e293b"}}>
     <img
-      src="/scenario-f33.jpg"
+      src="/F/scenario-f33.jpg"
       alt="ストレート注水と噴霧注水の比較"
       style={{width:"100%",height:"auto",display:"block"}}
       onError={(e)=>{e.currentTarget.style.display='none';e.currentTarget.nextSibling.style.display='block';}}
@@ -72,30 +72,40 @@ const PhotoDiagram = ({src, alt}) => (
     </div>
   </div>
 );
-const DiagramF34 = () => <PhotoDiagram src="/scenario-f34.png" alt="出動前ミーティング（隊長と機関員）"/>;
-const DiagramF35 = () => <PhotoDiagram src="/scenario-f35.png" alt="夜間の物流倉庫火災"/>;
-const DiagramF36 = () => <PhotoDiagram src="/scenario-f36.png" alt="屋内進入中に退路を見失った隊員"/>;
-const DiagramF37 = () => <PhotoDiagram src="/scenario-f37.png" alt="熱画像装置で室内温度を計測"/>;
-const DiagramF38 = () => <PhotoDiagram src="/scenario-f38.png" alt="開口部からの負傷隊員救出"/>;
-const DiagramF39 = () => <PhotoDiagram src="/scenario-f39.png" alt="屋内進入前のミーティング"/>;
-const DiagramF40 = () => <PhotoDiagram src="/scenario-f40.png" alt="河川からの給水"/>;
-const DiagramF41 = () => <PhotoDiagram src="/scenario-f41.png" alt="ホース延長中の転倒ヒヤリハット"/>;
-const DiagramF42 = () => <PhotoDiagram src="/scenario-f42.png" alt="活動中の落下物事故"/>;
-const DiagramQ1  = () => <PhotoDiagram src="/scenario-q1.png"  alt="地下鉄ホーム転落事故"/>;
-const DiagramR1  = () => <PhotoDiagram src="/scenario-r1.png"  alt="共同住宅の施錠玄関ドア"/>;
-const DiagramR2  = () => <PhotoDiagram src="/scenario-r2.png"  alt="踏切での電車と乗用車の衝突事故"/>;
-const DiagramS1  = () => <PhotoDiagram src="/scenario-s1.png"  alt="消防隊のチームハドル"/>;
-const DiagramS2  = () => <PhotoDiagram src="/scenario-s2.jpg"  alt="ベテラン消防士による新人教育"/>;
+const DiagramF34 = () => <PhotoDiagram src="/F/scenario-f34.png" alt="出動前ミーティング（隊長と機関員）"/>;
+const DiagramF35 = () => <PhotoDiagram src="/F/scenario-f35.png" alt="夜間の物流倉庫火災"/>;
+const DiagramF36 = () => <PhotoDiagram src="/F/scenario-f36.png" alt="屋内進入中に退路を見失った隊員"/>;
+const DiagramF37 = () => <PhotoDiagram src="/F/scenario-f37.png" alt="熱画像装置で室内温度を計測"/>;
+const DiagramF38 = () => <PhotoDiagram src="/F/scenario-f38.png" alt="開口部からの負傷隊員救出"/>;
+const DiagramF39 = () => <PhotoDiagram src="/F/scenario-f39.png" alt="屋内進入前のミーティング"/>;
+const DiagramF40 = () => <PhotoDiagram src="/F/scenario-f40.png" alt="河川からの給水"/>;
+const DiagramF41 = () => <PhotoDiagram src="/F/scenario-f41.png" alt="ホース延長中の転倒ヒヤリハット"/>;
+const DiagramF42 = () => <PhotoDiagram src="/F/scenario-f42.png" alt="活動中の落下物事故"/>;
+const DiagramF43 = () => <PhotoDiagram src="/F/scenario-f43.jpg" alt="最先着消防隊の建物360度確認（サイズアップ）"/>;
+const DiagramQ1  = () => <PhotoDiagram src="/Q/scenario-q1.png"  alt="地下鉄ホーム転落事故"/>;
+const DiagramQ2  = () => <PhotoDiagram src="/Q/scenario-q2.png"  alt="自宅リビングで胸痛を訴える中高年男性"/>;
+const DiagramQ3  = () => <PhotoDiagram src="/Q/scenario-q3.png"  alt="出動途上の救急隊によるプレアライバルコール（CPR口頭指導）"/>;
+const DiagramQ4  = () => <PhotoDiagram src="/Q/scenario-q4.jpg"  alt="階段から転落し背部を強打した中年男性"/>;
+const DiagramQ5  = () => <PhotoDiagram src="/Q/scenario-q5.jpg"  alt="特別養護老人ホームのベッド上で意識レベル低下の高齢男性"/>;
+const DiagramQ6  = () => <PhotoDiagram src="/Q/scenario-q6.jpg"  alt="サッカー試合中の胸部強打・動揺胸郭疑いの高校生"/>;
+const DiagramQ7  = () => <PhotoDiagram src="/Q/scenario-q7.jpg"  alt="高温下の自宅で意識朦朧・熱中症疑いの独居高齢男性"/>;
+const DiagramR1  = () => <PhotoDiagram src="/R/scenario-r1.png"  alt="共同住宅の施錠玄関ドア"/>;
+const DiagramR2  = () => <PhotoDiagram src="/R/scenario-r2.png"  alt="踏切での電車と乗用車の衝突事故"/>;
+const DiagramR3  = () => <PhotoDiagram src="/R/scenario-r3.png"  alt="浴室における硫化水素漏洩事案"/>;
+const DiagramS1  = () => <PhotoDiagram src="/S/scenario-s1.png"  alt="消防隊のチームハドル"/>;
+const DiagramS2  = () => <PhotoDiagram src="/S/scenario-s2.jpg"  alt="ベテラン消防士による新人教育"/>;
+const DiagramS3  = () => <PhotoDiagram src="/S/scenario-s3.jpg"  alt="消防士の暑熱順化トレーニング"/>;
+const DiagramS4  = () => <PhotoDiagram src="/S/scenario-s4.jpg"  alt="消防署内での事務業務効率化ミーティング"/>;
 
 /* ── DIAGRAM MAP ─────────────────────────────── */
 const DIAGRAMS = {
   f31:<DiagramF31/>, f32:<DiagramF32/>, f33:<DiagramF33/>,
   f34:<DiagramF34/>, f35:<DiagramF35/>, f36:<DiagramF36/>,
   f37:<DiagramF37/>, f38:<DiagramF38/>, f39:<DiagramF39/>, f40:<DiagramF40/>,
-  f41:<DiagramF41/>, f42:<DiagramF42/>,
-  q1:<DiagramQ1/>,
-  r1:<DiagramR1/>, r2:<DiagramR2/>,
-  s1:<DiagramS1/>, s2:<DiagramS2/>,
+  f41:<DiagramF41/>, f42:<DiagramF42/>, f43:<DiagramF43/>,
+  q1:<DiagramQ1/>, q2:<DiagramQ2/>, q3:<DiagramQ3/>, q4:<DiagramQ4/>, q5:<DiagramQ5/>, q6:<DiagramQ6/>, q7:<DiagramQ7/>,
+  r1:<DiagramR1/>, r2:<DiagramR2/>, r3:<DiagramR3/>,
+  s1:<DiagramS1/>, s2:<DiagramS2/>, s3:<DiagramS3/>, s4:<DiagramS4/>,
 };
 
 /* ── SCENARIO DATA ───────────────────────────── */
@@ -156,6 +166,10 @@ const SCENARIOS = [
    situation:`【事案概要】\n建物火災で屋内進入活動中、A隊員の頭上付近で焼損した天井材と梁の一部が崩落。A隊員はとっさに後方へ退避し直撃は免れたが、ヘルメットと肩部に軽い接触あり。同行のB隊員は瓦礫の飛散を浴びたものの軽症。活動は一時中断し、隊員2名は退出して点検を受けた。\n\n【現場状況】\n・対象建物：木造2階建て住宅（築40年超）、出火室は1階リビング\n・落下物：天井野縁・石膏ボード・木製梁の一部（最大約80cm × 30cm）\n・受傷状況：A隊員 軽度の頸部痛・打撲、B隊員 異常なし、装備品の損傷あり（ヘルメット表面の擦過）\n・活動段階：火勢鎮圧後の残火処理中、視界は改善していたが煙残留あり\n・事前兆候：直前に天井から異音・粉塵落下の兆しがあったが、活動継続を選択した\n・指揮：隊長は外で待機、無線で報告を受けた\n\n【事後対応で求められる項目】\n・隊員の医療機関受診と心理的フォロー（再出動への影響評価）\n・装備の点検・更新（ヘルメット・防火衣・空気呼吸器）\n・現場の保全と事故調査（写真・図面・関係者聴取）\n・所属署・本部への報告（ヒヤリハット／事故報告書）\n・他隊・全隊への注意喚起・周知（教訓事例化）\n・再発防止策の組織化（マニュアル改訂・訓練追加）`,
    questions:["落下物事故発生直後（最初の5分以内）に現場指揮者・小隊長が必ず行うべき対応を整理せよ。（隊員の安全確認・退出・医療要請・活動中断判断）","受傷隊員の医療面・心理面のフォローアップ、装備点検をどのような手順で進めるか？","本事案の原因分析（建物構造の特性／事前兆候の見落とし／活動継続判断／装備の限界）と再発防止策を議論せよ。","所属内・他隊への周知方法を具体的に設計せよ。（事故報告書・事例検討会・ヒヤリハットDB・訓練教材化）","「天井から異音・粉塵落下」のような事前兆候を察知した瞬間に、現場でどう判断・行動すべきか？判断基準を整理せよ。"],
    keypoints:["事故発生直後の対応（安全確認・退出・医療要請）","受傷隊員の医療・心理フォローと装備点検","原因分析と再発防止策","他隊・組織への周知・教訓化","事前兆候察知時の判断基準"]},
+  {id:"f43",genre:"fire",title:"最先着消防隊の状況評価・サイズアップ（360度確認）",summary:"火災最先着の隊長が建物周囲を360度確認しサイズアップ中。現着前・現着後それぞれの状況評価項目と初動判断を議論する。",
+   situation:`【現場状況】\n・木造2階建て一般住宅から出火\n・最先着した消防隊の隊長が建物周囲を360度確認しながら状況評価・サイズアップを実施中`,
+   questions:["【議題1】現場に到着する前に考えておくべき状況評価・サイズアップの項目について","【議題2】現着後、建物を確認している際の状況評価・サイズアップの項目について","【議題3】サイズアップ結果をもとにした初動戦術・部隊配置・後続隊への情報伝達について"],
+   keypoints:["出動途上での情報収集（出動指令・地図・水利・建物用途・過去出動履歴）","到着時の火煙確認（煙の色・量・位置・勢い・フラッシュオーバー危険性）","建物360度確認の要点（構造・開口部・要救助者・延焼危険・進入可否）","サイズアップ結果に基づく初動判断（攻勢・守勢・優先順位）","後続隊・指揮本部への情報伝達と現場指揮体制の確立"]},
   {id:"r1",genre:"rescue",title:"火災時の施錠玄関ドア破壊（エンジンカッター）",summary:"共同住宅の玄関ドアが施錠されており、エンジンカッターでドアを切断・開放する場面。カット方法とリスクを議論する。",
    situation:`【場面】\n共同住宅1階の専有部から出火、要救助者の在室情報あり。先着隊が玄関に到達したが施錠されており、開放できない。所有者・管理人は不在で鍵入手の見込みなし。エンジンカッターによる切断開放を実施する。\n\n【ドア・周辺の状況】\n・ドア材質：スチール製（厚さ約1.6mm程度の外板＋内部補強）\n・ヒンジ：右側（外開き）、上下2点\n・施錠：シリンダー錠1箇所（中央右）＋デッドボルト、補助錠なしと思われる\n・郵便受け（メールスロット）：ドア中央下部\n・ガラス：上部に小さな採光用フィックスガラス（換気不可）\n・ドア外側：屋外通路、後方に他住戸の出入口あり\n・室内状況：玄関内部から黒煙が漏出、室温上昇、要救助者の応答なし\n\n【保有資機材】\n・エンジンカッター（鉄筋・金属切断用ディスク装着）\n・予備ディスク、燃料缶、防護メガネ・耳栓\n・バール、油圧スプレッダー、シザース、ピックアックス、破壊鎚\n・噴霧ノズル付ホース1線（火粉抑制・冷却用）\n・脱出用ロープ、空気呼吸器、熱画像装置\n\n【出動部隊】\n救助工作車1隊、ポンプ車2隊、救急車1隊、指揮車1隊`,
    questions:["エンジンカッターでドアを切断する際の「カット位置・順序」をどう決めるか？（シリンダー周辺／デッドボルト切断／ヒンジ側／三角形カット／逆L字カット等、メリット・デメリットも含めて）","切断作業中に発生するリスクを整理せよ。（火花による室内可燃物への着火／キックバック／粉塵・騒音／ディスク破損／隊員受傷／煙突効果・バックドラフトの誘発）","切断時の隊員配置と安全管理（操作者・補助者・掩護放水・観察員）をどう組み立てるか？無線連絡・合図も含めて議論せよ。","エンジンカッター以外の代替手段（バール／油圧スプレッダー／破壊鎚／ピックアックス／シリンダー抜き）と比較し、本事案で最適な手段は何か？根拠も明示せよ。","ドアが開放された瞬間に想定される事象（バックドラフト・フラッシュオーバー・噴出炎・濃煙噴出）と、それに対する事前準備・対処を整理せよ。"],
@@ -164,10 +178,38 @@ const SCENARIOS = [
    situation:`【通報内容】\n午後5時22分、目撃者から「踏切で電車と車がぶつかった。車の運転手が動けないようだ」との通報。鉄道会社からも「列車と自動車の衝突、停止中」との連絡あり。\n\n【現場状況】\n・場所：単線踏切（第1種、警報機・遮断機あり）、田畑と住宅地の境界\n・接触車両：普通乗用車（SUV型）1台、運転手1名のみ乗車、車両前部が大破し電車先頭車両前面に食い込んだ状態\n・運転手：50代男性、運転席に閉じ込め、意識レベル JCS 2桁（II-20相当：呼びかけで開眼するが応答曖昧）、頭部・胸部に外傷の可能性、ハンドル変形により胸部圧迫、ドア変形で開放不可\n・電車：3両編成の地方路線車両、乗客約60名乗車、軽傷の有無不明、車内放送で「車両停止」アナウンス済み\n・電源：架線への送電は鉄道指令の停止指示待ち（要確認）\n・後続列車：上下線とも運行停止指示済み（鉄道指令経由で確認中）\n・気象：晴天、気温15℃、追加の踏切利用車両なし\n・周辺：野次馬数名が踏切付近に集まり始めている\n・漏洩物：乗用車から燃料漏れの可能性あり（要確認）、バンパー・部品が散乱\n\n【出動部隊】\n救助工作車1隊、ポンプ車2隊、救急車2隊、指揮車1隊（鉄道事業者・警察と現地調整）`,
    questions:["乗用車運転手（JCS 2桁・閉じ込め）の救出手順を整理せよ。（車両安定化／ガラス管理／ドア開放手段：油圧スプレッダー or カッター／ダッシュボード排除／脊柱固定下での搬出）","電車乗客（約60名）への対応をどう組み立てるか？（車内待機の継続 vs 線路への降車誘導／高齢者・負傷者の優先トリアージ／鉄道事業者との連携）","二次災害（送電・後続列車・燃料漏れ・群衆）を防止するための初動安全管理事項を整理せよ。（送電停止・運行停止の二重確認／警戒区域設定／燃料漏れ対応／野次馬規制）","現場指揮所の設置位置と、警察・鉄道事業者・救急との指揮系統・情報共有をどう構築するか？","限られた人員（救助・ポンプ・救急各隊）の役割分担と進入順序、医療機関選定（高エネルギー外傷判断）について議論せよ。"],
    keypoints:["車両閉じ込め救出（安定化・破壊・脊柱固定）","電車乗客の対応（待機継続 vs 降車誘導）","二次災害防止（送電・運行停止・燃料・群衆）","関係機関との指揮系統と情報共有","役割分担と医療機関選定"]},
+  {id:"r3",genre:"rescue",title:"浴室における硫化水素自殺・漏洩事案",summary:"木造アパート浴室から腐卵臭。『入るな。危険』の張り紙あり。硫化水素発生事案として現場評価・二次災害防止・救出除染を議論する。",
+   situation:`【災害概要（覚知状況）】\n・通報日時：5月某日 10:00\n・災害場所：木造2階建てアパートの1階一室\n・通報内容：「連絡が取れない息子の様子を見にきた。浴室の扉の隙間から『卵が腐ったような異常な臭い』がする。」\n・気象条件：晴れ、風速1m/s（微風）\n\n【現場の特徴的所見】\n・浴室の扉に「入るな。危険」の張り紙を確認。\n・ドアの隙間からかすかに特異臭（腐卵臭）が漂っている。`,
+   questions:["【議題1】現場評価、初動について","【議題2】二次災害防止と安全管理について","【議題3】迅速な救出と除染について"],
+   keypoints:["硫化水素発生兆候の認識（腐卵臭・張り紙）と現場評価","ゾーニング（ホット／ウォーム／コールド）と立入規制","個人防護装備（化学防護服・空気呼吸器）と進入隊員数の最小化","換気・通風による濃度低下と近隣住民への避難要請","要救助者の迅速搬出と現場除染（脱衣・洗浄）・医療機関選定"]},
   {id:"q1",genre:"ems",title:"地下鉄ホームからの転落事故（高齢男性）",summary:"高齢男性が駅ホームから線路へ転落。電車運行は見合わせ中。救急隊の初動・安全管理・初期評価・全脊柱固定を議論する。",
    situation:`【通報内容】\n午後5時48分、新宿駅駅員から「ホームから80代男性が線路に転落した。意識はあるようだが動けない」との119番通報。\n\n【現場状況】\n・場所：地下鉄駅ホーム（地下2階）から線路上へ転落（高低差 約1.2m）\n・要救護者：80代男性、意識あり（呼びかけに反応）、左下肢痛訴、頭部からわずかに出血、自発体動少なめ\n・受傷機転：歩行中バランスを崩しホーム端から線路へ落下、頭部・体幹を打撲した可能性\n・周囲環境：ホーム上は乗客で混雑、駅員が「運転見合わせ」掲示、ホーム端には危険防止のためテープ規制中\n・電源・電車：上下線とも運転見合わせ、駅員より「架線・第三軌条への送電は停止確認済」との情報待ち（要再確認）\n・照明：線路上は暗く、片側壁面に低い段差・退避スペースあり\n・救急隊：ポンプ車1隊（PA連携）と救急隊1隊が到着、駅事務所には自動体外式除細動器（AED）配備あり\n・気象・時間帯：屋内（地下）、平日夕方ラッシュ時間帯\n\n【出動部隊】\n救急車1隊（救急隊員3名）、ポンプ車1隊（PA連携・隊員4名）、指揮車1隊（後着）`,
    questions:["救急隊が現場到着直後（最初の60秒以内）に行うべき初動行動を整理せよ。（情報収集／駅員・運行管理者との連携／進入経路の確認）","線路上で活動するうえでの安全管理事項を整理せよ。（送電停止確認／運行停止確認の二重チェック／退避経路／監視員配置／落下物・湧水）","要救護者への初期評価の手順を、JPTEC等の手順に沿って整理せよ。（First Impression／A・B・C・D・E評価／意識レベル・バイタル測定）","頭部・頸部・脊椎損傷の可能性がある本事案で、全脊柱固定（用手的頸椎保護→頸椎カラー装着→バックボード収容）の具体的手順と分担を整理せよ。","ホームへの引き上げ搬送方法と、医療機関選定（受入要請）のポイントを議論せよ。（バックボードでのリフト／担架搬送／高エネルギー外傷の判断と外傷センター選定）"],
    keypoints:["救急隊の現場初動と関係者連携","線路上活動の安全管理（送電・運行停止確認）","JPTECに基づく初期評価手順","全脊柱固定の手順と役割分担","引き上げ搬送と医療機関選定"]},
+  {id:"q2",genre:"ems",title:"自宅での胸痛・気分不快（中高年男性・ACS疑い）",summary:"66歳男性、突然の激しい胸痛と冷汗、Levine徴候陽性。急性冠症候群（ACS）を強く疑う事案。初期評価・活動方針・病院選定を議論する。",
+   situation:`【事案概要】\n・覚知日時：14時頃\n・通報者：同居の妻\n・主訴：胸の痛み、気分不快\n\n【現場臨場時の状況・現病歴】\n■現場状況\n・自宅リビングのソファに座位。室内は暖房が効いている。\n・テレビや雑誌がそのままになっており、さっきまでくつろいでいた様子。\n\n■患者（66歳男性）\n・意識清明（JCS 0、GCS 15）。\n・表情は険しく、苦悶様。\n・右手で左胸を強く押さえている（Levine徴候陽性）。\n・額や首筋にじっとりとした冷や汗（冷汗）を認める。\n\n■現病歴\n・約30分前、突然、胸が「締め付けられるような」激しい痛みに襲われた。\n・痛みは左肩や顎の方にも広がっている感じがする（放散痛）。\n・これまでに経験したことのない強い痛み。\n\n■既往歴\n・高血圧、脂質異常症（近医に通院中、内服治療中）。\n\n■アレルギー\n・なし。\n\n【現場での初期評価・バイタルサイン】\n・A（気道）：清明（自発発語あり）\n・B（呼吸）：呼吸数 20回/分、呼吸苦あり。SpO2 94%（室内気）\n・C（循環）：橈骨動脈は触知可能だが、やや弱い。脈拍 92回/分（整）。血圧 148/92 mmHg。皮膚は冷感あり、湿潤（冷や汗）。\n・D（中枢神経）：瞳孔同大、対光反射迅速。麻痺なし。`,
+   questions:["【議題1】初期評価、ファーストインプレッションは？","【議題2】活動方針は？（処置や体位管理など）","【議題3】病院選定の基準、病院連絡で伝えなければならない内容は？"],
+   keypoints:["First Impressionと致死的胸痛4疾患（ACS・大動脈解離・肺塞栓・気胸）の鑑別","Levine徴候・放散痛・冷汗からACSを強く疑う判断","体位管理（半座位）・酸素投与・安静による心負荷軽減","12誘導心電図の早期実施とST変化の評価","PCI可能施設の選定と病院連絡（SBAR・ETA・発症時刻の共有）"]},
+  {id:"q3",genre:"ems",title:"出動途上のプレアライバルコール（CPSA／口頭指導でのバイスタンダーCPR）",summary:"出動途上の救急隊がプレコール／プレアライバルコールで心肺停止を確認。通報者へ電話でCPRを口頭指導中、現場にはAEDあり。聴取・指導・初動を議論する。",
+   situation:`【場面】\n救急要請を受け出動した救急隊が、出動途上で通報者へプレコール／プレアライバルコール（事前架電）を実施。会話の中で要救護者が「呼吸なし・反応なし」の心肺停止状態であることが判明し、隊員が電話越しに通報者へ一次救命処置（胸骨圧迫・AED使用）を口頭指導している場面。\n\n【判明している情報】\n・要救護者：成人、屋内（自宅または公共スペース）にて倒れている\n・通報者：要救護者の家族または周囲の人（CPR経験は不明）\n・反応・呼吸：「呼びかけに反応なし」「胸が動いていないように見える」\n・AED：現場（建物内）に設置あり、通報者はその存在を認識\n・救急隊の現場到着予測時間（ETA）：数分以内\n・通信：携帯電話で通話継続中、スピーカーモード使用可\n\n【一般論／背景】\n・バイスタンダーCPR実施率と神経学的予後の改善は明確に相関\n・通信指令員（CCS／C-CPR）による電話口頭指導は標準化されており、救急隊員もプレアライバルコールで同様の支援が可能\n・「胸の真ん中を強く・速く・絶え間なく押す」「人工呼吸は省略可」「AEDが届いたら電源を入れて音声指示に従う」を中心に伝える\n・パニック・恐怖の通報者には、短く明確な指示と「あなたの押す力が命を救う」という肯定的な声掛けが有効`,
+   questions:["【議題1】現場の状況を確認するための聴取項目について","【議題2】バイスタンダーCPRの指導法とAEDの取り扱いについて","【議題3】現場に持っていく資器材の選定と救急隊の接触後の初動について"],
+   keypoints:["プレアライバルコールの聴取項目（場所・要救護者の状態：反応/呼吸/外傷の有無／人数・年齢・既往／周囲環境／AED有無／通報者の状況）","電話口頭指導のポイント（短く明確に・テンポを取らせる「強く速く絶え間なく」・人工呼吸は省略可・スピーカーモード／恐怖緩和の声掛け）","AED使用の口頭指導（電源ON・音声に従う・パッド位置・周囲を離れさせる・ショック後はCPRを直ちに再開）","資器材の選定（除細動器／半自動式心電図／気道管理セット／薬剤・酸素／吸引器／搬送資器材：スクープ・防振）","現場接触後の初動（引継ぎとCPRの中断最小化・役割分担／心電図解析／高度気道確保・薬剤・原因検索／搬送先選定とSBAR）"]},
+  {id:"q4",genre:"ems",title:"階段からの転落・背部強打（脊髄損傷／神経原性ショック疑い）",summary:"45歳男性が作業中に階段から転落、背部強打。意識清明だが徐脈・低血圧、下肢麻痺、臍以下の感覚消失。神経原性ショックを疑う事案。",
+   situation:`【通報内容】\n45歳の男性。作業中に階段から転落し、背部を強く打ち付けたとして通報された。\n\n【救急隊到着時の状況】\n■患者（45歳男性）\n・意識清明（JCS 0、GCS 15）\n・受傷機転：作業中に階段から転落、背部を強打\n\n■バイタルサイン\n・呼吸数：20回/分\n・脈拍：56回/分・整\n・血圧：82/46 mmHg\n・SpO2：98%（室内気）\n\n■身体所見\n・皮膚：体幹から下肢にかけて温かく乾燥している\n・上肢はやや冷たい\n・両下肢の自発運動なし\n・臍（へそ）から下の感覚が消失している\n\n【出動部隊】\n救急車1隊（救急隊員3名）、ポンプ車1隊（PA連携・隊員4名）`,
+   questions:["【議題1】初期評価、処置について","【議題2】考えられる病態、ショックの鑑別について","【議題3】病院選定、病院連絡で伝えるべき情報について"],
+   keypoints:["高エネルギー外傷としての評価（JPTEC：load and go判断・全脊柱固定）","神経原性ショックの病態（交感神経遮断による血管拡張・徐脈／T10レベルの脊髄損傷示唆）","出血性ショック・閉塞性ショックとの鑑別（皮膚所見・脈拍・受傷機転）","気道・呼吸・循環の安定化（酸素投与・保温・輸液／医師指示下での薬剤投与）","重症外傷センター／脊髄損傷対応可能施設の選定とSBARによる病院連絡（MIST：受傷機転・損傷部位・症状・処置）"]},
+  {id:"q5",genre:"ems",title:"高齢者の意識レベル低下（高熱・低血圧・尿臭／敗血症疑い）",summary:"80歳男性、特養入所中。数日前から活気なく今朝から反応鈍化。JCS Ⅱ-10、高熱・頻脈・低血圧、尿臭あり。尿路感染による敗血症性ショックを疑う事案。",
+   situation:`【通報内容】\n80歳の男性。特別養護老人ホームの職員から「数日前から活気がなく、今朝から呼びかけへの反応が鈍い」と通報があった。\n\n【救急隊到着時の状況】\n■患者（80歳男性）\n・ベッド上に仰向けで寝ている\n・意識レベル：JCS Ⅱ-10（呼びかけに辛うじて開眼するが応答鈍い）\n\n■バイタルサイン\n・呼吸数：28回/分\n・脈拍：112回/分・微弱\n・血圧：82/40 mmHg\n・体温：38.9℃\n\n■身体所見\n・皮膚：乾燥（脱水傾向）\n・衣服に尿臭が漂っている\n・下腹部に軽い圧痛あり、腹壁緊張なし\n\n【出動部隊】\n救急車1隊（救急隊員3名）、ポンプ車1隊（PA連携・隊員4名）`,
+   questions:["【議題1】考慮すべき病態について（鑑別・重症度評価）","【議題2】救急隊の活動方針について（処置・体位・搬送・病院連絡）"],
+   keypoints:["敗血症性ショックの認識（qSOFA：意識変容・呼吸数≧22・収縮期血圧≦100の3項目該当）","感染巣の推定（尿臭・下腹部圧痛 → 尿路感染症／高齢者で頻度の高い肺炎・胆道感染も鑑別）","脱水・循環不全への対応（保温・下肢挙上・酸素投与・静脈路確保下での輸液）","鑑別疾患（脳血管障害／低血糖／電解質異常／薬剤性／脱水）と血糖・SpO2・心電図モニタリング","施設からの情報収集（既往歴・内服薬・ADL・DNAR等の事前指示）と感染症対応病院への迅速搬送・SBAR連絡"]},
+  {id:"q6",genre:"ems",title:"スポーツ中の左胸部強打（動揺胸郭／フレイルチェスト疑い）",summary:"18歳男子高校生、サッカー試合中の衝突で左側胸部強打。左胸部に皮下出血と奇異呼吸あり、SpO2 93%。動揺胸郭・肺挫傷を疑う事案。",
+   situation:`【場面】\nサッカーの試合中、相手選手と激しく衝突し左側胸部を強打した18歳男子高校生。グラウンド脇で左側胸部を押さえて座り込み、苦しそうな表情で浅く速い呼吸をしている。\n\n【傷病者情報】\n・18歳男性、運動歴あり、既往なし\n・受傷機転：高エネルギー外傷（プレイヤー同士の高速衝突／左側胸部への直接打撃）\n・意識：清明（JCS 0、GCS 15）\n\n【バイタルサイン】\n・呼吸数：26回/分（浅く頻呼吸）\n・脈拍：96回/分\n・血圧：118/72 mmHg\n・SpO2：93%（室内気）\n\n【身体所見】\n・視診：左側胸部に皮下出血、呼吸運動に伴う局所的な「奇異運動」（吸気時に陥凹し、呼気時に膨隆する）\n・聴診：両側呼吸音 等しく良好（左右差なし）\n・触診：左側胸部に圧痛と軋轢音の可能性\n・気管偏位なし、頸静脈怒張なし\n\n【出動部隊】\n救急車1隊（救急隊員3名）、ポンプ車1隊（PA連携・隊員4名）`,
+   questions:["【議題1】この傷病者の強く疑われる病態について","【議題2】議題1で疑った病態に対しての処置について","【議題3】傷病者の体位管理について"],
+   keypoints:["動揺胸郭（フレイルチェスト）の認識：3本以上連続する肋骨が2か所以上で骨折し、その部位が呼吸と逆の奇異運動を示す","合併損傷の評価（肺挫傷／気胸・血胸／心挫傷／大血管損傷）—呼吸音左右差・SpO2低下・血圧変化に注意し再評価を反復","酸素投与と呼吸補助（高濃度酸素マスク／SpO2≧95%目標／呼吸不全進行時はBVMで補助換気・PEEP意識）","損傷側を下にした側臥位（健側肺の換気を確保し、奇異運動を物理的に制限）— ただし循環・脊椎損傷の有無で個別判断","高エネルギー外傷としての全身評価と外傷センター選定（MIST／ETA／緊張性気胸・大量血胸への即応準備）"]},
+  {id:"q7",genre:"ems",title:"高温下の独居高齢者・意識朦朧（重症熱中症／III度疑い）",summary:"78歳独居男性、室温34℃の自宅でJCS Ⅱ-30。乾燥・熱感著明、頻呼吸・頻脈・低血圧、失禁あり。重症熱中症（III度）と循環不全を疑う事案。",
+   situation:`【場面】\n78歳の男性、一人暮らし。数日前から近所の住民に姿が見られず、心配した福祉職員が訪問したところ、室内の布団の上で意識朦朧となっているのを発見し通報した。\n\n【現場状況】\n・室内：エアコン使用なし、窓も閉め切り、室温34℃と極めて高温\n・発見時の体位：布団の上で仰臥位\n・周囲：ペットボトル等の飲料は手元に見当たらない\n\n【傷病者情報】\n・78歳男性、独居、ADL等の詳細不明（福祉職員より既往歴の聴取中）\n・意識：JCS Ⅱ-30（強い刺激で辛うじて開眼）\n\n【バイタルサイン】\n・呼吸数：24回/分\n・脈拍：110回/分\n・血圧：88/54 mmHg\n・体温：未測定（皮膚熱感著明 — 深部体温測定要）\n\n【身体所見】\n・皮膚：非常に乾燥、熱感が著しい（発汗停止）\n・衣服の下に多量の失禁の痕跡（数日間続いた可能性）\n・粘膜乾燥、口唇乾燥（脱水所見）\n\n【出動部隊】\n救急車1隊（救急隊員3名）、ポンプ車1隊（PA連携・隊員4名）`,
+   questions:["【議題1】この傷病者の強く疑われる病態について","【議題2】議題1で疑った病態に対しての処置について","【議題3】ショック状態の分類について"],
+   keypoints:["重症熱中症（III度／heat stroke）の認識：中枢神経症状（意識障害）＋深部体温上昇＋発汗停止／高温環境の状況証拠（室温34℃・失禁・独居）","アクティブクーリングの即時開始（衣服除去・気化熱クーリング：霧吹き＋送風／頸部・腋窩・鼠径への冷却剤／可能なら冷水浸漬）— 39℃まで急速冷却を目標","気道・呼吸・循環の安定化（高濃度酸素・静脈路確保下での冷輸液／血糖・心電図モニタ／搬送中もクーリング継続）","ショックの分類と本症例の位置付け：①循環血液量減少性（hypovolemic：脱水・出血）②心原性（cardiogenic）③閉塞性（obstructive：緊張性気胸・心タンポナーデ・肺塞栓）④血液分布異常性（distributive：敗血症・神経原性・アナフィラキシー）— 本症例は脱水＋熱による血管拡張で循環血液量減少性＋分布異常性の要素を併存","重症熱中症対応可能施設（救命センター・体温管理／血液浄化対応）への迅速搬送とSBAR連絡（発見状況・室温・推定発症時間・処置経過）"]},
   {id:"s1",genre:"other",title:"消防隊のチームワーク向上 — 重要な要素を考える",summary:"出動前のチームハドル。消防隊として最高のパフォーマンスを発揮するために、チームワークを高める要素を議論する。",
    situation:`【場面】\n勤務開始時のミーティング後、隊員が車庫に集まり「今日も一日、安全に活動しよう」とハドルを組んでいる場面。災害現場では一瞬の判断・連携が隊員と要救助者の命を左右する。日常の中で、チームワークを高めるために何が必要かをチームで議論する。\n\n【テーマの背景】\n消防隊の活動は「個人技」ではなく「チームプレー」である。装備・体力・知識・技術が一定水準にあっても、チームとして機能していなければ事故・誤判断・救命機会の喪失につながる。一方、強いチームは互いの強みを引き出し、弱みを補い、危機的状況でも安定した判断と行動を生み出す。\n\n【議論の観点（例）】\n・コミュニケーション（報告・連絡・相談・無線運用・声出し）\n・信頼関係（互いの能力・判断を信じる、任せる）\n・役割分担と相互理解（誰が何をするか・他の役割も理解する）\n・指揮命令系統（隊長への信頼・命令の即時実行・意見具申のタイミング）\n・心理的安全性（ミスを指摘できる／弱みを共有できる雰囲気）\n・共通の目的・価値観（住民の命・安全、自隊の安全）\n・訓練・振り返り文化（日々の訓練、ヒヤリ・ハット共有、振り返りの習慣）\n・健康・体調管理（睡眠・食事・運動・メンタルヘルス）\n・世代・経験差を超えた関係性（若手・ベテランの相互尊重）`,
    questions:["消防隊のチームワークを高めるために最も重要だと考える要素を3つ挙げ、その理由を議論せよ。","自隊（または自分の所属）で「チームワークがうまく機能した経験」と「機能しなかった経験」をそれぞれ共有し、共通点を分析せよ。","隊長・隊員それぞれの立場から「チームワークを高めるために自分が今日からできる具体的行動」を1つずつ挙げよ。","若手とベテラン、経験差のある隊員同士がチームとして機能するために必要な配慮・取り決めは何か？","自隊のチームワーク向上のため、今後1か月で取り組むべき具体的アクション（訓練・ミーティング・ルール等）を3つ決めよ。"],
@@ -176,6 +218,14 @@ const SCENARIOS = [
    situation:`【場面】\n署所の研修室で、ベテラン隊員が火災出動未経験の新人消防士4〜5名を対象に座学を行っている。ホワイトボードには「火災現場の要諦」「ロープワーク」「資機材一覧」などの掲示。新人は手元のノートに熱心にメモを取っている。\n\n【教育を取り巻く現状】\n・新人が火災出動を経験する機会は地域・年によりばらつきがある\n・初回出動で「分からない・動けない・周りが見えない」状態に陥りやすい\n・現場でのOJTには限界があり、出動前に座学・訓練で土台を作る必要がある\n・先輩の暗黙知（経験則）を言語化して伝えなければ、世代交代で失われる\n\n【教えるべき領域（例）】\n・火災の基礎知識（燃焼の三要素・燃焼形態・煙の性状・フラッシュオーバー／バックドラフト等）\n・出動時のルーティン（指令受信〜出動準備〜車内での確認事項）\n・現場到着時の観察（建物構造・延焼状況・要救助者情報・水利）\n・装備の点検・装着（防火衣・空気呼吸器・無線・個人装備）\n・基本動作（ホース伸長・結索・破壊・はしご操作・進入退避）\n・隊員間の連携（バディ・無線報告・合図・空気管理）\n・安全管理（撤退基準・MAYDAY・退路確保・隊員受傷時対応）\n・出動後の振り返り（記録・反省会・装備整備）\n・心構え・倫理（住民対応・遺族対応・メンタルヘルス）`,
    questions:["火災出動未経験の新人に「最初に必ず教えるべき項目」を3つ挙げ、その理由を議論せよ。","座学で教える内容と、実地訓練で身につけさせる内容をどう切り分けるか？具体例を挙げて議論せよ。","ベテランが持つ「暗黙知（経験則・現場勘）」を、言語化して新人に伝えるための工夫は何か？（事例研究・対話・チェックリスト化等）","新人が初出動で「動けない」「判断できない」状況に陥らないために、出動直前・出動中にベテランが声をかけるべきポイントは何か？","新人教育プログラムを自隊で1か月単位で組むとしたら、火災分野でどんなカリキュラム（座学・訓練・現場同行）を組むか？具体案を議論せよ。"],
    keypoints:["新人に最優先で伝える項目の選定","座学と実地訓練の役割分担","ベテランの暗黙知の言語化・伝承","初出動時のサポート・声掛け","教育カリキュラム（座学・訓練・OJT）の設計"]},
+  {id:"s3",genre:"other",title:"消防士の暑熱順化トレーニング — 安全に身体を慣らす",summary:"夏季の活動に備え、隊員が暑熱順化トレーニングを実施中。基本構成・個別負荷設定・環境ルール・中止基準をチームで議論する。",
+   situation:`【場面】\n夏季の本格的な気温上昇に備え、署所の訓練場で隊員が暑熱順化トレーニングを実施している。防火衣・空気呼吸器を装着しての搬送・はしご・ホース延長など、暑熱負荷を段階的にかける構成。気温は徐々に高く、湿度も上昇傾向。隊員には体力差・年齢差・運動習慣の差があり、画一的なメニューでは過負荷／過小負荷の両方のリスクがある。\n\n【暑熱順化の基礎知識】\n・1〜2週間の継続で発汗機能・循環調節が改善し、深部体温の上昇が抑制される\n・初日から最大負荷をかけず、低〜中等度から漸増するのが原則\n・WBGT（暑さ指数）に応じた活動制限が日本スポーツ協会・環境省ガイドラインで示されている\n・防火衣装着は通常衣服の数倍の熱負荷（不感蒸泄が遮断され、深部体温が急上昇）\n・水分・塩分（電解質）補給は喉の渇きを感じる前に定時で実施\n\n【現場で判明している条件】\n・気温：30〜33℃／湿度：60〜70%／WBGT：26〜29（厳重警戒〜危険）\n・隊員構成：20〜50代、体格・体力に差あり、運動習慣も個人差大\n・装備：防火衣＋空気呼吸器（活動条件により脱着）\n・救護体制：AED・氷嚢・経口補水液・体温計・パルスオキシメータを準備`,
+   questions:["【議題1】トレーニングの基本構成・アイデアについて","【議題2】個人の体力・運動習慣に合わせた負荷設定ルールについて","【議題3】環境・気温と服装に関する安全ルールについて","【議題4】体調管理・トレーニング中止の具体的基準について"],
+   keypoints:["暑熱順化の生理学（発汗・循環調節の適応／1〜2週間の漸増プラン・心拍/RPE活用）","個別最適化（体力テスト・年齢・既往・運動習慣からの負荷階層化／ペアでの相互観察）","WBGT基準と服装管理（活動制限・防火衣脱着の判断／時間帯・日陰の活用）","水分・電解質補給ルール（定時補給・尿色チェック・体重減少率＜2%）","中止基準（深部体温≧38.5℃／心拍≧最大の85%が下がらない／めまい・吐気・冷汗・パフォーマンス低下／クーリング即時開始）"]},
+  {id:"s4",genre:"other",title:"事務業務の効率化 — 棚卸し・改善・トライアル",summary:"署所内の事務業務の効率化をテーマに、業務棚卸しから新しい運用ルールのトライアル、メリット・デメリット検証までを段階的に議論する。",
+   situation:`【場面】\n署所内のミーティングルームに隊員数名が集まり、日常の事務業務（報告書作成・出動記録・各種申請・備品管理・スケジュール調整・引継ぎ等）の効率化について話し合っている。出動・訓練・教育・点検といったコア業務に時間とエネルギーを集中させるため、「形だけ続いている作業」「重複している作業」「紙ベースで滞っている作業」を見直したい。\n\n【背景・現状】\n・報告書・記録類は手書きと電子の二重入力が残っている部分がある\n・回覧・押印・FAX等、慣習で続いているフローがある\n・引継ぎは口頭中心で属人化、休暇時に情報が止まることがある\n・備品・消耗品の発注は担当者頼り、在庫の見える化ができていない\n・新しいツール（チャット・クラウド共有・電子化）の活用は個人差・世代差あり\n・人員・予算は限られており、いきなり大規模な改革は難しい\n\n【議論の進め方（推奨）】\n① 現状を「見える化」する（棚卸し）　→　② 改善アイデア・新運用を考える　→　③ 実際に試した場合のメリット・デメリットを検証する`,
+   questions:["【議題1】【現状把握】業務の棚卸しと「ムダ」の抽出","【議題2】議題1をもとに効率化に向けたアイデアの提案、新しい運用のトライアルとルール作り","【議題3】メリット、デメリットを抽出"],
+   keypoints:["業務棚卸しの手法（タスク分解・頻度／所要時間／担当の可視化・ECRS：排除/結合/順序変更/簡素化）","ムダの典型例（重複入力・属人化・形骸化した回覧・過剰品質・待ち時間）","改善アイデアの発想（電子化・テンプレ化・自動化・分担見直し・チャット/クラウド活用）","トライアル設計（期間限定・対象範囲限定・効果指標・振り返り会）とルールの言語化","メリット／デメリット評価（時間短縮・品質・属人化解消・教育負担・情報セキュリティ・現場負担とのバランス）"]},
 ];
 
 const loadJsPDF = () => new Promise(res => {
@@ -353,9 +403,9 @@ async function buildPDF(sc, notes, disc, sum) {
 }
 
 /* ── COMPONENTS ───────────────────────────────── */
-const STEPS = ["シナリオ選択","議論ルール","議論・まとめ","PDF生成"];
+const STEPS = ["シナリオ選択","議論・まとめ","PDF生成"];
 // 内部 step 値 → STEPS 配列インデックスへの変換
-const STEP_INDEX = {0:0, 2:1, 4:2, 5:3};
+const STEP_INDEX = {0:0, 4:1, 5:2};
 const SecTitle = ({ icon, title, color = "#f97316" }) => (
   <div className="flex items-center gap-3 mb-5">
     <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xl shrink-0"
@@ -400,7 +450,7 @@ const NavRow = ({ onBack, backLabel, onNext, nextLabel, nextColor, nextDisabled 
 
 /* ── APP ─────────────────────────────────────── */
 export default function App() {
-  // ── アクセス権ゲート（購入済みのみコンテンツ表示） ──
+  // ── 購入ゲート（未購入ユーザーには購入画面を表示） ──
   const [accessGranted, setAccessGranted] = useState(() => hasAccess());
   const [purchaseFlash, setPurchaseFlash] = useState("");
 
@@ -430,12 +480,16 @@ export default function App() {
     window.scrollTo({top:0, left:0, behavior:"instant"});
   }, [step]);
   const [pdfError,setPdfError]=useState("");
+  const [showKeypoints,setShowKeypoints]=useState(false);
 
   const list = SCENARIOS.filter(s => s.genre === genre);
   const gInfo = GENRES.find(g => g.id === genre);
   const allScenarios = list;
 
-  const pickSc = s => { setSc(s); setSum(p=>({...p,trainName:s.title,situationSummary:s.situation})); };
+  const pickSc = s => {
+    if (sc?.id === s.id) { setSc(null); return; }
+    setSc(s); setSum(p=>({...p,trainName:s.title,situationSummary:s.situation}));
+  };
   const doPDF = async () => {
     setPdfError("");
     try { await buildPDF(sc,notes,disc,sum); setPdfDone(true); }
@@ -539,15 +593,27 @@ export default function App() {
                   チームで議論し、<span className="text-slate-200 font-bold border-b border-orange-500/40 pb-0.5">現場対応の質</span>を高めよう。
                 </p>
 
-                <div className="pt-4 w-full sm:w-auto">
+                <div className="pt-4 flex flex-col items-center sm:items-start gap-3 w-full sm:w-auto">
                   <Button
-                    onClick={() => setStep(-1)}
+                    onClick={() => setStep(0)}
                     size="lg"
                     className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer border-0"
                   >
                     <Play className="w-4 h-4 fill-current mr-2" />
                     訓練を開始する
                   </Button>
+                  <button
+                    onClick={() => setStep(-1)}
+                    className="text-xs text-slate-400 hover:text-slate-200 underline underline-offset-2 transition-colors cursor-pointer bg-transparent border-0 p-0"
+                  >
+                    訓練の流れ・この訓練で得られることを確認する
+                  </button>
+                  <button
+                    onClick={() => setStep(-3)}
+                    className="text-xs text-slate-400 hover:text-slate-200 underline underline-offset-2 transition-colors cursor-pointer bg-transparent border-0 p-0"
+                  >
+                    みんなでルール確認
+                  </button>
                 </div>
               </div>
 
@@ -576,10 +642,10 @@ export default function App() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
-                    { icon: <Flame className="w-5 h-5" />,          label: "火災",   num: "12", textColor:"text-orange-500", bgColor:"bg-orange-500/5",  borderColor:"border-orange-500/15" },
-                    { icon: <LifeBuoy className="w-5 h-5" />,       label: "救助",   num: "2",  textColor:"text-teal-400",   bgColor:"bg-teal-500/5",    borderColor:"border-teal-500/15" },
-                    { icon: <Ambulance className="w-5 h-5" />,      label: "救急",   num: "1",  textColor:"text-blue-400",   bgColor:"bg-blue-500/5",    borderColor:"border-blue-500/15" },
-                    { icon: <AlertTriangle className="w-5 h-5" />,  label: "その他", num: "2",  textColor:"text-purple-400", bgColor:"bg-purple-500/5",  borderColor:"border-purple-500/15" },
+                    { icon: <Flame className="w-5 h-5" />,          label: "火災",   num: "13", textColor:"text-orange-500", bgColor:"bg-orange-500/5",  borderColor:"border-orange-500/15" },
+                    { icon: <LifeBuoy className="w-5 h-5" />,       label: "救助",   num: "3",  textColor:"text-teal-400",   bgColor:"bg-teal-500/5",    borderColor:"border-teal-500/15" },
+                    { icon: <Ambulance className="w-5 h-5" />,      label: "救急",   num: "7",  textColor:"text-blue-400",   bgColor:"bg-blue-500/5",    borderColor:"border-blue-500/15" },
+                    { icon: <AlertTriangle className="w-5 h-5" />,  label: "その他", num: "4",  textColor:"text-purple-400", bgColor:"bg-purple-500/5",  borderColor:"border-purple-500/15" },
                   ].map(({ icon, label, num, textColor, bgColor, borderColor }, idx) => (
                     <Card key={idx} className="bg-slate-900/30 border-slate-900/80 backdrop-blur-sm overflow-hidden hover:border-slate-800 transition-colors">
                       <CardContent className="p-3 flex items-center justify-between">
@@ -650,14 +716,13 @@ export default function App() {
             <div className="mb-8">
               <div className="text-center mb-6">
                 <h2 className="text-xl font-extrabold text-slate-900 mb-1">訓練の流れ</h2>
-                <p className="text-sm text-slate-500">4つのステップで進めます</p>
+                <p className="text-sm text-slate-500">3つのステップで進めます</p>
               </div>
               <div className="flex flex-col gap-0">
                 {[
                   {num:1,icon:"🎯",label:"シナリオ選択",     sub:"ジャンルとシナリオを選ぶ",        color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
-                  {num:2,icon:"📋",label:"議論ルール確認",   sub:"全員でルールを共有する",          color:"#f43f5e",bg:"#fff1f2",border:"#fecdd3"},
-                  {num:3,icon:"🗣️",label:"議論・まとめ入力",sub:"議論しながら結論を記録する",      color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
-                  {num:4,icon:"📄",label:"PDF生成",          sub:"訓練レポートを出力・保存する",    color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe"},
+                  {num:2,icon:"🗣️",label:"議論・まとめ入力",sub:"議論しながら結論を記録する",      color:"#f97316",bg:"#fff3ed",border:"#fed7aa"},
+                  {num:3,icon:"📄",label:"PDF生成",          sub:"訓練レポートを出力・保存する",    color:"#8b5cf6",bg:"#f5f3ff",border:"#ddd6fe"},
                 ].map(({num,icon,label,sub,color,bg,border},i,arr)=>(
                   <div key={num} className="flex flex-col items-stretch">
                     <Card className="flex items-center gap-4 p-4" style={{borderColor:border,borderWidth:2}}>
@@ -685,12 +750,86 @@ export default function App() {
               </div>
             </div>
 
-            <Button className="w-full" size="xl" onClick={()=>setStep(0)}>
-              <span className="text-lg">🎯</span>シナリオ選択へ進む →
+            <Button variant="outline" className="w-full" size="xl" onClick={()=>setStep(-2)}>
+              ← ホームへ戻る
             </Button>
           </main>
         </div>
       )}
+
+      {/* ════════════════════════════════════════
+          みんなでルール確認（独立表示） (step === -3)
+      ════════════════════════════════════════ */}
+      {step===-3&&(
+        <div className="min-h-screen bg-slate-50 fade-up">
+          <header className="bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
+            <div className="max-w-3xl mx-auto px-5 h-16 flex items-center justify-between">
+              <button onClick={()=>setStep(-2)} className="flex items-center gap-3 cursor-pointer bg-transparent border-0 p-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-400 flex items-center justify-center text-lg shadow-md shadow-orange-500/30">🔥</div>
+                <div className="text-left">
+                  <div className="text-sm font-extrabold text-slate-900 leading-tight">消防カンファレンス</div>
+                  <div className="text-[9px] text-slate-400 font-mono tracking-widest">TABLETOP EXERCISE PLATFORM</div>
+                </div>
+              </button>
+              <Button variant="outline" size="sm" onClick={()=>setStep(-2)}>← ホームへ</Button>
+            </div>
+          </header>
+
+          <main className="max-w-2xl mx-auto px-4 py-8 pb-20 flex flex-col gap-4">
+            {/* ヒーローバナー */}
+            <div className="rounded-2xl p-7 flex items-center gap-5 shadow-xl" style={{background:"linear-gradient(135deg,#f43f5e 0%,#f97316 100%)",boxShadow:"0 8px 32px rgba(244,63,94,0.25)"}}>
+              <span className="text-5xl shrink-0">📋</span>
+              <div>
+                <div className="text-xl font-extrabold text-white mb-1">みんなでルール確認！</div>
+                <div className="text-sm text-white/80 font-semibold">議論スタート前に全員でチェック</div>
+              </div>
+            </div>
+
+            {/* ルールカード群 */}
+            {[
+              {num:"01",icon:"🙅",color:"#f43f5e",bg:"#fff1f2",border:"rgba(244,63,94,0.2)",title:"意見を否定しない",sub:"NO CRITICISM",rule:"✗ 「それは違う」　→　✓ 「なるほど、では…」"},
+              {num:"02",icon:"🙋",color:"#f97316",bg:"#fff7ed",border:"rgba(249,115,22,0.2)",title:"全員が必ず発言する",sub:"EVERYONE SPEAKS",rule:"「私は〇〇だと思います」から始めてOK"},
+              {num:"03",icon:"🔍",color:"#3b82f6",bg:"#eff6ff",border:"rgba(59,130,246,0.2)",title:"根拠を一緒に考える",sub:"REASON TOGETHER",rule:"「なぜ？」は攻撃じゃなく、深める質問"},
+              {num:"04",icon:"🎮",color:"#14b8a6",bg:"#e6faf8",border:"rgba(20,184,166,0.2)",title:"ゲームと思って楽しむ",sub:"HAVE FUN",rule:"楽しむことで気楽に発言できる環境を作りましょう。 😊"},
+            ].map(({num,icon,color,bg,border,title,sub,rule})=>(
+              <Card key={num} className="overflow-hidden" style={{borderColor:border}}>
+                <div className="flex items-center gap-4 px-5 py-3.5 border-b" style={{background:bg,borderColor:border}}>
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shrink-0" style={{background:`${color}22`,border:`2px solid ${color}44`}}>{icon}</div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="font-mono text-[10px] font-bold tracking-widest" style={{color}}>RULE {num}</span>
+                      <span className="font-mono text-[9px] text-slate-400 tracking-wide">{sub}</span>
+                    </div>
+                    <div className="text-base font-extrabold text-slate-900">{title}</div>
+                  </div>
+                </div>
+                <CardContent className="py-3">
+                  <div className="font-mono text-xs font-bold px-3 py-2 rounded-lg" style={{background:bg,border:`1px solid ${border}`,color}}>{rule}</div>
+                </CardContent>
+              </Card>
+            ))}
+
+            {/* 全体メッセージ */}
+            <div className="rounded-2xl p-6 shadow-lg" style={{background:"linear-gradient(135deg,#1e293b,#334155)"}}>
+              <div className="font-mono text-[10px] font-bold text-slate-400 tracking-[3px] mb-3">TEAM MESSAGE</div>
+              <div className="text-[15px] font-bold text-white leading-relaxed mb-4">
+                「正解を出すこと」が目的ではありません。<br/>
+                <span className="text-orange-400">考え方・優先順位・意思決定の質</span>を<br/>チームで高めることが目的です。
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                {["多角的な視点","経験の共有","根拠ある判断","チームの成長"].map(t=>(
+                  <span key={t} className="bg-white/10 border border-white/15 rounded-full px-3 py-1 text-[11px] text-slate-200 font-semibold">{t}</span>
+                ))}
+              </div>
+            </div>
+
+            <Button variant="outline" className="w-full" size="xl" onClick={()=>setStep(-2)}>
+              ← ホームへ戻る
+            </Button>
+          </main>
+        </div>
+      )}
+
       {inSession&&(
         <main className="max-w-3xl mx-auto px-4 py-6 pb-24">
 
@@ -765,7 +904,7 @@ export default function App() {
                               ))}
                             </div>
                           </div>
-                          <Button className="w-full mt-5" size="lg" onClick={()=>setStep(2)}>訓練開始 →</Button>
+                          <Button className="w-full mt-5" size="lg" onClick={()=>setStep(4)}>訓練開始 →</Button>
                         </div>
                       </div>
                     )}
@@ -773,60 +912,6 @@ export default function App() {
                 );
               })}
             </div>
-          </div>
-        )}
-
-        {/* ════ STEP 2: 議論ルール ════ */}
-        {step===2&&sc&&(
-          <div className="fade-up flex flex-col gap-4">
-            {/* ヒーローバナー */}
-            <div className="rounded-2xl p-7 flex items-center gap-5 shadow-xl" style={{background:"linear-gradient(135deg,#f43f5e 0%,#f97316 100%)",boxShadow:"0 8px 32px rgba(244,63,94,0.25)"}}>
-              <span className="text-5xl shrink-0">📋</span>
-              <div>
-                <div className="text-xl font-extrabold text-white mb-1">みんなでルール確認！</div>
-                <div className="text-sm text-white/80 font-semibold">議論スタート前に全員でチェック</div>
-              </div>
-            </div>
-
-            {/* ルールカード群 */}
-            {[
-              {num:"01",icon:"🙅",color:"#f43f5e",bg:"#fff1f2",border:"rgba(244,63,94,0.2)",title:"意見を否定しない",sub:"NO CRITICISM",rule:"✗ 「それは違う」　→　✓ 「なるほど、では…」"},
-              {num:"02",icon:"🙋",color:"#f97316",bg:"#fff7ed",border:"rgba(249,115,22,0.2)",title:"全員が必ず発言する",sub:"EVERYONE SPEAKS",rule:"「私は〇〇だと思います」から始めてOK"},
-              {num:"03",icon:"🔍",color:"#3b82f6",bg:"#eff6ff",border:"rgba(59,130,246,0.2)",title:"根拠を一緒に考える",sub:"REASON TOGETHER",rule:"「なぜ？」は攻撃じゃなく、深める質問"},
-              {num:"04",icon:"🎮",color:"#14b8a6",bg:"#e6faf8",border:"rgba(20,184,166,0.2)",title:"ゲームと思って楽しむ",sub:"HAVE FUN",rule:"一番大事かも… 😊"},
-            ].map(({num,icon,color,bg,border,title,sub,rule})=>(
-              <Card key={num} className="overflow-hidden" style={{borderColor:border}}>
-                <div className="flex items-center gap-4 px-5 py-3.5 border-b" style={{background:bg,borderColor:border}}>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl shrink-0" style={{background:`${color}22`,border:`2px solid ${color}44`}}>{icon}</div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className="font-mono text-[10px] font-bold tracking-widest" style={{color}}>RULE {num}</span>
-                      <span className="font-mono text-[9px] text-slate-400 tracking-wide">{sub}</span>
-                    </div>
-                    <div className="text-base font-extrabold text-slate-900">{title}</div>
-                  </div>
-                </div>
-                <CardContent className="py-3">
-                  <div className="font-mono text-xs font-bold px-3 py-2 rounded-lg" style={{background:bg,border:`1px solid ${border}`,color}}>{rule}</div>
-                </CardContent>
-              </Card>
-            ))}
-
-            {/* 全体メッセージ */}
-            <div className="rounded-2xl p-6 shadow-lg" style={{background:"linear-gradient(135deg,#1e293b,#334155)"}}>
-              <div className="font-mono text-[10px] font-bold text-slate-400 tracking-[3px] mb-3">TEAM MESSAGE</div>
-              <div className="text-[15px] font-bold text-white leading-relaxed mb-4">
-                「正解を出すこと」が目的ではありません。<br/>
-                <span className="text-orange-400">考え方・優先順位・意思決定の質</span>を<br/>チームで高めることが目的です。
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                {["多角的な視点","経験の共有","根拠ある判断","チームの成長"].map(t=>(
-                  <span key={t} className="bg-white/10 border border-white/15 rounded-full px-3 py-1 text-[11px] text-slate-200 font-semibold">{t}</span>
-                ))}
-              </div>
-            </div>
-
-            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択に戻る" onNext={()=>setStep(4)} nextLabel="議論・まとめ入力へ" nextColor="#f97316"/>
           </div>
         )}
 
@@ -854,18 +939,6 @@ export default function App() {
                     <div className="p-3">{DIAGRAMS[sc.id]}</div>
                   </div>
                 )}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-5">
-                  <p className="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3">📌 議論のポイント</p>
-                  <div className="flex flex-col gap-2">
-                    {sc.keypoints.map((kp,i)=>(
-                      <div key={i} className="flex items-center gap-3 bg-white border border-blue-100 rounded-lg px-3 py-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"/>
-                        <span className="text-sm font-medium text-slate-800">{kp}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
                 {/* 議題（questions） */}
                 {sc.questions && sc.questions.length>0 && (
                   <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-5">
@@ -880,6 +953,28 @@ export default function App() {
                     </ol>
                   </div>
                 )}
+
+                {/* 議論のポイント（タップで開閉） */}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl mb-5 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={()=>setShowKeypoints(v=>!v)}
+                    className="w-full flex items-center justify-between gap-3 px-4 py-3 cursor-pointer bg-transparent border-0 text-left"
+                  >
+                    <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">📌 議論のポイント（タップで{showKeypoints?"閉じる":"表示"}）</span>
+                    <span className="text-blue-600 text-sm font-bold shrink-0">{showKeypoints?"▲":"▼"}</span>
+                  </button>
+                  {showKeypoints && (
+                    <div className="flex flex-col gap-2 px-4 pb-4">
+                      {sc.keypoints.map((kp,i)=>(
+                        <div key={i} className="flex items-center gap-3 bg-white border border-blue-100 rounded-lg px-3 py-2">
+                          <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"/>
+                          <span className="text-sm font-medium text-slate-800">{kp}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
                     <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">訓練名</label>
@@ -916,7 +1011,7 @@ export default function App() {
                 </CardContent>
               </Card>
             ))}
-            <NavRow onBack={()=>setStep(2)} backLabel="議論ルール" onNext={()=>setStep(5)} nextLabel="PDF生成へ" nextColor="#8b5cf6"/>
+            <NavRow onBack={()=>setStep(0)} backLabel="シナリオ選択に戻る" onNext={()=>setStep(5)} nextLabel="PDF生成へ" nextColor="#8b5cf6"/>
           </div>
         )}
 
