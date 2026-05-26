@@ -2,8 +2,8 @@
 // Creates a Stripe Checkout Session for the one-time 980 JPY purchase.
 // Also upserts the customer (with marketing consent) into Supabase.
 
-import { stripe } from './_lib/stripe.js';
-import { supabaseAdmin } from './_lib/supabase.js';
+import { stripe } from './lib/stripe.js';
+import { supabaseAdmin } from './lib/supabase.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PRICE_JPY = parseInt(process.env.VITE_PRODUCT_PRICE_JPY || '980', 10);
