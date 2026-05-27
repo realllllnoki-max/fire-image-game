@@ -9,6 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import { cn }        from "@/lib/utils";
 import { Flame, LifeBuoy, Ambulance, AlertTriangle, Play } from "lucide-react";
 import PurchaseGate from "@/components/PurchaseGate";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
+import Tokushoho from "@/pages/Tokushoho";
 import { hasAccess, checkPurchaseRedirect } from "@/lib/purchase";
 
 /* ── SVG DIAGRAMS removed — see scenario-XX.jpg/png photo diagrams below ─── */
@@ -450,6 +453,12 @@ const NavRow = ({ onBack, backLabel, onNext, nextLabel, nextColor, nextDisabled 
 
 /* ── APP ─────────────────────────────────────── */
 export default function App() {
+  // ── 簡易ルーティング（/terms /privacy /tokushoho 等の静的ページ） ──
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  if (pathname === "/terms") return <Terms />;
+  if (pathname === "/privacy") return <Privacy />;
+  if (pathname === "/tokushoho" || pathname === "/commerce" || pathname === "/legal") return <Tokushoho />;
+
   // ── 購入ゲート（未購入ユーザーには購入画面を表示） ──
   const [accessGranted, setAccessGranted] = useState(() => hasAccess());
   const [purchaseFlash, setPurchaseFlash] = useState("");

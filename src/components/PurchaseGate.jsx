@@ -170,9 +170,18 @@ export default function PurchaseGate() {
           </CardContent>
         </Card>
 
-        <p style={{ textAlign: "center", color: "#64748b", fontSize: 11, marginTop: 20 }}>
-          © FIRE Conference. All rights reserved.
-        </p>
+        <div style={{ textAlign: "center", marginTop: 20, fontSize: 11 }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+            <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#94a3b8", textDecoration: "underline" }}>利用規約</a>
+            <span style={{ color: "#475569" }}>·</span>
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#94a3b8", textDecoration: "underline" }}>プライバシーポリシー</a>
+            <span style={{ color: "#475569" }}>·</span>
+            <a href="/tokushoho" target="_blank" rel="noopener noreferrer" style={{ color: "#94a3b8", textDecoration: "underline" }}>特定商取引法に基づく表記</a>
+          </div>
+          <p style={{ color: "#64748b", margin: 0 }}>
+            © FIRE Conference. All rights reserved.
+          </p>
+        </div>
       </div>
     </div>
   );
