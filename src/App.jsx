@@ -909,15 +909,6 @@ export default function App() {
                             <span className="text-sm font-extrabold text-slate-900">通報内容・現場状況</span>
                           </div>
                           <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700 leading-loose whitespace-pre-wrap">{s.situation}</div>
-                          {/* キーポイント */}
-                          <div className="mt-3">
-                            <div className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-2">📌 KEY POINTS</div>
-                            <div className="flex flex-wrap gap-2">
-                              {s.keypoints.map((kp,i)=>(
-                                <Badge key={i} className="px-3 py-1 text-xs" style={{background:gInfo.bg,border:`1.5px solid ${gInfo.color}55`,color:gInfo.color}}>{kp}</Badge>
-                              ))}
-                            </div>
-                          </div>
                           <Button className="w-full mt-5" size="lg" onClick={()=>setStep(4)}>訓練開始 →</Button>
                         </div>
                       </div>
