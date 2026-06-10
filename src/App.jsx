@@ -376,45 +376,64 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>");
 
-  const SS = (color) => `style="background:${color};color:#fff;font-weight:900;font-size:13px;padding:7px 14px;border-radius:5px;margin:12px 0 7px;"`;
-  const FS = `style="background:#f8fafc;border-left:3px solid #cbd5e1;padding:9px 13px;margin-bottom:7px;font-size:11px;line-height:1.85;border-radius:0 5px 5px 0;white-space:pre-wrap;word-break:break-all;"`;
-  const LS = `style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:3px;"`;
+  // 報告書向けのシンプルな配色（黒文字＋単一アクセント）
+  const C = { ink:"#1f2937", sub:"#6b7280", line:"#d1d5db", soft:"#f9fafb", accent:"#b91c1c" };
+  const FONT = "'Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif";
 
-  const page1 = `<div style="padding:0 16px;font-family:sans-serif;">
-    <div style="background:#f97316;color:#fff;padding:14px 18px;margin:0 -16px 16px;font-size:15px;font-weight:900;letter-spacing:1px;">
-      🔥 消防カンファレンス &nbsp;|&nbsp; <span style="font-size:10px;opacity:0.85;font-weight:400;">消防図上訓練レポート</span>
+  // 番号付きセクション見出し（下罫線のみ・色を抑える）
+  const sec = (n,t) => `<div style="margin:20px 0 9px;padding-bottom:5px;border-bottom:1.5px solid ${C.ink};">
+    <span style="font-size:12px;font-weight:800;color:${C.accent};margin-right:8px;">${n}</span>
+    <span style="font-size:13px;font-weight:800;color:${C.ink};letter-spacing:0.5px;">${t}</span>
+  </div>`;
+  const FS = `style="font-size:11px;color:${C.ink};line-height:1.75;white-space:pre-wrap;word-break:break-word;"`;
+  // 基本情報テーブルのセル
+  const TH = `style="width:18%;background:${C.soft};border:1px solid ${C.line};padding:8px 10px;font-size:10px;font-weight:700;color:${C.sub};vertical-align:top;"`;
+  const TD = `style="width:32%;border:1px solid ${C.line};padding:8px 10px;font-size:11px;color:${C.ink};vertical-align:top;"`;
+
+  const page1 = `<div style="padding:26px 28px;font-family:${FONT};color:${C.ink};">
+    <div style="border-top:3px solid ${C.accent};padding-top:12px;margin-bottom:4px;">
+      <div style="font-size:20px;font-weight:900;letter-spacing:1.5px;">消防図上訓練レポート</div>
+      <div style="font-size:10px;color:${C.sub};margin-top:4px;letter-spacing:1px;">消防カンファレンス ／ Tabletop Exercise Report</div>
     </div>
-    <div ${SS('#334155')}>1. 訓練基本情報</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
-      <div><div ${LS}>訓練名</div><div ${FS}>${esc(sum.trainName||sc.title)}</div></div>
-      <div><div ${LS}>チーム名</div><div ${FS}>${esc(sum.teamName||"未設定")}</div></div>
-      <div><div ${LS}>実施日時</div><div ${FS}>${esc(sum.datetime)}</div></div>
-      <div><div ${LS}>ジャンル / シナリオ</div><div ${FS}>${esc((g?.icon||"")+" "+(g?.label||"")+"　"+sc.title)}</div></div>
-    </div>
-    ${diagramPng ? `
-    <div ${SS('#f59e0b')}>2. 現場状況図</div>
-    <div style="border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:7px;">
-      <img src="${diagramPng}" style="width:100%;display:block;"/>
-    </div>` : `<div ${SS('#f59e0b')}>2. 現場状況図</div><div ${FS}>（現場状況図なし）</div>`}
-    <div ${SS('#3b82f6')}>3. シナリオ概要</div>
+
+    ${sec('1','訓練基本情報')}
+    <table style="width:100%;border-collapse:collapse;">
+      <tr>
+        <td ${TH}>訓練名</td><td ${TD}>${esc(sum.trainName||sc.title)}</td>
+        <td ${TH}>チーム名</td><td ${TD}>${esc(sum.teamName||"未設定")}</td>
+      </tr>
+      <tr>
+        <td ${TH}>実施日時</td><td ${TD}>${esc(sum.datetime)}</td>
+        <td ${TH}>ジャンル</td><td ${TD}>${esc(((g?.icon||"")+" "+(g?.label||"")).trim())}</td>
+      </tr>
+    </table>
+
+    ${sec('2','現場状況図')}
+    ${diagramPng
+      ? `<div style="border:1px solid ${C.line};overflow:hidden;"><img src="${diagramPng}" style="width:100%;display:block;"/></div>`
+      : `<div ${FS}>（現場状況図なし）</div>`}
+
+    ${sec('3','シナリオ概要')}
     <div ${FS}>${esc(sc.situation)}</div>
   </div>`;
 
-  const QS = `style="background:#0f172a;color:#fff;font-weight:900;font-size:11px;padding:6px 12px;border-radius:5px 5px 0 0;margin-top:10px;"`;
-  const AS = `style="background:#f8fafc;border-left:3px solid #f97316;padding:9px 13px;margin-bottom:0;font-size:11px;line-height:1.85;border-radius:0 0 5px 5px;white-space:pre-wrap;word-break:break-all;"`;
   const qaHtml = (sc.questions||[]).map((q,i)=>`
-    <div ${QS}>Q${i+1}. ${esc(q)}</div>
-    <div ${AS}>${esc(notes[i]||"（未記入）")}</div>
+    <div style="margin-bottom:13px;">
+      <div style="font-size:11px;font-weight:800;color:${C.ink};margin-bottom:4px;line-height:1.6;">Q${i+1}. ${esc(q)}</div>
+      <div style="font-size:11px;color:${C.ink};line-height:1.75;background:${C.soft};border-left:3px solid ${C.accent};padding:8px 12px;white-space:pre-wrap;word-break:break-word;">${esc(notes[i]||"（未記入）")}</div>
+    </div>
   `).join("");
 
-  const page2 = `<div style="padding:0 16px;font-family:sans-serif;">
-    <div style="background:#f97316;color:#fff;padding:9px 18px;margin:0 -16px 14px;font-size:11px;font-weight:700;">
-      🔥 消防カンファレンス｜訓練レポート（つづき）
+  const page2 = `<div style="padding:26px 28px;font-family:${FONT};color:${C.ink};">
+    <div style="border-top:3px solid ${C.accent};padding-top:12px;margin-bottom:4px;">
+      <div style="font-size:14px;font-weight:800;letter-spacing:1px;">消防図上訓練レポート <span style="font-size:10px;color:${C.sub};font-weight:400;">（つづき）</span></div>
     </div>
-    <div ${SS('#f97316')}>4. 議論結果（議題と回答）</div>
+
+    ${sec('4','議論結果')}
     ${qaHtml}
-    <div style="margin-top:18px;padding-top:10px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;">
-      <span>消防図上訓練レポート | ${esc(sum.teamName||"チーム名未設定")} | ${esc(sum.datetime)}</span>
+
+    <div style="margin-top:22px;padding-top:8px;border-top:1px solid ${C.line};display:flex;justify-content:space-between;font-size:8.5px;color:#9ca3af;">
+      <span>${esc(sum.teamName||"チーム名未設定")} ｜ ${esc(sum.datetime)}</span>
       <span>消防カンファレンス</span>
     </div>
   </div>`;
