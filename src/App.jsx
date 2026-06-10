@@ -384,8 +384,8 @@ async function buildPDF(sc, notes, disc, sum) {
   const PAGE = `width:794px;min-height:1123px;box-sizing:border-box;padding:50px 54px 38px;font-family:${FONT};color:${C.text};`;
 
   // ヘッダー（タイトル＋英字サブ＋朱色の上罫線）
-  const header = (cont) => `<div style="border-top:4px solid ${C.accent};padding-top:15px;margin-bottom:2px;">
-    <div style="font-size:23px;font-weight:900;color:${C.ink};letter-spacing:0.06em;line-height:1.25;">消防図上訓練レポート${cont?`<span style="font-size:13px;font-weight:500;color:${C.sub};letter-spacing:0;margin-left:9px;">（つづき）</span>`:""}</div>
+  const header = () => `<div style="border-top:4px solid ${C.accent};padding-top:15px;margin-bottom:2px;">
+    <div style="font-size:23px;font-weight:900;color:${C.ink};letter-spacing:0.06em;line-height:1.25;">消防図上訓練レポート</div>
     <div style="font-size:9.5px;color:${C.sub};margin-top:6px;letter-spacing:0.18em;">FIRE CONFERENCE ／ TABLETOP EXERCISE REPORT</div>
   </div>`;
 
@@ -408,7 +408,7 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const page1 = `<div style="${PAGE}display:flex;flex-direction:column;">
     <div style="flex:1 0 auto;">
-      ${header(false)}
+      ${header()}
 
       ${sec('1','訓練基本情報')}
       <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
@@ -448,7 +448,7 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const page2 = `<div style="${PAGE}display:flex;flex-direction:column;">
     <div style="flex:1 0 auto;">
-      ${header(true)}
+      ${header()}
 
       ${sec('4','議論結果')}
       ${qaHtml}
