@@ -376,66 +376,84 @@ async function buildPDF(sc, notes, disc, sum) {
 
   const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>");
 
-  // 報告書向けのシンプルな配色（黒文字＋単一アクセント）
-  const C = { ink:"#1f2937", sub:"#6b7280", line:"#d1d5db", soft:"#f9fafb", accent:"#b91c1c" };
-  const FONT = "'Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif";
+  // ── レポートのデザイントークン（報告書向け：黒文字＋単一アクセント色）──
+  const C = { ink:"#111827", text:"#1f2937", sub:"#6b7280", line:"#d1d5db", soft:"#f8f9fb", accent:"#b91c1c" };
+  // 和文ゴシックを優先（Windows: 游ゴシック / メイリオ、Mac: ヒラギノ）
+  const FONT = "'Yu Gothic Medium','Yu Gothic','Hiragino Kaku Gothic ProN','Noto Sans JP','Meiryo',sans-serif";
+  // A4実寸（96dpi）に固定して引き伸ばし歪みを防止
+  const PAGE = `width:794px;min-height:1123px;box-sizing:border-box;padding:50px 54px 38px;font-family:${FONT};color:${C.text};`;
 
-  // 番号付きセクション見出し（下罫線のみ・色を抑える）
-  const sec = (n,t) => `<div style="margin:20px 0 9px;padding-bottom:5px;border-bottom:1.5px solid ${C.ink};">
-    <span style="font-size:12px;font-weight:800;color:${C.accent};margin-right:8px;">${n}</span>
-    <span style="font-size:13px;font-weight:800;color:${C.ink};letter-spacing:0.5px;">${t}</span>
+  // ヘッダー（タイトル＋英字サブ＋朱色の上罫線）
+  const header = (cont) => `<div style="border-top:4px solid ${C.accent};padding-top:15px;margin-bottom:2px;">
+    <div style="font-size:23px;font-weight:900;color:${C.ink};letter-spacing:0.06em;line-height:1.25;">消防図上訓練レポート${cont?`<span style="font-size:13px;font-weight:500;color:${C.sub};letter-spacing:0;margin-left:9px;">（つづき）</span>`:""}</div>
+    <div style="font-size:9.5px;color:${C.sub};margin-top:6px;letter-spacing:0.18em;">FIRE CONFERENCE ／ TABLETOP EXERCISE REPORT</div>
   </div>`;
-  const FS = `style="font-size:11px;color:${C.ink};line-height:1.75;white-space:pre-wrap;word-break:break-word;"`;
+
+  // 番号付きセクション見出し
+  const sec = (n,t) => `<div style="display:flex;align-items:baseline;margin:28px 0 12px;padding-bottom:7px;border-bottom:1.5px solid ${C.ink};">
+    <span style="font-size:13px;font-weight:800;color:${C.accent};margin-right:10px;">${n}</span>
+    <span style="font-size:14.5px;font-weight:800;color:${C.ink};letter-spacing:0.05em;">${t}</span>
+  </div>`;
+
+  // 各ページ共通フッター
+  const footer = (no) => `<div style="margin-top:26px;padding-top:10px;border-top:1px solid ${C.line};display:flex;justify-content:space-between;font-size:9px;color:#9ca3af;letter-spacing:0.04em;">
+    <span>${esc(sum.teamName||"チーム名未設定")}　|　${esc(sum.datetime)}</span>
+    <span>消防カンファレンス　${no} / 2</span>
+  </div>`;
+
+  const BODY = `style="font-size:12px;color:${C.text};line-height:1.95;white-space:pre-wrap;word-break:break-word;letter-spacing:0.01em;"`;
   // 基本情報テーブルのセル
-  const TH = `style="width:18%;background:${C.soft};border:1px solid ${C.line};padding:8px 10px;font-size:10px;font-weight:700;color:${C.sub};vertical-align:top;"`;
-  const TD = `style="width:32%;border:1px solid ${C.line};padding:8px 10px;font-size:11px;color:${C.ink};vertical-align:top;"`;
+  const TH = `style="width:16%;background:${C.soft};border:1px solid ${C.line};padding:10px 12px;font-size:10.5px;font-weight:700;color:${C.sub};white-space:nowrap;vertical-align:middle;letter-spacing:0.02em;"`;
+  const TD = `style="width:34%;border:1px solid ${C.line};padding:10px 12px;font-size:11.5px;color:${C.ink};vertical-align:middle;line-height:1.6;"`;
 
-  const page1 = `<div style="padding:26px 28px;font-family:${FONT};color:${C.ink};">
-    <div style="border-top:3px solid ${C.accent};padding-top:12px;margin-bottom:4px;">
-      <div style="font-size:20px;font-weight:900;letter-spacing:1.5px;">消防図上訓練レポート</div>
-      <div style="font-size:10px;color:${C.sub};margin-top:4px;letter-spacing:1px;">消防カンファレンス ／ Tabletop Exercise Report</div>
+  const page1 = `<div style="${PAGE}display:flex;flex-direction:column;">
+    <div style="flex:1 0 auto;">
+      ${header(false)}
+
+      ${sec('1','訓練基本情報')}
+      <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+        <tr>
+          <td ${TH}>訓練名</td><td ${TD}>${esc(sum.trainName||sc.title)}</td>
+          <td ${TH}>チーム名</td><td ${TD}>${esc(sum.teamName||"未設定")}</td>
+        </tr>
+        <tr>
+          <td ${TH}>実施日時</td><td ${TD}>${esc(sum.datetime)}</td>
+          <td ${TH}>区分</td><td ${TD}>${esc(((g?.icon||"")+" "+(g?.label||"")).trim()||"—")}</td>
+        </tr>
+      </table>
+
+      ${sec('2','現場状況図')}
+      ${diagramPng
+        ? `<div style="border:1px solid ${C.line};overflow:hidden;background:#fff;"><img src="${diagramPng}" style="width:100%;display:block;"/></div>`
+        : `<div style="font-size:12px;color:${C.sub};padding:18px 0;text-align:center;">（現場状況図なし）</div>`}
+
+      ${sec('3','シナリオ概要')}
+      <div ${BODY}>${esc(sc.situation)}</div>
     </div>
-
-    ${sec('1','訓練基本情報')}
-    <table style="width:100%;border-collapse:collapse;">
-      <tr>
-        <td ${TH}>訓練名</td><td ${TD}>${esc(sum.trainName||sc.title)}</td>
-        <td ${TH}>チーム名</td><td ${TD}>${esc(sum.teamName||"未設定")}</td>
-      </tr>
-      <tr>
-        <td ${TH}>実施日時</td><td ${TD}>${esc(sum.datetime)}</td>
-        <td ${TH}>ジャンル</td><td ${TD}>${esc(((g?.icon||"")+" "+(g?.label||"")).trim())}</td>
-      </tr>
-    </table>
-
-    ${sec('2','現場状況図')}
-    ${diagramPng
-      ? `<div style="border:1px solid ${C.line};overflow:hidden;"><img src="${diagramPng}" style="width:100%;display:block;"/></div>`
-      : `<div ${FS}>（現場状況図なし）</div>`}
-
-    ${sec('3','シナリオ概要')}
-    <div ${FS}>${esc(sc.situation)}</div>
+    ${footer(1)}
   </div>`;
 
-  const qaHtml = (sc.questions||[]).map((q,i)=>`
-    <div style="margin-bottom:13px;">
-      <div style="font-size:11px;font-weight:800;color:${C.ink};margin-bottom:4px;line-height:1.6;">Q${i+1}. ${esc(q)}</div>
-      <div style="font-size:11px;color:${C.ink};line-height:1.75;background:${C.soft};border-left:3px solid ${C.accent};padding:8px 12px;white-space:pre-wrap;word-break:break-word;">${esc(notes[i]||"（未記入）")}</div>
-    </div>
-  `).join("");
+  const qaHtml = (sc.questions||[]).map((q,i)=>{
+    const ans = (notes[i]||"").trim();
+    return `<div style="margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:700;color:${C.ink};line-height:1.7;margin-bottom:6px;">
+        <span style="color:${C.accent};font-weight:800;margin-right:7px;">Q${i+1}.</span>${esc(q)}
+      </div>
+      <div style="display:flex;background:${C.soft};border:1px solid ${C.line};border-left:3px solid ${C.accent};">
+        <div style="font-size:11px;font-weight:800;color:${C.accent};padding:11px 0 0 13px;">A</div>
+        <div style="flex:1;font-size:11.5px;color:${ans?C.text:C.sub};line-height:1.95;padding:11px 14px;white-space:pre-wrap;word-break:break-word;${ans?"":"font-style:italic;"}">${esc(ans||"（未記入）")}</div>
+      </div>
+    </div>`;
+  }).join("");
 
-  const page2 = `<div style="padding:26px 28px;font-family:${FONT};color:${C.ink};">
-    <div style="border-top:3px solid ${C.accent};padding-top:12px;margin-bottom:4px;">
-      <div style="font-size:14px;font-weight:800;letter-spacing:1px;">消防図上訓練レポート <span style="font-size:10px;color:${C.sub};font-weight:400;">（つづき）</span></div>
-    </div>
+  const page2 = `<div style="${PAGE}display:flex;flex-direction:column;">
+    <div style="flex:1 0 auto;">
+      ${header(true)}
 
-    ${sec('4','議論結果')}
-    ${qaHtml}
-
-    <div style="margin-top:22px;padding-top:8px;border-top:1px solid ${C.line};display:flex;justify-content:space-between;font-size:8.5px;color:#9ca3af;">
-      <span>${esc(sum.teamName||"チーム名未設定")} ｜ ${esc(sum.datetime)}</span>
-      <span>消防カンファレンス</span>
+      ${sec('4','議論結果')}
+      ${qaHtml}
     </div>
+    ${footer(2)}
   </div>`;
 
   if (!h2c) {
