@@ -85,8 +85,8 @@ export default function Terms() {
 
         <Section title="第12条（お問い合わせ）">
           <p>本規約に関するお問い合わせは、以下のメールアドレスまでご連絡ください。</p>
-          <p style={{ background: "#1e293b", padding: 12, borderRadius: 6, fontFamily: "monospace" }}>
-            [連絡先メール]
+          <p style={{ background: "#1e293b", padding: 12, borderRadius: 6 }}>
+            <a href="mailto:kusunoki.yoshiaki11120614@gmail.com" style={{ color: "#f97316", textDecoration: "underline", fontFamily: "monospace" }}>kusunoki.yoshiaki11120614@gmail.com</a>
           </p>
         </Section>
 

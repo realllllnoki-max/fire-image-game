@@ -109,8 +109,8 @@ export default function Privacy() {
         <Section title="11. お問い合わせ窓口">
           <p>個人情報の取扱いに関するご質問、開示請求等は以下の窓口までご連絡ください。</p>
           <div style={{ background: "#1e293b", padding: 16, borderRadius: 6, marginTop: 12 }}>
-            <p style={{ margin: "4px 0" }}><strong>運営者</strong>: [ご本名を記入]</p>
-            <p style={{ margin: "4px 0" }}><strong>連絡先</strong>: <span style={{ fontFamily: "monospace" }}>[連絡先メール]</span></p>
+            <p style={{ margin: "4px 0" }}><strong>運営者</strong>: 楠木善昭</p>
+            <p style={{ margin: "4px 0" }}><strong>連絡先</strong>: <a href="mailto:kusunoki.yoshiaki11120614@gmail.com" style={{ color: "#f97316", textDecoration: "underline", fontFamily: "monospace" }}>kusunoki.yoshiaki11120614@gmail.com</a></p>
           </div>
         </Section>
 

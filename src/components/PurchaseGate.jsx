@@ -67,6 +67,26 @@ export default function PurchaseGate() {
               </div>
             </div>
 
+            {/* 購入前の重要事項（特定商取引法・最終確認画面の表示） */}
+            <div style={{ background: "#0f172a", border: "1px solid #334155", borderRadius: 8, padding: "12px 14px", marginBottom: 20, fontSize: 12.5, color: "#cbd5e1", lineHeight: 1.7 }}>
+              <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                <span style={{ color: "#f97316" }}>●</span>
+                <span><strong style={{ color: "#f1f5f9" }}>商品内容:</strong> 火災・救助・救急など多彩なシナリオで図上訓練を行い、議論の結果をPDF出力できる消防士向けシミュレーションへの永続アクセス権</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                <span style={{ color: "#f97316" }}>●</span>
+                <span><strong style={{ color: "#f1f5f9" }}>料金・支払:</strong> ¥{PRICE}（税込）の買い切り。クレジットカードで購入時に即時決済（追加課金なし）</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                <span style={{ color: "#f97316" }}>●</span>
+                <span><strong style={{ color: "#f1f5f9" }}>引渡し時期:</strong> 決済完了後、ただちに全コンテンツをご利用いただけます</span>
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <span style={{ color: "#fbbf24" }}>●</span>
+                <span style={{ color: "#fbbf24" }}><strong>返品・キャンセル:</strong> デジタルコンテンツのため、購入後の返金・キャンセルには一切応じられません</span>
+              </div>
+            </div>
+
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 13, color: "#cbd5e1", marginBottom: 6 }}>
                 <Mail size={14} style={{ display: "inline", marginRight: 4, verticalAlign: "middle" }} />
