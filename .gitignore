@@ -29,3 +29,6 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# ローカル広報アセット（デプロイ対象外）
+promo-assets/

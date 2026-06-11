@@ -19,7 +19,7 @@ export default function Tokushoho() {
 
         <div style={{ background: "#1e293b", borderRadius: 8, overflow: "hidden", border: "1px solid #334155" }}>
           <Row label="販売事業者">
-            [ご本名を記入]
+            楠木善昭
           </Row>
           <Row label="所在地">
             ご請求頂いた場合、遅滞なく開示いたします。
@@ -30,10 +30,12 @@ export default function Tokushoho() {
             <span style={{ color: "#94a3b8", fontSize: 12 }}>※お問い合わせは原則メールにてお願いいたします。</span>
           </Row>
           <Row label="メールアドレス">
-            <span style={{ fontFamily: "monospace" }}>[連絡先メール]</span>
+            <a href="mailto:kusunoki.yoshiaki11120614@gmail.com" style={{ color: "#f97316", textDecoration: "underline", fontFamily: "monospace" }}>
+              kusunoki.yoshiaki11120614@gmail.com
+            </a>
           </Row>
           <Row label="運営統括責任者">
-            [ご本名を記入]
+            楠木善昭
           </Row>
           <Row label="販売価格">
             ¥980（税込）
