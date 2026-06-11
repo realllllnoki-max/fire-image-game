@@ -27,6 +27,7 @@ export default function Privacy() {
             <li><strong>決済情報</strong>: クレジットカード番号等は当社では保持せず、Stripe社に直接送信されます</li>
             <li><strong>購入履歴</strong>: 購入日時、商品、金額</li>
             <li><strong>マーケティング同意状態</strong>: 利用者の選択に基づく</li>
+            <li><strong>認証情報</strong>: ログイン（マジックリンク）に用いるメールアドレスおよび認証トークン。認証基盤としてSupabase Authを利用します</li>
             <li><strong>アクセスログ</strong>: IPアドレス、ブラウザ情報、アクセス日時等</li>
           </ol>
         </Section>

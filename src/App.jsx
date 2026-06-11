@@ -12,7 +12,8 @@ import PurchaseGate from "@/components/PurchaseGate";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import Tokushoho from "@/pages/Tokushoho";
-import { hasAccess, checkPurchaseRedirect } from "@/lib/purchase";
+import { hasAccess, grantAccess, checkPurchaseRedirect, checkRemoteAccess } from "@/lib/purchase";
+import { supabase } from "@/lib/supabaseClient";
 
 /* ── SVG DIAGRAMS removed — see scenario-XX.jpg/png photo diagrams below ─── */
 
@@ -548,6 +549,7 @@ export default function App() {
 
   // ── 購入ゲート（未購入ユーザーには購入画面を表示） ──
   const [accessGranted, setAccessGranted] = useState(() => hasAccess());
+  const [accessChecking, setAccessChecking] = useState(() => !hasAccess());
   const [purchaseFlash, setPurchaseFlash] = useState("");
 
   const [step,setStep]=useState(-2);
@@ -558,17 +560,52 @@ export default function App() {
   const [pdfDone,setPdfDone]=useState(false);
   const [sum,setSum]=useState({trainName:"",datetime:new Date().toLocaleString("ja-JP"),teamName:"",situationSummary:"",initialDecision:"",actionPolicy:"",discussionPoints:"",finalConclusion:""});
 
-  // 購入リダイレクトチェック（マウント時1回）
+  // アクセス権チェック（マウント時1回）
+  //  1) 購入直後のリダイレクトを Stripe でサーバー検証して付与
+  //  2) ログイン済み（マジックリンク）かつ支払い済みなら、どの端末でも復元
   useEffect(() => {
-    const { status } = checkPurchaseRedirect();
-    if (status === "success") {
-      setAccessGranted(true);
-      setPurchaseFlash("ご購入ありがとうございます！アクセスが有効になりました。");
-      setTimeout(() => setPurchaseFlash(""), 5000);
-    } else if (status === "cancelled") {
-      setPurchaseFlash("決済はキャンセルされました。");
-      setTimeout(() => setPurchaseFlash(""), 4000);
-    }
+    let mounted = true;
+    (async () => {
+      const { status } = await checkPurchaseRedirect();
+      if (!mounted) return;
+      if (status === "success") {
+        setAccessGranted(true);
+        setPurchaseFlash("ご購入ありがとうございます！アクセスが有効になりました。");
+        setTimeout(() => setPurchaseFlash(""), 5000);
+      } else if (status === "cancelled") {
+        setPurchaseFlash("決済はキャンセルされました。");
+        setTimeout(() => setPurchaseFlash(""), 4000);
+      } else if (status === "unverified") {
+        setPurchaseFlash("お支払いを確認できませんでした。問題が続く場合はお問い合わせください。");
+        setTimeout(() => setPurchaseFlash(""), 6000);
+      }
+
+      // ログイン済み＆支払い済みの復元
+      if (!hasAccess()) {
+        const remote = await checkRemoteAccess();
+        if (mounted && remote) {
+          grantAccess();
+          setAccessGranted(true);
+        }
+      }
+      if (mounted) setAccessChecking(false);
+    })();
+
+    // マジックリンクでログイン成立した瞬間に支払い状態を確認
+    const sub = supabase?.auth?.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const remote = await checkRemoteAccess();
+        if (mounted && remote) {
+          grantAccess();
+          setAccessGranted(true);
+        }
+      }
+    });
+
+    return () => {
+      mounted = false;
+      sub?.data?.subscription?.unsubscribe?.();
+    };
   }, []);
 
   // ステップ遷移時にページ最上部へスクロール
@@ -599,6 +636,18 @@ export default function App() {
   const inSession = step>=0;
   const phaseIdx = STEP_INDEX[step] ?? 0;
   const progress = step>=0 ? Math.round(((phaseIdx+1)/STEPS.length)*100) : 0;
+
+  // アクセス権の確認中はローディング表示（ログイン/購入検証の判定待ち）
+  if (!accessGranted && accessChecking) {
+    return (
+      <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f172a 0%,#1e293b 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#94a3b8" }}>
+        <div style={{ textAlign: "center" }}>
+          <Flame size={40} color="#f97316" style={{ margin: "0 auto" }} className="animate-pulse" />
+          <div style={{ marginTop: 12, fontSize: 14 }}>アクセス権を確認しています…</div>
+        </div>
+      </div>
+    );
+  }
 
   // 未購入ユーザーには購入ゲートを表示（全Hookの後でEarly return）
   if (!accessGranted) {

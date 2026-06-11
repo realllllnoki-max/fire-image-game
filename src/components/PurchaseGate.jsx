@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Flame, Lock, Shield, Mail } from "lucide-react";
+import { supabase } from "@/lib/supabaseClient";
 
 const PRICE = import.meta.env.VITE_PRODUCT_PRICE_JPY || "980";
 const PRODUCT_NAME = import.meta.env.VITE_PRODUCT_NAME || "FIRE Conference アクセス権";
@@ -13,6 +14,35 @@ export default function PurchaseGate() {
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // 既存ユーザーのログイン（マジックリンク）
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginSent, setLoginSent] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const loginEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail.trim());
+
+  const handleLogin = async () => {
+    if (!loginEmailValid || loginLoading) return;
+    if (!supabase) {
+      setLoginError("ログイン機能が利用できません。時間をおいて再度お試しください。");
+      return;
+    }
+    setLoginLoading(true);
+    setLoginError("");
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: loginEmail.trim().toLowerCase(),
+        options: { emailRedirectTo: window.location.origin + "/" },
+      });
+      if (error) throw error;
+      setLoginSent(true);
+    } catch (err) {
+      setLoginError(err.message || "ログインリンクの送信に失敗しました");
+    } finally {
+      setLoginLoading(false);
+    }
+  };
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   const canSubmit = emailValid && agreedTerms && agreedPrivacy && !loading;
@@ -187,6 +217,66 @@ export default function PurchaseGate() {
               <Shield size={12} />
               <span>決済は Stripe（PCI DSS Level 1認証）で安全に処理されます</span>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* すでに購入済みの方：メールでログイン（どの端末でも復元） */}
+        <Card style={{ background: "#1e293b", border: "1px solid #334155", color: "#f1f5f9", marginTop: 16 }}>
+          <CardContent style={{ paddingTop: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#f1f5f9", marginBottom: 4 }}>
+              すでに購入済みの方
+            </div>
+            <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 12px" }}>
+              購入時のメールアドレスにログイン用リンクをお送りします。別の端末でもアクセスを復元できます。
+            </p>
+
+            {loginSent ? (
+              <div style={{ background: "#064e3b", color: "#a7f3d0", padding: "12px 14px", borderRadius: 6, fontSize: 13, lineHeight: 1.7 }}>
+                ✅ <strong>{loginEmail}</strong> にログインリンクを送信しました。<br />
+                メール内のリンクを開くとアクセスが有効になります。
+              </div>
+            ) : (
+              <>
+                <input
+                  type="email"
+                  placeholder="購入時のメールアドレス"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  disabled={loginLoading}
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    background: "#0f172a",
+                    border: `1px solid ${loginEmail && !loginEmailValid ? "#ef4444" : "#475569"}`,
+                    borderRadius: 6,
+                    color: "#f1f5f9",
+                    fontSize: 14,
+                    boxSizing: "border-box",
+                    marginBottom: 10,
+                  }}
+                />
+                {loginError && (
+                  <div style={{ fontSize: 12, color: "#fca5a5", marginBottom: 8 }}>{loginError}</div>
+                )}
+                <Button
+                  onClick={handleLogin}
+                  disabled={!loginEmailValid || loginLoading}
+                  style={{
+                    width: "100%",
+                    background: loginEmailValid && !loginLoading ? "#334155" : "#1e293b",
+                    color: "#f1f5f9",
+                    border: "1px solid #475569",
+                    padding: "10px",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: loginEmailValid && !loginLoading ? "pointer" : "not-allowed",
+                    borderRadius: 6,
+                  }}
+                >
+                  {loginLoading ? "送信中…" : "ログインリンクを送信"}
+                </Button>
+              </>
+            )}
           </CardContent>
         </Card>
 
