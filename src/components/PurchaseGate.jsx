@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Flame, Lock, Shield, Mail } from "lucide-react";
+import { Flame, Lock, Shield, Mail, ChevronLeft } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
 
 const PRICE = import.meta.env.VITE_PRODUCT_PRICE_JPY || "980";
 const PRODUCT_NAME = import.meta.env.VITE_PRODUCT_NAME || "FIRE Conference アクセス権";
 
-export default function PurchaseGate() {
+export default function PurchaseGate({ onBack }) {
   const [email, setEmail] = useState("");
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [agreedPrivacy, setAgreedPrivacy] = useState(false);
@@ -75,6 +75,26 @@ export default function PurchaseGate() {
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f172a 0%,#1e293b 100%)", padding: "40px 16px" }}>
       <div style={{ maxWidth: 480, margin: "0 auto" }}>
+        {onBack && (
+          <button
+            onClick={onBack}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 4,
+              background: "transparent",
+              border: "none",
+              color: "#94a3b8",
+              fontSize: 13,
+              cursor: "pointer",
+              padding: "4px 0",
+              marginBottom: 12,
+            }}
+          >
+            <ChevronLeft size={16} />
+            トップへ戻る
+          </button>
+        )}
         <div style={{ textAlign: "center", marginBottom: 24 }}>
           <Flame size={48} color="#f97316" style={{ margin: "0 auto" }} />
           <h1 style={{ color: "#fff", fontSize: 28, fontWeight: 700, marginTop: 12 }}>FIRE Conference</h1>

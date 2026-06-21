@@ -551,6 +551,8 @@ export default function App() {
   const [accessGranted, setAccessGranted] = useState(() => hasAccess());
   const [accessChecking, setAccessChecking] = useState(() => !hasAccess());
   const [purchaseFlash, setPurchaseFlash] = useState("");
+  // 「訓練を開始する」押下時、未購入なら決済画面を表示するためのフラグ
+  const [showGate, setShowGate] = useState(false);
 
   const [step,setStep]=useState(-2);
   const [genre,setGenre]=useState("fire");
@@ -637,21 +639,20 @@ export default function App() {
   const phaseIdx = STEP_INDEX[step] ?? 0;
   const progress = step>=0 ? Math.round(((phaseIdx+1)/STEPS.length)*100) : 0;
 
-  // アクセス権の確認中はローディング表示（ログイン/購入検証の判定待ち）
-  if (!accessGranted && accessChecking) {
-    return (
-      <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f172a 0%,#1e293b 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#94a3b8" }}>
-        <div style={{ textAlign: "center" }}>
-          <Flame size={40} color="#f97316" style={{ margin: "0 auto" }} className="animate-pulse" />
-          <div style={{ marginTop: 12, fontSize: 14 }}>アクセス権を確認しています…</div>
+  // 「訓練を開始する」押下後、未購入ユーザーには購入（決済）画面を表示
+  // 購入確認中はローディングを挟み、確認後も未購入なら購入ゲートを表示する
+  if (showGate && !accessGranted) {
+    if (accessChecking) {
+      return (
+        <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f172a 0%,#1e293b 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#94a3b8" }}>
+          <div style={{ textAlign: "center" }}>
+            <Flame size={40} color="#f97316" style={{ margin: "0 auto" }} className="animate-pulse" />
+            <div style={{ marginTop: 12, fontSize: 14 }}>アクセス権を確認しています…</div>
+          </div>
         </div>
-      </div>
-    );
-  }
-
-  // 未購入ユーザーには購入ゲートを表示（全Hookの後でEarly return）
-  if (!accessGranted) {
-    return <PurchaseGate />;
+      );
+    }
+    return <PurchaseGate onBack={() => setShowGate(false)} />;
   }
 
   return (
@@ -740,7 +741,7 @@ export default function App() {
 
                 <div className="pt-4 flex flex-col items-center sm:items-start gap-3 w-full sm:w-auto">
                   <Button
-                    onClick={() => setStep(0)}
+                    onClick={() => { if (accessGranted) { setStep(0); } else { setShowGate(true); } }}
                     size="lg"
                     className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer border-0"
                   >
